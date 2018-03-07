@@ -5,6 +5,7 @@
   "author": "Nathan Russell",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.205.0",
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "promise": "^8.0.1",

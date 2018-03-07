@@ -32,28 +32,42 @@ export function loadFaceBookApi(appId) {
 Function to check the Facebook login status and return a promise
  */
 export function facebookLoginStatus() {
-    let loginStatus = {
-        status: undefined,
-        username: undefined,
-        userId: undefined
-    };
-
     return new Promise((resolve, reject) => {
         FB.getLoginStatus((response) => {
             resolve(response)
         })
-    }).then((fbLoginStatus) => {
-        loginStatus.status = fbLoginStatus.status;
-        return new Promise((resolve, reject) => {
-            if (fbLoginStatus.status === 'connected') {
-                FB.api('/me', (apiResponse) => {
-                    loginStatus.username = apiResponse.name;
-                    loginStatus.userId = apiResponse.id;
-                    resolve(loginStatus);
-                })
-            } else {
-                resolve(loginStatus);
-            }
+    });
+}
+
+/*
+Function to call Facebook Me api and return a promise
+ */
+export function facebookMe() {
+    return new Promise((resolve, reject) => {
+        FB.api('/me', (response) => {
+            resolve(response);
         })
+    });
+}
+
+/*
+Function to call Facebook login and return a promise
+ */
+export function facebookLogin() {
+    return new Promise((resolve, reject) => {
+        FB.login((response) => {
+            resolve(response);
+        }, {scope: 'public_profile'});
+    });
+}
+
+/*
+Function to call Facebook logout and return a promise
+ */
+export function facebookLogout() {
+    return new Promise((resolve, reject) => {
+        FB.logout((response) => {
+            resolve(response);
+        });
     });
 }
