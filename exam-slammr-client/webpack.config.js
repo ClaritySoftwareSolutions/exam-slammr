@@ -5,6 +5,7 @@ const SRC_DIR = path.resolve(__dirname, 'src/main');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
     filename: "[name].[hash].css",
@@ -14,6 +15,8 @@ const extractSass = new ExtractTextPlugin({
 const htmlWebpack = new HtmlWebpackPlugin({
     template: SRC_DIR + '/index.ejs'
 });
+
+const cleanWebpack = new CleanWebpackPlugin(['dist']);
 
 let config = module.exports;
 
@@ -58,6 +61,7 @@ config.module = {
 };
 
 config.plugins = [
+    cleanWebpack,
     extractSass,
     htmlWebpack
 ];
