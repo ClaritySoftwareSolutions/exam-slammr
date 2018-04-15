@@ -56,8 +56,12 @@ Function to call Facebook login and return a promise
 export function facebookLogin() {
     return new Promise((resolve, reject) => {
         FB.login((response) => {
-            resolve(response);
-        }, {scope: 'public_profile'});
+            if (response.status === 'connected') {
+                resolve(response);
+            } else {
+                reject(response);
+            }
+        }, {scope: 'public_profile,email'});
     });
 }
 

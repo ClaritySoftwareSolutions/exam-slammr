@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {render} from 'react-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import {facebookLoginStatus, facebookMe, loadFaceBookApi} from "./facebook/FacebookApi.js";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../scss/main.scss';
-import LoginComponent from "./facebook/LoginComponent.jsx";
 import AWS from 'aws-sdk';
+import HomepageComponent from "./pages/HomepageComponent.jsx";
+import LoginPageComponent from "./pages/LoginPageComponent.jsx";
+import RegistrationPageComponent from "./pages/RegistrationPageComponent.jsx";
 
-class ExamSlammrlApp extends React.Component {
+class ExamSlammrlApp extends Component {
 
     constructor(props) {
         super(props);
@@ -18,10 +21,10 @@ class ExamSlammrlApp extends React.Component {
             fbMe: {}
         };
 
-        this.getFacebookLoginStatus = this.getFacebookLoginStatus.bind(this);
-        this.getFacebookMe = this.getFacebookMe.bind(this);
-        this.updateFbLoginStatus = this.updateFbLoginStatus.bind(this);
-        this.updateAwsCognito = this.updateAwsCognito.bind(this);
+//        this.getFacebookLoginStatus = this.getFacebookLoginStatus.bind(this);
+//        this.getFacebookMe = this.getFacebookMe.bind(this);
+//        this.updateFbLoginStatus = this.updateFbLoginStatus.bind(this);
+//        this.updateAwsCognito = this.updateAwsCognito.bind(this);
     }
 
     componentDidMount() {
@@ -31,6 +34,7 @@ class ExamSlammrlApp extends React.Component {
         });
     }
 
+/*
     componentDidUpdate(prevProps, prevState) {
         if (this.state.fbSdkLoaded !== prevState.fbSdkLoaded) {
             this.getFacebookLoginStatus();
@@ -100,14 +104,22 @@ class ExamSlammrlApp extends React.Component {
             // });
         });
     }
+*/
 
     render() {
         return (
-            <div>
-                <LoginComponent fbLoginStatus={this.state.fbLoginStatus} loginStatusChangeHandler={this.updateFbLoginStatus}/>
-            </div>
+            <Router>
+                <div>
+                    <Route exact path="/" component={HomepageComponent}/>
+                    <Route path="/login" component={LoginPageComponent}/>
+                    <Route path="/registration" component={RegistrationPageComponent}/>
+                </div>
+            </Router>
         );
     }
 }
 
-render(<ExamSlammrlApp/>, document.getElementById('app'));
+render(
+    <ExamSlammrlApp/>,
+    document.getElementById('app')
+);
