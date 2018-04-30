@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.lambda.question.create;
+package uk.co.claritysoftware.exam.slammr.lambda.question.handler;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

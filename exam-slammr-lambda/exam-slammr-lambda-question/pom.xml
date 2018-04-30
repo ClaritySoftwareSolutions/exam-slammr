@@ -10,22 +10,54 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>exam-slammr-lambda-question</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 
-	<modules>
-		<module>exam-slammr-lambda-question-model</module>
-		<module>exam-slammr-lambda-question-create</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.amazonaws</groupId>
-				<artifactId>aws-java-sdk-dynamodb</artifactId>
-				<version>1.11.289</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-lambda</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-log4j</artifactId>
+		</dependency>
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

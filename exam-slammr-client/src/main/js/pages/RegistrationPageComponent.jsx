@@ -27,7 +27,7 @@ class RegistrationPageComponent extends Component {
         let opts = {
             'service': 'execute-api',
             'region': 'eu-west-2',
-            'host': 'r4i20xwlfb.execute-api.eu-west-2.amazonaws.com',
+            'host': 'g8wh8brpud.execute-api.eu-west-2.amazonaws.com',
             'path': '/prod',
             accessKey,
             secretKey,
@@ -35,10 +35,11 @@ class RegistrationPageComponent extends Component {
         };
 
         let fbLoginStatus = response.fbLoginStatus;
-
-        axios.get('https://r4i20xwlfb.execute-api.eu-west-2.amazonaws.com/prod',
+        let headers = generateSigV4Headers(opts)
+        console.log("heasders", headers)
+        axios.get('https://g8wh8brpud.execute-api.eu-west-2.amazonaws.com/prod',
             {
-                headers: generateSigV4Headers(opts)
+                headers: headers
             })
             .then(response => console.log("response: ", response))
             .catch(error => console.log(error));
