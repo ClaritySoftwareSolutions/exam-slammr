@@ -44,8 +44,12 @@ Function to call Facebook Me api and return a promise
  */
 export function facebookMe() {
     return new Promise((resolve, reject) => {
-        FB.api('/me', (response) => {
-            resolve(response);
+        FB.api('/me', {'fields' : 'name, email, picture'}, (response) => {
+            if (!response || response.error) {
+                reject(response);
+            } else {
+                resolve(response);
+            }
         })
     });
 }
