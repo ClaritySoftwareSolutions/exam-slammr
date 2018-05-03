@@ -5,15 +5,18 @@ React component for the registration page
 import React, {Component} from 'react';
 import HeaderComponent from "./HeaderComponent.jsx";
 import FacebookLoginButton from "../facebook/FacebookLoginButton.jsx";
-import axios from 'axios';
-import {generateSigV4Headers} from '../aws/AwsSignatureV4.js';
 import {cognitoFederatedWebIdentityLogin} from '../aws/AwsCognitoApi.js';
-import AWS from "aws-sdk/index";
+import {registerNewUser} from '../client/RestApiClient.js'
+import {isFunction} from "underscore";
 
 class RegistrationPageComponent extends Component {
 
     constructor(props) {
         super(props);
+
+        if (!isFunction(this.props.authTokenHandler)) {
+            throw new Error('authTokenHandler function not provided');
+        }
 
         this.state = {
             socialIdentityLoginError: false,
@@ -36,46 +39,23 @@ class RegistrationPageComponent extends Component {
     }
 
     facebookLoginStatusChangeHandler(response) {
-        console.log("Facebook response", response);
 
         cognitoFederatedWebIdentityLogin(response.socialLoginStatus).then((federatedWebIdentity) => {
-            console.log("Cognito Identity Id: ", federatedWebIdentity);
+            this.props.authTokenHandler(federatedWebIdentity);
+
+            let registerUserRequest = {
+                'socialProvider': 'facebook',
+                'socialIdentity': response.socialPublicProfile
+            };
+
+            registerNewUser(federatedWebIdentity, registerUserRequest);
 
         })
         .catch((error) => {
             this.awsCognitoLoginError(error);
         });
-
-
-/*
-
-        let awsCredentials = response.awsCredentials.data.Credentials;
-        let sessionToken = awsCredentials.SessionToken;
-        let accessKey = awsCredentials.AccessKeyId;
-        let secretKey = awsCredentials.SecretKey;
-
-        let opts = {
-            'service': 'execute-api',
-            'region': 'eu-west-2',
-            'host': 'g8wh8brpud.execute-api.eu-west-2.amazonaws.com',
-            'path': '/prod',
-            accessKey,
-            secretKey,
-            sessionToken
-        };
-
-        let fbLoginStatus = response.fbLoginStatus;
-        let headers = generateSigV4Headers(opts)
-        console.log("heasders", headers)
-        axios.get('https://g8wh8brpud.execute-api.eu-west-2.amazonaws.com/prod',
-            {
-                headers: headers
-            })
-            .then(response => console.log("response: ", response))
-            .catch(error => console.log(error));
-*/
-
     }
+
 
     render() {
         return (
