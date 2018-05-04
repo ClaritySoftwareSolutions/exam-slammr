@@ -6,47 +6,63 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import uk.co.claritysoftware.exam.slammr.lambda.user.dto.UserRegistrationRequest;
-
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Validate;
+import uk.co.claritysoftware.exam.slammr.lambda.user.dto.UserRegistrationRequest;
+import uk.co.claritysoftware.exam.slammr.lambda.user.dynamodb.items.User;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import static uk.co.claritysoftware.exam.slammr.lambda.user.factory.UserFactory.valueOf;
 
 /**
  * {@link RequestHandler} for registering a new user
  */
 @Slf4j
-public class RegisterNewUserRequestHandler implements RequestHandler<UserRegistrationRequest, Boolean>{
+public class RegisterNewUserRequestHandler implements RequestStreamHandler {
 
-	private static final Regions REGION = Regions.EU_WEST_2;
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-	@Override
-	public Boolean handleRequest(UserRegistrationRequest userRegistrationRequest, Context context) {
-		log.debug("Register New User with UserRegistrationRequest {} with Context {}", userRegistrationRequest, context);
+    private static final Regions REGION = Regions.EU_WEST_2;
 
-		AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-				.withRegion(REGION)
-				.build();
+    /**
+     * {@inheritDoc}
+     * <p>
+     * Lambda function to read a {@link UserRegistrationRequest} from the request, and use it to save a new user
+     * item in dynamodb
+     *
+     * @throws IllegalStateException    if the InputStream cannot be deserialized
+     * @throws IllegalArgumentException if the Context does not contain a Cognita Identity
+     */
+    @Override
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) {
+        String identityId = context.getIdentity().getIdentityId();
+        Validate.notEmpty(identityId, "Must be called with a Cognito Identity");
 
-		DynamoDBMapper mapper = new DynamoDBMapper(client);
+        UserRegistrationRequest userRegistrationRequest = userRegistrationRequest(inputStream);
 
-		//mapper.query();
+        log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
 
-		/**
-		 *
-		 * 		log.debug("Lambda invoked with input {} and Context {}", input, context);
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                .withRegion(REGION)
+                .build();
+        DynamoDBMapper mapper = new DynamoDBMapper(client);
 
-		 Map<String, Object> response = new HashMap<>();
-		 response.put("isBase64Encoded", false);
-		 response.put("statusCode", 200);
-		 response.put("headers", new HashMap());
-		 response.put("body",
-		 String.format("identityId: '%s', identityPoolId '%s'", context.getIdentity().getIdentityId(), context.getIdentity().getIdentityPoolId()));
+        User newUser = valueOf(identityId, userRegistrationRequest);
+        mapper.save(newUser);
+    }
 
-		 log.debug("Lamdda response {}", response);
+    private UserRegistrationRequest userRegistrationRequest(InputStream inputStream) {
+        try {
+            return OBJECT_MAPPER.readValue(inputStream, UserRegistrationRequest.class);
+        } catch (IOException e) {
+            log.error("Exception deserializing Lambda InputStream into UserRegistrationRequest", e);
+            throw new IllegalStateException("Exception deserializing Lambda InputStream into UserRegistrationRequest");
+        }
+    }
 
-		 *
-		 */
-
-
-		return null;
-	}
 }

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 import uk.co.claritysoftware.exam.slammr.lambda.user.jackson.SocialProviderDeserializer;
 
 /**
  * Class encapsulating the social identity data required for a User Registration Request
  */
-@Data
+@Value
 @Builder
 public class UserRegistrationRequest {
 
