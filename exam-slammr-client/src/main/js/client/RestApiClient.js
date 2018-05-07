@@ -3,36 +3,35 @@
  */
 
 import axios from 'axios';
-import {generateSigV4Headers} from '../aws/AwsSignatureV4.js';
-import AWS from "aws-sdk/index";
+import {interceptor} from '../aws/AwsSignatureV4AxiosInterceptor.js';
 
 /**
  * Register a new user
  */
 export function registerNewUser(federatedWebIdentity, registerUserRequest) {
 
-    let sessionToken = federatedWebIdentity.SessionToken;
-    let accessKey = federatedWebIdentity.AccessKeyId;
-    let secretKey = federatedWebIdentity.SecretKey;
+    let requestBody = JSON.stringify(registerUserRequest);
 
-    let opts = {
-        'service': 'execute-api',
-        'region': 'eu-west-2',
-        'host': 'g8wh8brpud.execute-api.eu-west-2.amazonaws.com',
-        'path': '/prod',
-        accessKey,
-        secretKey,
-        sessionToken
+    let credentials = federatedWebIdentity.data.Credentials;
+    let sessionToken = credentials.SessionToken;
+    let accessKey = credentials.AccessKeyId;
+    let secretKey = credentials.SecretKey;
+
+    let auth = {
+        'secretAccessKey': secretKey,
+        'accessKeyId': accessKey,
+        'sessionToken': sessionToken
     };
 
-    let headers = generateSigV4Headers(opts)
-    console.log("headers", headers)
-    axios.post('https://g8wh8brpud.execute-api.eu-west-2.amazonaws.com/prod',
+    axios.interceptors.request.use(interceptor)
+    axios.post('https://9cexf0shb6.execute-api.eu-west-2.amazonaws.com/dev/user',
         registerUserRequest,
         {
-            headers: headers
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            awsAuth: auth
         })
         .then(response => console.log("response: ", response))
         .catch(error => console.log(error));
-
 }

@@ -7,7 +7,7 @@ export function cognitoFederatedWebIdentityLogin(fbLoginStatus) {
         // Initialize the Amazon Cognito credentials provider
         AWS.config.region = 'eu-west-2'; // Region
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: 'eu-west-2:9a7ba691-61dc-4581-af54-2ba37b3c6c13',
+            IdentityPoolId: 'eu-west-2:67eb3767-ab96-4093-9799-f847a239d565',
             Logins: {
                 'graph.facebook.com': fbLoginStatus.authResponse.accessToken
             }

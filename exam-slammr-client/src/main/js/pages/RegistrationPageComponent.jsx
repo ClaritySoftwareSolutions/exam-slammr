@@ -44,16 +44,16 @@ class RegistrationPageComponent extends Component {
             this.props.authTokenHandler(federatedWebIdentity);
 
             let registerUserRequest = {
-                'socialProvider': 'facebook',
+                'socialIdentityProvider': 'facebook',
                 'socialIdentity': response.socialPublicProfile
             };
 
             registerNewUser(federatedWebIdentity, registerUserRequest);
 
         })
-        .catch((error) => {
-            this.awsCognitoLoginError(error);
-        });
+            .catch((error) => {
+                this.awsCognitoLoginError(error);
+            });
     }
 
 
@@ -64,8 +64,8 @@ class RegistrationPageComponent extends Component {
                 <h2>Register with your social network identity</h2>
 
                 <FacebookLoginButton loginStatusChangeHandler={this.facebookLoginStatusChangeHandler} errorHandler={this.socialIdentityLoginError}/>
-                { this.state.socialIdentityLoginError ? <p>There was a problem logging into your social identity</p> : ""}
-                { this.state.awsCognitoError ? <p>There was a problem logging into Exam Slammr</p> : ""}
+                {this.state.socialIdentityLoginError ? <p>There was a problem logging into your social identity</p> : ""}
+                {this.state.awsCognitoError ? <p>There was a problem logging into Exam Slammr</p> : ""}
             </div>
         );
     }
