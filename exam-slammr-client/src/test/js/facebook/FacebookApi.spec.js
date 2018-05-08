@@ -3,21 +3,39 @@ import {facebookLogin} from '../../../main/js/facebook/FacebookApi.js';
 
 describe("Unit test class for FacebookApi.js", () => {
 
-    let FB = {
+    global.FB = {
         login: () => {}
     };
+    let fbApiResponse;
+    sinon.stub(FB, 'login').returns(fbApiResponse);
 
-    it("should perform facebookLogin given a success response", () => {
+    it("should return a resolved promise given a successful FB response", () => {
         // Given
-        let response = {
+        fbApiResponse = {
             'status': 'connected'
         };
-        sinon.stub(FB, 'login').returns(response);
 
         // When
         let loginPromise = facebookLogin();
 
         // Then
-        console.log('return', loginPromise)
+        loginPromise.then(response => {
+            expect(response).toBeEqualTo(fbApiResponse)
+        })
+    });
+
+    it("should return a rejected promise given a failure FB response", () => {
+        // Given
+        fbApiResponse = {
+            'status': ''
+        };
+
+        // When
+        let loginPromise = facebookLogin();
+
+        // Then
+        loginPromise.catch(response => {
+            expect(response).toBeEqualTo(fbApiResponse)
+        })
     });
 });
