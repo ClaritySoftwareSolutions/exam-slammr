@@ -6,11 +6,15 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.205.0",
+    "aws4": "^1.7.0",
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "promise": "^8.0.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
