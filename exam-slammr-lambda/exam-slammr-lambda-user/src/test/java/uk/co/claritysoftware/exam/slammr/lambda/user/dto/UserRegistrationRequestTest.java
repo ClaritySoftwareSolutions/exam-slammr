@@ -1,12 +1,11 @@
 package uk.co.claritysoftware.exam.slammr.lambda.user.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-
-import java.io.IOException;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static uk.co.claritysoftware.exam.slammr.lambda.user.dto.SocialIdentityProvider.FACEBOOK;
+
+import java.io.IOException;
+import org.junit.Test;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserRegistrationRequestTest {
 
@@ -18,16 +17,13 @@ public class UserRegistrationRequestTest {
         String json = "" +
                 "{" +
                 "   \"socialIdentityProvider\":\"facebook\"," +
-                "   \"socialIdentity\":{" +
+                "   \"userProfile\":{" +
                 "       \"name\":\"A person\"," +
                 "       \"email\":\"a.person@email.com\"," +
-                "       \"picture\":{" +
-                "           \"data\":{" +
-                "               \"height\":50," +
-                "               \"is_silhouette\":false," +
-                "               \"url\":\"https://picture.url.com\"," +
-                "               \"width\":50" +
-                "           }" +
+                "       \"profilePicture\":{" +
+                "           \"height\":50," +
+                "           \"url\":\"https://picture.url.com\"," +
+                "           \"width\":50" +
                 "       }," +
                 "       \"id\":\"1234567890\"" +
                 "   }" +
@@ -35,11 +31,11 @@ public class UserRegistrationRequestTest {
 
         UserRegistrationRequest expectedRequest = UserRegistrationRequest.builder()
                 .socialIdentityProvider(FACEBOOK)
-                .socialIdentity(SocialIdentity.builder()
+                .userProfile(UserProfile.builder()
                         .name("A person")
                         .email("a.person@email.com")
                         .id("1234567890")
-                        .picture(SocialIdentityProfilePicture.builder()
+                        .picture(ProfilePicture.builder()
                                 .height(50)
                                 .width(50)
                                 .url("https://picture.url.com")

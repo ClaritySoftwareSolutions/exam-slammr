@@ -11,7 +11,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
@@ -24,7 +23,7 @@ import uk.co.claritysoftware.exam.slammr.lambda.user.dynamodb.items.User;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * {@link RequestHandler} for registering a new user
+ * {@link RequestStreamHandler} for registering a new user
  */
 @Slf4j
 public class RegisterNewUserRequestHandler implements RequestStreamHandler {
@@ -46,7 +45,7 @@ public class RegisterNewUserRequestHandler implements RequestStreamHandler {
 	 * item in dynamodb
 	 *
 	 * @throws IllegalStateException           if the InputStream cannot be deserialized
-	 * @throws IllegalArgumentException        if the Context does not contain a Cognita Identity
+	 * @throws IllegalArgumentException        if the Context does not contain a Cognito Identity
 	 * @throws ConditionalCheckFailedException if the user already exists
 	 */
 	@Override

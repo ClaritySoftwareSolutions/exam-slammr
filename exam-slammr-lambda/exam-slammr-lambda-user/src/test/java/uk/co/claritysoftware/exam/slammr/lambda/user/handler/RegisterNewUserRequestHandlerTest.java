@@ -37,16 +37,13 @@ public class RegisterNewUserRequestHandlerTest {
 	private static final String VALID_REQUEST_PAYLOAD = "" +
 			"{" +
 			"   \"socialIdentityProvider\":\"facebook\"," +
-			"   \"socialIdentity\":{" +
+			"   \"userProfile\":{" +
 			"       \"name\":\"A person\"," +
 			"       \"email\":\"a.person@email.com\"," +
 			"       \"picture\":{" +
-			"           \"data\":{" +
-			"               \"height\":50," +
-			"               \"is_silhouette\":false," +
-			"               \"url\":\"https://picture.url.com\"," +
-			"               \"width\":50" +
-			"           }" +
+			"           \"height\":50," +
+			"           \"url\":\"https://picture.url.com\"," +
+			"            \"width\":50" +
 			"       }," +
 			"       \"id\":\"1234567890\"" +
 			"   }" +

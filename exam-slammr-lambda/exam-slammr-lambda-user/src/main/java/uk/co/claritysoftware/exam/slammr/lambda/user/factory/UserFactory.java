@@ -18,9 +18,9 @@ public class UserFactory {
     public static User valueOf(String webFederatedUserId, UserRegistrationRequest userRegistrationRequest) {
         return User.builder()
                 .webFederatedUserId(webFederatedUserId)
-                .name(userRegistrationRequest.getSocialIdentity().getName())
-                .email(userRegistrationRequest.getSocialIdentity().getEmail())
-                .profilePictureUrl(userRegistrationRequest.getSocialIdentity().getPicture().getUrl())
+                .name(userRegistrationRequest.getUserProfile().getName())
+                .email(userRegistrationRequest.getUserProfile().getEmail())
+                .profilePictureUrl(userRegistrationRequest.getUserProfile().getPicture().getUrl())
                 .identityProvider(userRegistrationRequest.getSocialIdentityProvider().name())
                 .build();
     }

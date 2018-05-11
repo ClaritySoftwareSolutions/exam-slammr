@@ -8,6 +8,7 @@ import FacebookLoginButton from "../facebook/FacebookLoginButton.jsx";
 import {cognitoFederatedWebIdentityLogin} from '../aws/AwsCognitoApi.js';
 import {registerNewUser} from '../client/RestApiClient.js'
 import {isFunction} from "underscore";
+import UserProfileFactory from '../factory/UserProfileFactory.js';
 
 class RegistrationPageComponent extends Component {
 
@@ -40,17 +41,18 @@ class RegistrationPageComponent extends Component {
 
     facebookLoginStatusChangeHandler(response) {
 
-        cognitoFederatedWebIdentityLogin(response.socialLoginStatus).then((federatedWebIdentity) => {
-            this.props.authTokenHandler(federatedWebIdentity);
+        cognitoFederatedWebIdentityLogin(response.socialLoginStatus)
+            .then((federatedWebIdentity) => {
+                this.props.authTokenHandler(federatedWebIdentity);
 
-            let registerUserRequest = {
-                'socialIdentityProvider': 'facebook',
-                'socialIdentity': response.socialPublicProfile
-            };
+                let registerUserRequest = {
+                    'socialIdentityProvider': 'facebook',
+                    'userProfile': UserProfileFactory.fromFacebookResponse(response.socialPublicProfile)
+                };
 
-            registerNewUser(federatedWebIdentity, registerUserRequest);
+                registerNewUser(federatedWebIdentity, registerUserRequest);
 
-        })
+            })
             .catch((error) => {
                 this.awsCognitoLoginError(error);
             });

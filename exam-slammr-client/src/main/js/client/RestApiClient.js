@@ -10,8 +10,6 @@ import {interceptor} from '../aws/AwsSignatureV4AxiosInterceptor.js';
  */
 export function registerNewUser(federatedWebIdentity, registerUserRequest) {
 
-    let requestBody = JSON.stringify(registerUserRequest);
-
     let credentials = federatedWebIdentity.data.Credentials;
     let sessionToken = credentials.SessionToken;
     let accessKey = credentials.AccessKeyId;
@@ -22,6 +20,9 @@ export function registerNewUser(federatedWebIdentity, registerUserRequest) {
         'accessKeyId': accessKey,
         'sessionToken': sessionToken
     };
+
+    console.log('registerUserRequest', registerUserRequest)
+
 
     axios.interceptors.request.use(interceptor)
     axios.post('https://9cexf0shb6.execute-api.eu-west-2.amazonaws.com/dev/user',
