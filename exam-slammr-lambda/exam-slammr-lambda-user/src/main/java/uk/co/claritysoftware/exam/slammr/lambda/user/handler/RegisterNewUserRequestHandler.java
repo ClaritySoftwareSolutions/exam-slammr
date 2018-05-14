@@ -5,7 +5,6 @@ import static uk.co.claritysoftware.exam.slammr.lambda.user.factory.UserFactory.
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.inject.Inject;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
@@ -15,12 +14,13 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import uk.co.claritysoftware.exam.slammr.lambda.user.dagger.DaggerLambdaComponent;
-import uk.co.claritysoftware.exam.slammr.lambda.user.dagger.LambdaComponent;
 import uk.co.claritysoftware.exam.slammr.lambda.user.dto.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.lambda.user.dynamodb.items.User;
 
 import lombok.extern.slf4j.Slf4j;
+
+//import javax.inject.Inject;
+//import uk.co.claritysoftware.exam.slammr.lambda.user.dagger.DaggerLambdaComponent;
 
 /**
  * {@link RequestStreamHandler} for registering a new user
@@ -30,12 +30,12 @@ public class RegisterNewUserRequestHandler implements RequestStreamHandler {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-	@Inject
+//	@Inject
 	protected DynamoDBMapper dynamoDBMapper;
 
 	public RegisterNewUserRequestHandler() {
-		LambdaComponent appComponent = DaggerLambdaComponent.builder().build();
-		this.dynamoDBMapper = appComponent.getDBMapper();
+//		LambdaComponent appComponent = DaggerLambdaComponent.builder().build();
+//		this.dynamoDBMapper = appComponent.getDBMapper();
 	}
 
 	/**
