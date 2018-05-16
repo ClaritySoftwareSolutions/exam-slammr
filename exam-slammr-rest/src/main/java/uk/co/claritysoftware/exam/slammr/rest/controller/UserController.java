@@ -1,40 +1,48 @@
 package uk.co.claritysoftware.exam.slammr.rest.controller;
 
-import java.security.Principal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.common.base.Preconditions;
 import uk.co.claritysoftware.exam.slammr.rest.model.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.validation.Valid;
+import java.security.Principal;
+
+import static uk.co.claritysoftware.exam.slammr.rest.controller.UserController.BASE_PATH;
 
 /**
  * REST Controller for User concerns
  */
 @Slf4j
-@RestController("/user")
+@RestController(BASE_PATH)
 public class UserController {
 
-	private final UserService userService;
+    static final String BASE_PATH = "/user";
 
-	@Autowired
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
+    private final UserService userService;
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Void> registerNewUser(UserRegistrationRequest userRegistrationRequest, Principal userPrincipal) {
-		Preconditions.checkArgument(userPrincipal != null, "User Principal must not be null");
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-		String identityId = userPrincipal.getName();
-		log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Void> registerNewUser(@Valid @RequestBody UserRegistrationRequest userRegistrationRequest, Principal userPrincipal) {
+        if (userPrincipal == null) {
+            throw new AccessDeniedException("User Principal must not be null");
+        }
 
-		return null;
-	}
+        String identityId = userPrincipal.getName();
+        log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
+
+        return null;
+    }
 }
