@@ -1,5 +1,9 @@
 package uk.co.claritysoftware.exam.slammr.rest.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static uk.co.claritysoftware.exam.slammr.rest.controller.UserController.BASE_PATH;
+import static uk.co.claritysoftware.exam.slammr.rest.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static uk.co.claritysoftware.exam.slammr.rest.controller.UserController.BASE_PATH;
-import static uk.co.claritysoftware.exam.slammr.rest.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
 
 /**
  * {@link MockMvc} test class for {@link UserController}
@@ -23,7 +21,6 @@ import static uk.co.claritysoftware.exam.slammr.rest.testsupport.assertj.MockHtt
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser
 public class UserControllerTest {
 
     @Autowired
@@ -50,6 +47,7 @@ public class UserControllerTest {
         // When
         MockHttpServletResponse response = mockMvc.perform(post(BASE_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
+				.header("x-amz-cognitoIdentityId", "some-id")
                 .content(requestBody))
                 .andReturn().getResponse();
 
@@ -59,7 +57,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldFailToRegisterNewUserGivenNullPrincipal() throws Exception {
+    public void shouldFailToRegisterNewUserGivenNoHeader() throws Exception {
         // Given
         String requestBody = "" +
                 "{" +
@@ -78,13 +76,12 @@ public class UserControllerTest {
 
         // When
         MockHttpServletResponse response = mockMvc.perform(post(BASE_PATH)
-                .with(anonymous())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
                 .andReturn().getResponse();
 
         // Then
-        assertThat(response).hasStatusCode(HttpStatus.FORBIDDEN);
+        assertThat(response).hasStatusCode(HttpStatus.NOT_FOUND);
     }
 
 }
