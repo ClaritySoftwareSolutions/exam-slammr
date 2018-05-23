@@ -1,7 +1,7 @@
 const path = require('path');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
-const SRC_DIR = path.resolve(__dirname, 'src/main');
+const SRC_DIR = path.resolve(__dirname, 'src');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');

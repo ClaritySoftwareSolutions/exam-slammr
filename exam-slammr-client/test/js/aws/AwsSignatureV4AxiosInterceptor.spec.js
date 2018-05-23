@@ -1,4 +1,4 @@
-import {interceptor} from "../../../main/js/aws/AwsSignatureV4AxiosInterceptor.js"
+import {interceptor} from "../../../src/js/aws/AwsSignatureV4AxiosInterceptor.js"
 
 describe('Unit test class for AwsSignatureV4AxiosInterceptor.js', () => {
 

@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import {facebookLogin} from '../../../main/js/facebook/FacebookApi.js';
+import {facebookLogin} from '../../../src/js/facebook/FacebookApi.js';
 
 describe("Unit test class for FacebookApi.js", () => {
 
