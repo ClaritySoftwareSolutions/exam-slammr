@@ -4,7 +4,7 @@ import aws4 from 'aws4';
  * An Axios request interceptor that calculates and adds the AWS Signature V4 headers
  */
 export function interceptor(request) {
-
+console.log("Building AWS Sig from ", JSON.stringify(request))
     const url = request.url;
     const urlWithoutScheme = url.substr(url.indexOf("//")+2);
 
@@ -26,5 +26,8 @@ export function interceptor(request) {
     delete signature.headers["Content-Length"];
 
     request.headers = signature.headers;
+
+console.log("Built request headers ", JSON.stringify(request.headers))
+
     return request;
 }
