@@ -1,0 +1,23 @@
+{
+  "name": "exam-slammr-lambda-user",
+  "version": "1.0.0",
+  "description": "Exam Slammr User Lambdas",
+  "author": "Nathan Russell",
+  "license": "ISC",
+  "main": "index.js",
+  "dependencies": {
+    "moment": "^2.22.1"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^2.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "pack-zip": "^0.2.2",
+    "sinon": "^5.0.7",
+    "sinon-chai": "^3.0.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "package": "pack-zip"
+  }
+}

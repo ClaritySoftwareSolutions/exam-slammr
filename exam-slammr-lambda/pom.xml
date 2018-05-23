@@ -14,51 +14,83 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<modules>
-		<module>exam-slammr-lambda-question</module>
 		<module>exam-slammr-lambda-user</module>
 	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.amazonaws</groupId>
-				<artifactId>aws-java-sdk-lambda</artifactId>
-				<version>1.11.288</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.amazonaws</groupId>
-				<artifactId>aws-java-sdk-dynamodb</artifactId>
-				<version>1.11.289</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.amazonaws</groupId>
-				<artifactId>aws-lambda-java-log4j</artifactId>
-				<version>1.0.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
 			<plugins>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>3.0.0</version>
-					<configuration>
-						<createDependencyReducedPom>false</createDependencyReducedPom>
-					</configuration>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.7</version>
 					<executions>
 						<execution>
-							<phase>package</phase>
+							<id>installNpm</id>
+							<phase>initialize</phase>
+							<configuration>
+								<target name="Installing npm etc">
+									<echo>
+										Installing npm etc
+									</echo>
+									<exec executable="cmd" dir="${project.basedir}"
+										  osfamily="windows" failonerror="true">
+										<arg line="/c npm install -f"/>
+									</exec>
+									<exec executable="npm" dir="${project.basedir}"
+										  osfamily="unix" failonerror="true">
+										<arg line="install"/>
+										<arg line="-f" />
+									</exec>
+								</target>
+							</configuration>
 							<goals>
-								<goal>shade</goal>
+								<goal>run</goal>
+							</goals>
+						</execution>
+
+						<execution>
+							<id>runJsTests</id>
+							<phase>test</phase>
+							<configuration>
+								<target name="Running js tests">
+									<echo>
+										Running js tests
+									</echo>
+									<exec executable="npm" dir="${project.basedir}"
+										  osfamily="unix" failonerror="true">
+										<arg line="test"/>
+									</exec>
+								</target>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+
+						<execution>
+							<id>packageJs</id>
+							<phase>package</phase>
+							<configuration>
+								<target name="Packaging js">
+									<echo>
+										Packaging js
+									</echo>
+									<exec executable="npm" dir="${project.basedir}"
+										  osfamily="unix" failonerror="true">
+										<arg line="run"/>
+										<arg line="package"/>
+									</exec>
+								</target>
+							</configuration>
+							<goals>
+								<goal>run</goal>
 							</goals>
 						</execution>
 					</executions>
 				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>
