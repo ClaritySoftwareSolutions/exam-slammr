@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import axios from 'axios';
+import {interceptor} from './aws/AwsSignatureV4AxiosInterceptor.js';
 
-import {facebookLoginStatus, facebookMe, loadFaceBookApi} from "./facebook/FacebookApi.js";
+import {loadFaceBookApi} from './facebook/FacebookApi.js';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../scss/main.scss';
-import AWS from 'aws-sdk';
-import HomepageComponent from "./pages/HomepageComponent.jsx";
-import LoginPageComponent from "./pages/LoginPageComponent.jsx";
-import RegistrationPageComponent from "./pages/RegistrationPageComponent.jsx";
+import HomepageComponent from './pages/HomepageComponent.jsx';
+import LoginPageComponent from './pages/LoginPageComponent.jsx';
+import RegistrationPageComponent from './pages/RegistrationPageComponent.jsx';
 
 class ExamSlammrlApp extends Component {
 
@@ -28,6 +29,8 @@ class ExamSlammrlApp extends Component {
         loadFaceBookApi(APP_ID).then(() => {
             this.setState({'fbSdkLoaded': true});
         });
+
+        axios.interceptors.request.use(interceptor);
     }
 
     setCognitoToken(token) {
@@ -38,9 +41,9 @@ class ExamSlammrlApp extends Component {
         return (
             <Router>
                 <div>
-                    <Route exact path="/" component={HomepageComponent}/>
-                    <Route path="/login" component={LoginPageComponent}/>
-                    <Route path="/registration" render={() => <RegistrationPageComponent authTokenHandler={this.setCognitoToken}/>}/>
+                    <Route exact path='/' component={HomepageComponent}/>
+                    <Route path='/login' component={LoginPageComponent}/>
+                    <Route path='/registration' render={() => <RegistrationPageComponent authTokenHandler={this.setCognitoToken}/>}/>
                 </div>
             </Router>
         );
