@@ -1,11 +1,12 @@
 /**
  * Request handler to register a new user
  */
-const AWS = require('aws-sdk');
+const UserProfileRepository = require('./UserProfileRepository');
 const moment = require('moment');
 
-const DYNAMODB_TABLE_NAME = 'exam-slammr-users';
-
+const isEmptyObject = ((obj) => {
+    return !obj || (Object.keys(obj).length === 0 && obj.constructor === Object);
+});
 
 exports.handle = ((event, context, callback) => {
 
@@ -20,44 +21,49 @@ exports.handle = ((event, context, callback) => {
     let identityId = context.identity.cognitoIdentityId;
     let requestBody = JSON.parse(event.body);
 
-    let newUser = {
-        'webFederatedUserId': {'S': identityId},
-        'name': {'S': requestBody.userProfile.name},
-        'email': {'S': requestBody.userProfile.email},
-        'identityProvider': {'S': requestBody.socialIdentityProvider},
-        'profilePictureUrl': {'S': requestBody.userProfile.profilePicture.url},
-        'createdDate': {'S': moment().format()}
-    };
+    UserProfileRepository.getUserProfile(identityId)
+        .then((userProfile) => {
 
-    let params = {
-        TableName: DYNAMODB_TABLE_NAME,
-        ConditionExpression: 'webFederatedUserId <> :webFederatedUserId',
-        ExpressionAttributeValues: {':webFederatedUserId' : {'S': identityId}},
-        Item: newUser
-    };
+            if (isEmptyObject(userProfile)) {
+                console.debug('User with identity %s does not exist. Attempting to create', identityId);
+                let newUser = {
+                    'webFederatedUserId': {'S': identityId},
+                    'name': {'S': requestBody.userProfile.name},
+                    'email': {'S': requestBody.userProfile.email},
+                    'identityProvider': {'S': requestBody.socialIdentityProvider},
+                    'profilePictureUrl': {'S': requestBody.userProfile.profilePicture.url},
+                    'createdDate': {'S': moment().format()}
+                };
 
-    AWS.config.update({region: 'eu-west-2'});
-    let db_client = new AWS.DynamoDB({apiVersion: '2012-10-08'});
-    db_client.putItem(params, (error) => {
-        if (error) {
-            if (error.code === 'ConditionalCheckFailedException') {
-                callback(null, {
-                    statusCode: 409,
-                    body: 'User already registered'
-                });
+                UserProfileRepository.createUserProfile(newUser)
+                    .then((userProfile) => {
+                        console.debug('UserProfile created ', userProfile);
+                        callback(null, {
+                            statusCode: 201,
+                            body: JSON.stringify(userProfile)
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('An error occurred whilst persisting the new UserProfile', error);
+                        callback(null, {
+                            statusCode: error.statusCode,
+                            body: error.message
+                        });
+                    })
             } else {
-                console.error(error);
+                console.debug('User with identity %s has already been registered. Returning the UserProfile', identityId);
                 callback(null, {
-                    statusCode: error.statusCode,
-                    body: error.message
+                    statusCode: 200,
+                    body: JSON.stringify(userProfile)
                 });
             }
-            return;
-        }
 
-        callback(null, {
-            statusCode: 201
         })
-    });
-
+        .catch((error) => {
+            console.error('An error occurred whilst attempting to retrieve the UserProfile', error);
+            callback(null, {
+                statusCode: error.statusCode,
+                body: error.message
+            });
+        });
 });
