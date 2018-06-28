@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.nio.file.AccessDeniedException;
+import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserAuthenticationTokenMissingException;
+import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileNotFoundException;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -21,9 +21,15 @@ import static org.springframework.http.ResponseEntity.status;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Void> handleAccessDeniedException(AccessDeniedException e) {
-        log.info("AccessDeniedException: {}", e.getMessage());
+    @ExceptionHandler(UserAuthenticationTokenMissingException.class)
+    public ResponseEntity<Void> handleUserAuthenticationTokenMissingException(UserAuthenticationTokenMissingException e) {
+        log.debug("UserAuthenticationTokenMissingException: {}", e.getMessage());
         return status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    public ResponseEntity<Void> handleUserProfileNotFoundException(UserProfileNotFoundException e) {
+        log.debug("UserProfileNotFoundException: {}", e.getMessage());
+        return status(HttpStatus.NOT_FOUND).build();
     }
 }

@@ -1,14 +1,22 @@
 package uk.co.claritysoftware.exam.slammr.user.rest.testsupport.assertj;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.assertj.core.api.AbstractAssert;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+
 /**
  * AssertJ assert class to make fluent assertions on Spring's {@link MockHttpServletResponse}
  */
 public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServletResponseAssert, MockHttpServletResponse> {
+
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
     private MockHttpServletResponseAssert(MockHttpServletResponse actual) {
         super(actual, MockHttpServletResponseAssert.class);
@@ -47,16 +55,48 @@ public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServle
     /**
      * Asserts that the MockHttpServletResponse has the expected content type
      *
-     * @param contentType the expected content type
+     * @param expectedContentType the expected content type
      * @return this MockHttpServletResponseAssert instance for further chaining
      */
-    public MockHttpServletResponseAssert hasContentType(MediaType contentType) {
+    public MockHttpServletResponseAssert hasContentType(MediaType expectedContentType) {
         isNotNull();
 
-        if (actual.getContentType() != contentType.toString()) {
-            failWithMessage("Expected response to have content type %s, but was %s", contentType, actual.getContentType());
+        if (actual.getContentType() != expectedContentType.toString()) {
+            failWithMessage("Expected response to have content type %s, but was %s", expectedContentType, actual.getContentType());
         }
 
+        return this;
+    }
+
+    /**
+     * Asserts that the MockHttpServletResponse has the expected body
+     *
+     * @param expectedBody the expected body
+     * @return this MockHttpServletResponseAssert instance for further chaining
+     */
+    public MockHttpServletResponseAssert hasBody(Object expectedBody) throws IOException {
+        isNotNull();
+
+        Type clazz = expectedBody.getClass();
+        Object actualBody = objectMapper.readValue(actual.getContentAsString(), objectMapper.getTypeFactory().constructType(clazz));
+        if (!actualBody.equals(actualBody)) {
+            failWithMessage("Expected response to have body %s, but was %s", expectedBody, actualBody);
+        }
+        return this;
+    }
+
+    /**
+     * Asserts that the MockHttpServletResponse has no body
+     *
+     * @return this MockHttpServletResponseAssert instance for further chaining
+     */
+    public MockHttpServletResponseAssert hasNoBody() throws IOException {
+        isNotNull();
+
+        String actualBody = actual.getContentAsString();
+        if (actualBody.length() > 0) {
+            failWithMessage("Expected response to have no body, but it was %s", actualBody);
+        }
         return this;
     }
 

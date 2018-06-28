@@ -2,12 +2,15 @@ package uk.co.claritysoftware.exam.slammr.user.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.security.core.AuthenticatedPrincipal;
+
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
- * Encapsulates the data for a user's Social Identity
+ * Encapsulates the data for a User Profile
  */
 @Value
 @Builder
@@ -15,20 +18,36 @@ public class UserProfile {
 
     private String id;
 
-    private String name;
+    private String firstname;
+
+    private String surname;
+
+    private String nickname;
 
     private String email;
 
-    private ProfilePicture picture;
+    private String profilePictureUrl;
+
+    private ZonedDateTime registrationDateTime;
+
+    private ZonedDateTime lastLogonDateTime;
 
     @JsonCreator
     private UserProfile(@JsonProperty("id") String id,
-                           @JsonProperty("name") String name,
-                           @JsonProperty("email") String email,
-                           @JsonProperty("profilePicture") ProfilePicture picture) {
+                        @JsonProperty("firstname") String firstname,
+                        @JsonProperty("surname") String surname,
+                        @JsonProperty("nickname") String nickname,
+                        @JsonProperty("email") String email,
+                        @JsonProperty("profilePictureUrl") String profilePictureUrl,
+                        @JsonProperty("registrationDateTime") ZonedDateTime registrationDateTime,
+                        @JsonProperty("lastLogonDateTime") ZonedDateTime lastLogonDateTime) {
         this.id = id;
-        this.name = name;
+        this.firstname = firstname;
+        this.surname = surname;
+        this.nickname = nickname;
         this.email = email;
-        this.picture = picture;
+        this.profilePictureUrl = profilePictureUrl;
+        this.registrationDateTime = registrationDateTime;
+        this.lastLogonDateTime = lastLogonDateTime;
     }
 }

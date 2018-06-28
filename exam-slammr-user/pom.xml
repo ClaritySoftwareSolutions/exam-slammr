@@ -18,7 +18,5 @@
 
     <modules>
         <module>exam-slammr-user-rest</module>
-        <module>exam-slammr-user-service</module>
-        <module>exam-slammr-user-service-aws</module>
     </modules>
 </project>
