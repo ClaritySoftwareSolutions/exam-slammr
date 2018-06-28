@@ -1,8 +1,13 @@
 package uk.co.claritysoftware.exam.slammr.user.rest.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.springframework.security.core.AuthenticatedPrincipal;
 
@@ -12,10 +17,13 @@ import java.util.List;
 /**
  * Encapsulates the data for a User Profile
  */
-@Value
+@Data
+@NoArgsConstructor
 @Builder
+@DynamoDBTable(tableName = "exam-slammr-users")
 public class UserProfile {
 
+    @DynamoDBHashKey(attributeName = "webFederatedUserId")
     private String id;
 
     private String firstname;
