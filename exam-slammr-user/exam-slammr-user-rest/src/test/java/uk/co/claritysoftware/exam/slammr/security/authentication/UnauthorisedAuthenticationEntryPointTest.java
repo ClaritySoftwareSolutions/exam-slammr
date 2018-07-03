@@ -7,7 +7,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.io.IOException;
 
-import static uk.co.claritysoftware.exam.slammr.user.rest.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
+import static uk.co.claritysoftware.exam.slammr.user.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
 
 /**
  * Unit test class for {@link UnauthorisedAuthenticationEntryPoint}

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserAuthenticationTokenMissingException;
 import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileNotFoundException;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -20,12 +19,6 @@ import static org.springframework.http.ResponseEntity.status;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @ExceptionHandler(UserAuthenticationTokenMissingException.class)
-    public ResponseEntity<Void> handleUserAuthenticationTokenMissingException(UserAuthenticationTokenMissingException e) {
-        log.debug("UserAuthenticationTokenMissingException: {}", e.getMessage());
-        return status(HttpStatus.UNAUTHORIZED).build();
-    }
 
     @ExceptionHandler(UserProfileNotFoundException.class)
     public ResponseEntity<Void> handleUserProfileNotFoundException(UserProfileNotFoundException e) {

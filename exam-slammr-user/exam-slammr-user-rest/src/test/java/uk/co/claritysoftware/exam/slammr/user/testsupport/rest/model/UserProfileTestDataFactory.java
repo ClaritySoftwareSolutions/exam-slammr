@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.user.rest.testsupport.model;
+package uk.co.claritysoftware.exam.slammr.user.testsupport.rest.model;
 
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserProfile;
 
@@ -23,7 +23,7 @@ public class UserProfileTestDataFactory {
     /**
      * @return a User Profile Builder containing a valid user profile, ready to have it's build method called
      */
-    public static UserProfile.UserProfileBuilder aValidUserProfile() {
+    public static UserProfile.UserProfileBuilder mrBurnsUserProfile() {
         return USER_PROFILE;
     }
 }

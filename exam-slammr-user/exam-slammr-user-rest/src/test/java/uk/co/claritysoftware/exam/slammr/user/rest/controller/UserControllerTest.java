@@ -1,6 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.user.rest.controller;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserProfile;
+import uk.co.claritysoftware.exam.slammr.user.service.dynamodb.UserProfileItem;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static uk.co.claritysoftware.exam.slammr.user.rest.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
-import static uk.co.claritysoftware.exam.slammr.user.rest.testsupport.model.UserProfileTestDataFactory.aValidUserProfile;
+import static uk.co.claritysoftware.exam.slammr.user.testsupport.assertj.MockHttpServletResponseAssert.assertThat;
+import static uk.co.claritysoftware.exam.slammr.user.testsupport.rest.model.UserProfileTestDataFactory.mrBurnsUserProfile;
+import static uk.co.claritysoftware.exam.slammr.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory.mrBurnsUserProfileItem;
 
 /**
  * {@link MockMvc} test class for {@link UserController}
@@ -32,6 +35,9 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private DynamoDBMapper dynamoDBMapper;
 
@@ -39,9 +45,11 @@ public class UserControllerTest {
     public void shouldGetUserProfile() throws Exception {
         // Given
         String identityId = "12345";
-        UserProfile expectedUserProfile = aValidUserProfile().build();
-        given(dynamoDBMapper.load(UserProfile.class, identityId))
-                .willReturn(expectedUserProfile);
+        UserProfileItem expectedUserProfileItem = mrBurnsUserProfileItem().build();
+        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+                .willReturn(expectedUserProfileItem);
+
+        UserProfile expectedUserProfile = mrBurnsUserProfile().build();
 
         // When
         MockHttpServletResponse response = mockMvc.perform(get(UserController.BASE_PATH)
@@ -52,7 +60,7 @@ public class UserControllerTest {
         assertThat(response)
                 .as("Correct UserProfile returned with HTTP 200")
                 .hasStatusCode(HttpStatus.OK)
-                .hasBody(expectedUserProfile);
+                .hasBody(expectedUserProfile, objectMapper);
     }
 
     @Test

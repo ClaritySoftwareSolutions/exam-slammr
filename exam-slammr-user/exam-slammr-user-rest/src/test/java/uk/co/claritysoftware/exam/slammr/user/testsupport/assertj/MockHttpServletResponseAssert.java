@@ -1,7 +1,6 @@
-package uk.co.claritysoftware.exam.slammr.user.rest.testsupport.assertj;
+package uk.co.claritysoftware.exam.slammr.user.testsupport.assertj;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.assertj.core.api.AbstractAssert;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,8 +14,10 @@ import java.lang.reflect.Type;
  */
 public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServletResponseAssert, MockHttpServletResponse> {
 
+/*
     private final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
+*/
 
     private MockHttpServletResponseAssert(MockHttpServletResponse actual) {
         super(actual, MockHttpServletResponseAssert.class);
@@ -61,7 +62,8 @@ public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServle
     public MockHttpServletResponseAssert hasContentType(MediaType expectedContentType) {
         isNotNull();
 
-        if (actual.getContentType() != expectedContentType.toString()) {
+        MediaType actualContentType = MediaType.valueOf(actual.getContentType());
+        if (!actualContentType.equals(expectedContentType)) {
             failWithMessage("Expected response to have content type %s, but was %s", expectedContentType, actual.getContentType());
         }
 
@@ -72,14 +74,15 @@ public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServle
      * Asserts that the MockHttpServletResponse has the expected body
      *
      * @param expectedBody the expected body
+     * @param objectMapper the object mapper to deserialize the response body with
      * @return this MockHttpServletResponseAssert instance for further chaining
      */
-    public MockHttpServletResponseAssert hasBody(Object expectedBody) throws IOException {
+    public MockHttpServletResponseAssert hasBody(Object expectedBody, ObjectMapper objectMapper) throws IOException {
         isNotNull();
 
         Type clazz = expectedBody.getClass();
         Object actualBody = objectMapper.readValue(actual.getContentAsString(), objectMapper.getTypeFactory().constructType(clazz));
-        if (!actualBody.equals(actualBody)) {
+        if (!actualBody.equals(expectedBody)) {
             failWithMessage("Expected response to have body %s, but was %s", expectedBody, actualBody);
         }
         return this;

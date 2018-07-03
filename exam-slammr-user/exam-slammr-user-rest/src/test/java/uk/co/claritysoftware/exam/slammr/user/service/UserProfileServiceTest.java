@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.user.rest.service;
+package uk.co.claritysoftware.exam.slammr.user.service;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.junit.Test;
@@ -6,13 +6,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import uk.co.claritysoftware.exam.slammr.user.rest.model.UserProfile;
+import uk.co.claritysoftware.exam.slammr.user.service.dynamodb.UserProfileItem;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static uk.co.claritysoftware.exam.slammr.user.rest.testsupport.model.UserProfileTestDataFactory.aValidUserProfile;
+import static uk.co.claritysoftware.exam.slammr.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory.mrBurnsUserProfileItem;
 
 /**
  * Unit test class for {@link UserProfileService}
@@ -30,35 +30,35 @@ public class UserProfileServiceTest {
     public void shouldGetUserProfile() {
         // Given
         String identityId = "12345";
-        UserProfile expectedUserProfile = aValidUserProfile().build();
-        given(dynamoDBMapper.load(UserProfile.class, identityId))
-                .willReturn(expectedUserProfile);
+        UserProfileItem expectedUserProfileItem = mrBurnsUserProfileItem().build();
+        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+                .willReturn(expectedUserProfileItem);
 
         // When
-        Optional<UserProfile> userProfile = service.getUserProfile(identityId);
+        Optional<UserProfileItem> userProfile = service.getUserProfile(identityId);
 
         // Then
         assertThat(userProfile)
-                .as("Optional UserProfile should be present")
+                .as("Optional UserProfileItem should be present")
                 .isPresent()
                 .get()
-                .as("UserProfile is the expected UserProfile")
-                .isEqualTo(expectedUserProfile);
+                .as("UserProfileItem is the expected UserProfile")
+                .isEqualTo(expectedUserProfileItem);
     }
 
     @Test
     public void shouldNotGetUserProfileGivenNonExistentId() {
         // Given
         String identityId = "12345";
-        given(dynamoDBMapper.load(UserProfile.class, identityId))
+        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
                 .willReturn(null);
 
         // When
-        Optional<UserProfile> userProfile = service.getUserProfile(identityId);
+        Optional<UserProfileItem> userProfile = service.getUserProfile(identityId);
 
         // Then
         assertThat(userProfile)
-                .as("Optional UserProfile should not be present")
+                .as("Optional UserProfileItem should not be present")
                 .isNotPresent();
     }
 }

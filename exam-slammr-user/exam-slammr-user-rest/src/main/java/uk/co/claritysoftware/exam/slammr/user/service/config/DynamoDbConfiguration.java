@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.user.rest.config;
+package uk.co.claritysoftware.exam.slammr.user.service.config;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

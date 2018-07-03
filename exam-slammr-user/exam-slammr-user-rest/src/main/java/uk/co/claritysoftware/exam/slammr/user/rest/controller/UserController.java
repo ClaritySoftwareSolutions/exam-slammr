@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileNotFoundException;
+import uk.co.claritysoftware.exam.slammr.user.rest.factory.UserProfileFactory;
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserProfile;
-import uk.co.claritysoftware.exam.slammr.user.rest.service.UserProfileService;
+import uk.co.claritysoftware.exam.slammr.user.service.UserProfileService;
 
 import java.security.Principal;
 
@@ -31,15 +31,18 @@ public class UserController {
 
     private final UserProfileService userProfileService;
 
+    private final UserProfileFactory userProfileFactory;
+
     @Autowired
-    public UserController(UserProfileService userProfileService) {
+    public UserController(UserProfileService userProfileService, UserProfileFactory userProfileFactory) {
         this.userProfileService = userProfileService;
+        this.userProfileFactory = userProfileFactory;
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
     public ResponseEntity<Void> registerNewUser(//@Valid @RequestBody UserRegistrationRequest userRegistrationRequest,
-                                                ) {
+    ) {
         // log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
 
         return null;
@@ -51,7 +54,7 @@ public class UserController {
         String identityId = userPrincipal.getName();
         log.debug("Get UserProfile with identityId {}", identityId);
 
-        return userProfileService.getUserProfile(identityId)
-                .orElseThrow(() -> new UserProfileNotFoundException(identityId));
+        return userProfileFactory.valueOf(userProfileService.getUserProfile(identityId)
+                .orElseThrow(() -> new UserProfileNotFoundException(identityId)));
     }
 }
