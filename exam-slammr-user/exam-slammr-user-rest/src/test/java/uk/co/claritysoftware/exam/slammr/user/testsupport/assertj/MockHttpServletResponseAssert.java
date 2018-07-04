@@ -7,17 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 /**
  * AssertJ assert class to make fluent assertions on Spring's {@link MockHttpServletResponse}
  */
 public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServletResponseAssert, MockHttpServletResponse> {
-
-/*
-    private final ObjectMapper objectMapper = new ObjectMapper()
-            .registerModule(new JavaTimeModule());
-*/
 
     private MockHttpServletResponseAssert(MockHttpServletResponse actual) {
         super(actual, MockHttpServletResponseAssert.class);
@@ -80,8 +74,7 @@ public class MockHttpServletResponseAssert extends AbstractAssert<MockHttpServle
     public MockHttpServletResponseAssert hasBody(Object expectedBody, ObjectMapper objectMapper) throws IOException {
         isNotNull();
 
-        Type clazz = expectedBody.getClass();
-        Object actualBody = objectMapper.readValue(actual.getContentAsString(), objectMapper.getTypeFactory().constructType(clazz));
+        Object actualBody = objectMapper.readValue(actual.getContentAsString(), expectedBody.getClass());
         if (!actualBody.equals(expectedBody)) {
             failWithMessage("Expected response to have body %s, but was %s", expectedBody, actualBody);
         }
