@@ -3,8 +3,10 @@ package uk.co.claritysoftware.exam.slammr.user.service.dynamodb;
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
@@ -17,6 +19,8 @@ import java.time.ZonedDateTime;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @DynamoDBTable(tableName = "exam-slammr-users")
 @Immutable
 public final class UserProfileItem {
