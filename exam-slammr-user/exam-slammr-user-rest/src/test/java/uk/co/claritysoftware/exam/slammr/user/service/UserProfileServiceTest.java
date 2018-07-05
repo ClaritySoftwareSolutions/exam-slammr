@@ -61,4 +61,38 @@ public class UserProfileServiceTest {
                 .as("Optional UserProfileItem should not be present")
                 .isNotPresent();
     }
+
+    @Test
+    public void shouldDetermineIfUserProfileExistsGivenUserProfileExists() {
+        // Given
+        String identityId = "12345";
+        UserProfileItem expectedUserProfileItem = mrBurnsUserProfileItem().build();
+        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+                .willReturn(expectedUserProfileItem);
+
+        // When
+        boolean userProfileExists = service.userProfileExists(identityId);
+
+        // Then
+        assertThat(userProfileExists)
+                .as("UserProfile exists")
+                .isTrue();
+    }
+
+    @Test
+    public void shouldDetermineIfUserProfileExistsGivenUserProfileDoesNotExist() {
+        // Given
+        String identityId = "12345";
+        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+                .willReturn(null);
+
+        // When
+        boolean userProfileExists = service.userProfileExists(identityId);
+
+        // Then
+        assertThat(userProfileExists)
+                .as("UserProfile does not exist")
+                .isFalse();
+    }
+
 }

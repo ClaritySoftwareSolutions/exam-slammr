@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileAlreadyRegisteredException;
 import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileNotFoundException;
 
 import static org.springframework.http.ResponseEntity.status;
@@ -24,5 +25,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Void> handleUserProfileNotFoundException(UserProfileNotFoundException e) {
         log.debug("UserProfileNotFoundException: {}", e.getMessage());
         return status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @ExceptionHandler(UserProfileAlreadyRegisteredException.class)
+    public ResponseEntity<Void> handleUserProfileAlreadyRegisteredException(UserProfileAlreadyRegisteredException e) {
+        log.debug("UserProfileAlreadyRegisteredException: {}", e.getMessage());
+        return status(HttpStatus.CONFLICT).build();
     }
 }

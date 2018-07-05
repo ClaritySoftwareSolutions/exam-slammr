@@ -5,14 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileAlreadyRegisteredException;
 import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileNotFoundException;
 import uk.co.claritysoftware.exam.slammr.user.rest.factory.UserProfileFactory;
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserProfile;
+import uk.co.claritysoftware.exam.slammr.user.rest.model.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.user.service.UserProfileService;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -41,9 +45,14 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public ResponseEntity<Void> registerNewUser(//@Valid @RequestBody UserRegistrationRequest userRegistrationRequest,
-    ) {
-        // log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
+    public ResponseEntity<Void> registerNewUser(@Valid @RequestBody UserRegistrationRequest userRegistrationRequest, Principal userPrincipal) {
+        String identityId = userPrincipal.getName();
+        log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
+
+        if (userProfileService.userProfileExists(identityId)) {
+            throw new UserProfileAlreadyRegisteredException(identityId);
+        }
+
 
         return null;
     }
