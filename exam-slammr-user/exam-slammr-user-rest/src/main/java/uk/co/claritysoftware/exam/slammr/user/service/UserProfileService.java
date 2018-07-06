@@ -1,11 +1,14 @@
 package uk.co.claritysoftware.exam.slammr.user.service;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
+import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.co.claritysoftware.exam.slammr.user.rest.exception.UserProfileAlreadyRegisteredException;
 import uk.co.claritysoftware.exam.slammr.user.rest.factory.UserProfileItemFactory;
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.user.service.dynamodb.UserProfileItem;
@@ -45,23 +48,25 @@ public class UserProfileService {
         return Optional.ofNullable(userProfile);
     }
 
-    public UserProfileItem registerUserProfile(UserRegistrationRequest userRegistrationRequest, String identityId) {
+    /**
+     * Creates a new UserProfileItem record
+     *
+     * @param userRegistrationRequest the user registration request from the client containing the initial User Profile field values
+     * @param identityId              the identity id of the user creating the new profile
+     */
+    public void registerUserProfile(UserRegistrationRequest userRegistrationRequest, String identityId) {
         log.debug("Register UserProfile with request {}, identityId {}", userRegistrationRequest, identityId);
 
         UserProfileItem newUserProfile = userProfileItemFactory.valueOf(userRegistrationRequest, identityId);
-        dynamoDBMapper.save(newUserProfile, new DynamoDBSaveExpression().withConditionalOperator());
-        return null;
 
-    }
-
-    /**
-     * Checks whether the {@link UserProfileItem} identified by the specified id already exists on the database
-     *
-     * @param identityId the identity id of the user
-     * @return true if the User Profile exists
-     */
-    public boolean userProfileExists(String identityId) {
-        return getUserProfileFromDynamoDb(identityId) != null;
+        try {
+            dynamoDBMapper.save(newUserProfile,
+                    new DynamoDBSaveExpression().withExpected(ImmutableMap.of("webFederatedUserId", new ExpectedAttributeValue(false)))
+            );
+        } catch (ConditionalCheckFailedException e) {
+            log.info("Attempt to register User Profile that already exists with identity id {}", identityId);
+            throw new UserProfileAlreadyRegisteredException(identityId);
+        }
     }
 
     private UserProfileItem getUserProfileFromDynamoDb(String identityId) {

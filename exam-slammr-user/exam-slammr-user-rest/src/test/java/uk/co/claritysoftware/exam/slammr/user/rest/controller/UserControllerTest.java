@@ -2,7 +2,6 @@ package uk.co.claritysoftware.exam.slammr.user.rest.controller;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,54 +96,40 @@ public class UserControllerTest {
                 .hasNoBody();
     }
 
-    @Ignore
     @Test
     public void shouldRegisterNewUser() throws Exception {
         // Given
+        String identityId = "12345";
         String requestBody = "" +
                 "{" +
-                "   \"socialIdentityProvider\":\"facebook\"," +
-                "   \"userProfile\":{" +
-                "       \"name\":\"A person\"," +
-                "       \"email\":\"a.person@email.com\"," +
-                "       \"profilePicture\":{" +
-                "           \"height\":50," +
-                "           \"url\":\"https://picture.url.com\"," +
-                "           \"width\":50" +
-                "       }," +
-                "       \"id\":\"1234567890\"" +
-                "   }" +
+                "   \"firstname\":\"Waylon\"," +
+                "   \"surname\":\"Smithers\"," +
+                "   \"nickname\":\"Smithers\"," +
+                "   \"email\":\"waylon.smithers@springfield.com\"," +
+                "   \"profilePictureUrl\":\"http://profile.pics/waylon.smithers\"" +
                 "}";
 
         // When
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(UserController.BASE_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("x-amz-cognitoIdentityId", "some-id")
+                .header("x-exam-slammr-identityId", identityId)
                 .content(requestBody))
                 .andReturn().getResponse();
 
         // Then
-        // TODO - make some assertions when the implementation has been written
         assertThat(response).hasStatusCode(HttpStatus.CREATED);
     }
 
-    @Ignore
     @Test
     public void shouldFailToRegisterNewUserGivenNoHeader() throws Exception {
         // Given
         String requestBody = "" +
                 "{" +
-                "   \"socialIdentityProvider\":\"facebook\"," +
-                "   \"userProfile\":{" +
-                "       \"name\":\"A person\"," +
-                "       \"email\":\"a.person@email.com\"," +
-                "       \"profilePicture\":{" +
-                "           \"height\":50," +
-                "           \"url\":\"https://picture.url.com\"," +
-                "           \"width\":50" +
-                "       }," +
-                "       \"id\":\"1234567890\"" +
-                "   }" +
+                "   \"firstname\":\"Waylon\"," +
+                "   \"surname\":\"Smithers\"," +
+                "   \"nickname\":\"Smithers\"," +
+                "   \"email\":\"waylon.smithers@springfield.com\"," +
+                "   \"profilePictureUrl\":\"http://profile.pics/waylon.smithers\"" +
                 "}";
 
         // When
@@ -154,7 +139,7 @@ public class UserControllerTest {
                 .andReturn().getResponse();
 
         // Then
-        assertThat(response).hasStatusCode(HttpStatus.NOT_FOUND);
+        assertThat(response).hasStatusCode(HttpStatus.UNAUTHORIZED);
     }
 
 }

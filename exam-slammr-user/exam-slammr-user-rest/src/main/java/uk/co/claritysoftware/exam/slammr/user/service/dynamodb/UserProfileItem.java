@@ -3,10 +3,12 @@ package uk.co.claritysoftware.exam.slammr.user.service.dynamodb;
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uk.co.claritysoftware.exam.slammr.user.service.dynamodb.convertor.ZonedDateTimeConverter;
 
 import java.time.ZonedDateTime;
 
@@ -38,8 +40,10 @@ public final class UserProfileItem {
 
     private String profilePictureUrl;
 
+    @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime registrationDateTime;
 
+    @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime lastLogonDateTime;
 
 }

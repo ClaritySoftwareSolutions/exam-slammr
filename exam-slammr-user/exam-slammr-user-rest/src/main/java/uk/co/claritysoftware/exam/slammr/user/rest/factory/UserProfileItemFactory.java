@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import uk.co.claritysoftware.exam.slammr.user.rest.model.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.user.service.dynamodb.UserProfileItem;
 
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 /**
@@ -13,7 +14,7 @@ import java.time.ZonedDateTime;
 public class UserProfileItemFactory {
 
     public UserProfileItem valueOf(UserRegistrationRequest userRegistrationRequest, String identityId) {
-        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC);
         return UserProfileItem.builder()
                 .webFederatedUserId(identityId)
                 .firstname(userRegistrationRequest.getFirstname())
