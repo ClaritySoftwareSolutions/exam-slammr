@@ -12,6 +12,9 @@ import uk.co.claritysoftware.exam.slammr.security.filter.IdentityIdHeaderFilter;
 
 import javax.servlet.Filter;
 
+/**
+ * Spring Boot configuration for web security concerns
+ */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
