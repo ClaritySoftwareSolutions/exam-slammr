@@ -45,7 +45,7 @@ public class UserController {
     @ResponseStatus(CREATED)
     public void registerNewUser(@Valid @RequestBody UserRegistrationRequest userRegistrationRequest, Principal userPrincipal) {
         String identityId = userPrincipal.getName();
-        log.debug("Register New User with UserRegistrationRequest {} with identityId {}", userRegistrationRequest, identityId);
+        log.debug("Register New User with UserRegistrationRequest {}", userRegistrationRequest);
 
         userProfileService.registerUserProfile(userRegistrationRequest, identityId);
     }
@@ -54,7 +54,7 @@ public class UserController {
     @ResponseStatus(OK)
     public UserProfile getUserProfile(Principal userPrincipal) {
         String identityId = userPrincipal.getName();
-        log.debug("Get UserProfile with identityId {}", identityId);
+        log.debug("Get UserProfile");
 
         return userProfileFactory.valueOf(userProfileService.getUserProfile(identityId)
                 .orElseThrow(() -> new UserProfileNotFoundException(identityId)));

@@ -39,7 +39,7 @@ public class UserProfileService {
      * @return the an Optional containing the UserProfileItem, or empty if not found
      */
     public Optional<UserProfileItem> getUserProfile(String identityId) {
-        log.debug("Get UserProfile with id {}", identityId);
+        log.debug("Get UserProfile with webFederatedUserId HashKey {}", identityId);
 
         UserProfileItem userProfile = getUserProfileFromDynamoDb(identityId);
         if (userProfile == null) {
@@ -55,7 +55,7 @@ public class UserProfileService {
      * @param identityId              the identity id of the user creating the new profile
      */
     public void registerUserProfile(UserRegistrationRequest userRegistrationRequest, String identityId) {
-        log.debug("Register UserProfile with request {}, identityId {}", userRegistrationRequest, identityId);
+        log.debug("Register UserProfile with request {}, webFederatedUserId HashKey {}", userRegistrationRequest, identityId);
 
         UserProfileItem newUserProfile = userProfileItemFactory.valueOf(userRegistrationRequest, identityId);
 
@@ -64,7 +64,7 @@ public class UserProfileService {
                     new DynamoDBSaveExpression().withExpected(ImmutableMap.of("webFederatedUserId", new ExpectedAttributeValue(false)))
             );
         } catch (ConditionalCheckFailedException e) {
-            log.info("Attempt to register User Profile that already exists with identity id {}", identityId);
+            log.info("Attempt to register User Profile that already exists with webFederatedUserId HashKey {}", identityId);
             throw new UserProfileAlreadyRegisteredException(identityId);
         }
     }
