@@ -15,8 +15,8 @@
 	<modules>
 		<module>exam-slammr-lambda</module>
 		<module>exam-slammr-client</module>
-		<module>exam-slammr-user</module>
-	</modules>
+        <module>exam-slammr-rest-parent</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
