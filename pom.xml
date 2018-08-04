@@ -15,7 +15,7 @@
 	<modules>
 		<module>exam-slammr-lambda</module>
 		<module>exam-slammr-client</module>
-        <module>examslammr-rest-parent</module>
+        <module>exam-slammr-rest-parent</module>
     </modules>
 
 	<properties>
