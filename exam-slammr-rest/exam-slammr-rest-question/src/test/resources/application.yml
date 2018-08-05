@@ -1,0 +1,4 @@
+aws:
+  region: EU_WEST_2
+  accessKeyId: accessKey
+  secretKey: secretKey
