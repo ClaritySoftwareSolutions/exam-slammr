@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>exam-slammr-rest</artifactId>
+        <groupId>uk.co.claritysoftware</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>exam-slammr-rest-common</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Exam Slammr REST Common</name>
+    <description>Common components and services for Exam Slammr REST Microservices</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>uk.co.claritysoftware</groupId>
+			<artifactId>exam-slammr-web-testsupport</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

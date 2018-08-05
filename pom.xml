@@ -13,10 +13,10 @@
 	<description>Main top level pom containing all Exam Slammr modules</description>
 
 	<modules>
-		<module>exam-slammr-lambda</module>
-		<module>exam-slammr-client</module>
-        <module>exam-slammr-rest-parent</module>
-    </modules>
+        <module>exam-slammr-rest</module>
+		<module>exam-slammr-cloud-config-server</module>
+		<module>exam-slammr-web-testsupport</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,9 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+
+		<spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 
 		<equalsverifier.version>2.3.1</equalsverifier.version>
 		<lombok.version>1.16.20</lombok.version>
@@ -35,6 +38,21 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>

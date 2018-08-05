@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
@@ -31,6 +32,7 @@ import uk.co.claritysoftware.exam.slammr.lambda.user.dynamodb.items.User;
 /**
  * Unit test class for {@link RegisterNewUserRequestHandler}
  */
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterNewUserRequestHandlerTest {
 
