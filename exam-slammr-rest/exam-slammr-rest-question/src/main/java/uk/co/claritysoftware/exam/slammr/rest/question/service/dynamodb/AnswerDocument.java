@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @DynamoDBDocument
 @Immutable
-public class AnswerDocument {
+public final class AnswerDocument {
 
     private String text;
 

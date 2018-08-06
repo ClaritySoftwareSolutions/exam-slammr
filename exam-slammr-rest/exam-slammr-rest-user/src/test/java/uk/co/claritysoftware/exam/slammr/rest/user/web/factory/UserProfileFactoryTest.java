@@ -32,7 +32,6 @@ public class UserProfileFactoryTest {
                 .build();
 
         UserProfile expectedUserProfile = UserProfile.builder()
-                .id("id")
                 .firstname("firstname")
                 .surname("surname")
                 .nickname("nickname")

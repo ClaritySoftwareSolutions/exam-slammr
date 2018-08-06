@@ -15,7 +15,6 @@ public class UserProfileTestDataFactory {
      */
     public static UserProfile.UserProfileBuilder mrBurnsUserProfile() {
         return UserProfile.builder()
-                .id("12345")
                 .firstname("Montgomery")
                 .surname("Burns")
                 .nickname("Mr Burns")

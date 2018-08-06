@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @DynamoDBDocument
 @Immutable
-public class FurtherReadingDocument {
+public final class FurtherReadingDocument {
 
     private String description;
 

@@ -9,7 +9,6 @@ public abstract class UserProfileMixin {
 
     @JsonCreator
     public UserProfileMixin(
-            @JsonProperty("id") String id,
             @JsonProperty("firstname") String firstname,
             @JsonProperty("surname") String surname,
             @JsonProperty("nickname") String nickname,

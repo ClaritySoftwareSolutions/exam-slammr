@@ -12,7 +12,6 @@ public class UserProfileFactory {
 
     public UserProfile valueOf(UserProfileItem userProfileItem) {
         return UserProfile.builder()
-                .id(userProfileItem.getWebFederatedUserId())
                 .firstname(userProfileItem.getFirstname())
                 .surname(userProfileItem.getSurname())
                 .nickname(userProfileItem.getNickname())

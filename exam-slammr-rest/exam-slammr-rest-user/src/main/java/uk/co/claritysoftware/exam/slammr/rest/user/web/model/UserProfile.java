@@ -12,8 +12,6 @@ import lombok.Value;
 @Builder
 public final class UserProfile {
 
-    private String id;
-
     private String firstname;
 
     private String surname;
