@@ -1,8 +1,5 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.service.dynamodb;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
@@ -12,6 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uk.co.claritysoftware.exam.slammr.rest.question.service.dynamodb.convertor.ZonedDateTimeConverter;
+
+import java.time.ZonedDateTime;
+import java.util.Set;
 
 /**
  * Encapsulates the data for a Question dynamodb item
@@ -33,13 +33,13 @@ public final class QuestionItem {
 
     private String questionText;
 
-    private List<AnswerDocument> answers;
+    private Set<AnswerDocument> answers;
 
-    private List<String> tags;
+    private Set<String> tags;
 
-    private List<String> certifications;
+    private Set<String> certifications;
 
-    private List<FurtherReadingDocument> furtherReadings;
+    private Set<FurtherReadingDocument> furtherReadings;
 
     private String createdBy;
 
