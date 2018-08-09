@@ -1,4 +1,1 @@
 # Prod config overrides for Exam Slammr User REST API
-aws:
-  accessKeyId: accessKey
-  secretKey: secretKey
