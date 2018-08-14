@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.factory;
+package uk.co.claritysoftware.exam.slammr.rest.user.factory;
 
 import org.springframework.stereotype.Component;
 import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserProfile;

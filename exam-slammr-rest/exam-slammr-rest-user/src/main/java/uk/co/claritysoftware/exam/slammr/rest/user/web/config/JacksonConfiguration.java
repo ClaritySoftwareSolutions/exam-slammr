@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.jackson.deserializer.ZonedDateTimeDeserializer;
+import uk.co.claritysoftware.exam.slammr.web.jackson.deserializer.ZonedDateTimeDeserializer;
 import uk.co.claritysoftware.exam.slammr.rest.user.web.jackson.mixin.UserProfileMixin;
 import uk.co.claritysoftware.exam.slammr.rest.user.web.jackson.mixin.UserRegistrationRequestMixin;
 import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserProfile;

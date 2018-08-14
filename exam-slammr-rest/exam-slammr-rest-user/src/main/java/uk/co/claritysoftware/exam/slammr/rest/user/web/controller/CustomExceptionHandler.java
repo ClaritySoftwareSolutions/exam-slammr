@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.exception.UserProfileAlreadyRegisteredException;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.exception.UserProfileNotFoundException;
+import uk.co.claritysoftware.exam.slammr.rest.user.exception.UserProfileAlreadyRegisteredException;
+import uk.co.claritysoftware.exam.slammr.rest.user.exception.UserProfileNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 

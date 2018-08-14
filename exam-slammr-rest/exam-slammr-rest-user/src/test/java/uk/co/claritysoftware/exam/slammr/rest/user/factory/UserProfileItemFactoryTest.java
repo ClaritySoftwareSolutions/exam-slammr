@@ -1,13 +1,14 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.factory;
+package uk.co.claritysoftware.exam.slammr.rest.user.factory;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.ZonedDateTime;
 import org.junit.Test;
 import uk.co.claritysoftware.exam.slammr.rest.user.service.dynamodb.UserProfileItem;
-import uk.co.claritysoftware.exam.slammr.rest.user.testsupport.rest.model.UserRegistrationRequestTestDataFactory;
-import uk.co.claritysoftware.exam.slammr.rest.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory;
 import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserRegistrationRequest;
+
+import java.time.ZonedDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static uk.co.claritysoftware.exam.slammr.rest.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory.smithersUserProfileItem;
+import static uk.co.claritysoftware.exam.slammr.rest.user.testsupport.web.model.UserRegistrationRequestTestDataFactory.smithersUserRegistrationRequest;
 
 /**
  * Unit test class for {@link UserProfileItemFactory}
@@ -22,9 +23,9 @@ public class UserProfileItemFactoryTest {
         ZonedDateTime earliestExpectedDate = ZonedDateTime.now();
 
         String identityId = "67890";
-        UserRegistrationRequest userRegistrationRequest = UserRegistrationRequestTestDataFactory.smithersUserRegistrationRequest().build();
+        UserRegistrationRequest userRegistrationRequest = smithersUserRegistrationRequest().build();
 
-        UserProfileItem expectedUserProfileItem = UserProfileItemTestDataFactory.smithersUserProfileItem()
+        UserProfileItem expectedUserProfileItem = smithersUserProfileItem()
                 .registrationDateTime(earliestExpectedDate)
                 .lastLogonDateTime(earliestExpectedDate)
                 .build();

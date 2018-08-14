@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.exception;
+package uk.co.claritysoftware.exam.slammr.rest.user.exception;
 
 /**
  * Runtime exception for when a user profile was not found

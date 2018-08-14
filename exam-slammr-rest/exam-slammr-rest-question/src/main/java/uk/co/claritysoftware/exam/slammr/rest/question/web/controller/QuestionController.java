@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import uk.co.claritysoftware.exam.slammr.rest.question.delegate.QuestionDelegate;
 import uk.co.claritysoftware.exam.slammr.rest.question.service.QuestionService;
 import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
 
@@ -26,11 +27,11 @@ public class QuestionController {
 
     static final String BASE_PATH = "/question";
 
-    private final QuestionService questionService;
+    private final QuestionDelegate questionDelegate;
 
     @Autowired
-    public QuestionController(QuestionService questionService) {
-        this.questionService = questionService;
+    public QuestionController(QuestionDelegate questionDelegate) {
+        this.questionDelegate = questionDelegate;
     }
 
     @PostMapping

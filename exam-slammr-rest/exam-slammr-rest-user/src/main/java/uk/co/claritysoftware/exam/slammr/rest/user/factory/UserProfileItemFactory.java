@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.factory;
+package uk.co.claritysoftware.exam.slammr.rest.user.factory;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

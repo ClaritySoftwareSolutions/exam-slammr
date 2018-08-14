@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface QuestionHasAnswers {
 
-    String message() default "{uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator.QuestionHasAnswers}";
+    String message() default "{uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator.QuestionHasAnswers.message}";
 
     Class<?>[] groups() default { };
 

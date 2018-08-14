@@ -11,23 +11,16 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.exception.UserProfileAlreadyRegisteredException;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.factory.UserProfileItemFactory;
-import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserRegistrationRequest;
 import uk.co.claritysoftware.exam.slammr.rest.user.service.dynamodb.UserProfileItem;
-import uk.co.claritysoftware.exam.slammr.rest.user.testsupport.rest.model.UserRegistrationRequestTestDataFactory;
-import uk.co.claritysoftware.exam.slammr.rest.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.doThrow;
-import static uk.co.claritysoftware.exam.slammr.rest.user.testsupport.rest.model.UserRegistrationRequestTestDataFactory.smithersUserRegistrationRequest;
 import static uk.co.claritysoftware.exam.slammr.rest.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory.mrBurnsUserProfileItem;
 import static uk.co.claritysoftware.exam.slammr.rest.user.testsupport.service.dynamodb.UserProfileItemTestDataFactory.smithersUserProfileItem;
 
@@ -40,9 +33,6 @@ public class UserProfileServiceTest {
     @Mock
     private DynamoDBMapper dynamoDBMapper;
 
-    @Mock
-    private UserProfileItemFactory userProfileItemFactory;
-
     @InjectMocks
     private UserProfileService service;
 
@@ -50,83 +40,83 @@ public class UserProfileServiceTest {
     public void shouldGetUserProfile() {
         // Given
         String identityId = "12345";
-        UserProfileItem expectedUserProfileItem = UserProfileItemTestDataFactory.mrBurnsUserProfileItem().build();
-        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+        UserProfileItem expectedUserProfileItem = mrBurnsUserProfileItem().build();
+        given(dynamoDBMapper.load(any(Class.class), any(String.class)))
                 .willReturn(expectedUserProfileItem);
 
         // When
         Optional<UserProfileItem> userProfile = service.getUserProfile(identityId);
 
         // Then
+        then(dynamoDBMapper).should().load(UserProfileItem.class, identityId);
         assertThat(userProfile)
                 .as("Optional UserProfileItem should be present")
                 .isPresent()
                 .get()
-                .as("UserProfileItem is the expected UserProfile")
+                .as("Returned UserProfileItem is the expected UserProfileItem")
                 .isEqualTo(expectedUserProfileItem);
     }
 
     @Test
     public void shouldNotGetUserProfileGivenNonExistentId() {
         // Given
-        String identityId = "12345";
-        given(dynamoDBMapper.load(UserProfileItem.class, identityId))
+        String identityId = "1234";
+        given(dynamoDBMapper.load(any(Class.class), any(String.class)))
                 .willReturn(null);
 
         // When
         Optional<UserProfileItem> userProfile = service.getUserProfile(identityId);
 
         // Then
+        then(dynamoDBMapper).should().load(UserProfileItem.class, identityId);
         assertThat(userProfile)
                 .as("Optional UserProfileItem should not be present")
                 .isNotPresent();
     }
 
     @Test
-    public void shouldRegisterNewUserProfile() {
+    public void shouldRegisterUserProfile() {
         // Given
         String identityId = "67890";
-        UserRegistrationRequest userRegistrationRequest = UserRegistrationRequestTestDataFactory.smithersUserRegistrationRequest().build();
-
-        UserProfileItem expectedNewUserProfileItem = UserProfileItemTestDataFactory.smithersUserProfileItem().build();
-        given(userProfileItemFactory.valueOf(any(), any()))
-                .willReturn(expectedNewUserProfileItem);
+        UserProfileItem newUserProfileItem = smithersUserProfileItem()
+                .webFederatedUserId(identityId)
+                .build();
 
         // When
-        service.registerUserProfile(userRegistrationRequest, identityId);
+        Optional<String> createdUserIdentityId = service.registerUserProfile(newUserProfileItem);
 
         // Then
-        then(userProfileItemFactory).should().valueOf(userRegistrationRequest, identityId);
-        then(dynamoDBMapper).should().save(eq(expectedNewUserProfileItem), ArgumentMatchers.<DynamoDBSaveExpression>argThat(saveExpression ->
+        then(dynamoDBMapper).should().save(eq(newUserProfileItem), ArgumentMatchers.<DynamoDBSaveExpression>argThat(saveExpression ->
                 saveExpression.getExpected().equals(ImmutableMap.of("webFederatedUserId", new ExpectedAttributeValue(false)))
         ));
+        assertThat(createdUserIdentityId)
+                .as("Optional String should be present")
+                .isPresent()
+                .get()
+                .as("Returned String is the expected identity id")
+                .isEqualTo(identityId);
     }
 
     @Test
-    public void shouldFailToRegisterNewUserProfileGivenProfileAlreadyExists() {
+    public void shouldNotRegisterUserProfileGivenProfileAlreadyExists() {
         // Given
         String identityId = "67890";
-        UserRegistrationRequest userRegistrationRequest = UserRegistrationRequestTestDataFactory.smithersUserRegistrationRequest().build();
-
-        UserProfileItem expectedNewUserProfileItem = UserProfileItemTestDataFactory.smithersUserProfileItem().build();
-        given(userProfileItemFactory.valueOf(any(), any()))
-                .willReturn(expectedNewUserProfileItem);
-
-        doThrow(new ConditionalCheckFailedException("Conditional Check Failed - User exists")).when(dynamoDBMapper)
-                .save(any(UserProfileItem.class), any(DynamoDBSaveExpression.class));
+        UserProfileItem newUserProfileItem = smithersUserProfileItem()
+                .webFederatedUserId(identityId)
+                .build();
+        doThrow(new ConditionalCheckFailedException("Conditional Check Failed - User exists"))
+                .when(dynamoDBMapper).save(any(UserProfileItem.class), any(DynamoDBSaveExpression.class));
 
         // When
-        Throwable throwable = catchThrowable(() -> service.registerUserProfile(userRegistrationRequest, identityId));
+        Optional<String> createdUserIdentityId = service.registerUserProfile(newUserProfileItem);
 
         // Then
-        then(userProfileItemFactory).should().valueOf(userRegistrationRequest, identityId);
-        then(dynamoDBMapper).should().save(eq(expectedNewUserProfileItem), ArgumentMatchers.<DynamoDBSaveExpression>argThat(saveExpression ->
+        then(dynamoDBMapper).should().save(eq(newUserProfileItem), ArgumentMatchers.<DynamoDBSaveExpression>argThat(saveExpression ->
                 saveExpression.getExpected().equals(ImmutableMap.of("webFederatedUserId", new ExpectedAttributeValue(false)))
         ));
-        assertThat(throwable)
-                .as("UserProfileAlreadyRegisteredException was thrown")
-                .isInstanceOf(UserProfileAlreadyRegisteredException.class)
-                .hasMessage("UserProfile id 67890 already registered");
+        assertThat(createdUserIdentityId)
+                .as("Optional String should not be present")
+                .isNotPresent();
     }
 
 }

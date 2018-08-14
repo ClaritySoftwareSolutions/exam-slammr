@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.jackson.deserializer;
+package uk.co.claritysoftware.exam.slammr.web.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -10,21 +10,17 @@ import java.time.ZonedDateTime;
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
 
 /**
- * Jackson deserializer to deserialize values into {@link ZonedDateTime} instances in a controller manner
+ * Jackson deserializer to deserialize values into {@link ZonedDateTime} instances
  */
 public class ZonedDateTimeDeserializer extends StdDeserializer<ZonedDateTime> {
 
     public ZonedDateTimeDeserializer() {
-        this(null);
-    }
-
-    private ZonedDateTimeDeserializer(Class<?> vc) {
-        super(vc);
+        super(ZonedDateTime.class);
     }
 
     @Override
-    public ZonedDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        String serializedZonedDateTime = p.getValueAsString();
+    public ZonedDateTime deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
+        String serializedZonedDateTime = jsonParser.getValueAsString();
         return ZonedDateTime.parse(serializedZonedDateTime, ISO_ZONED_DATE_TIME);
     }
 }

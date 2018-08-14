@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.factory;
+package uk.co.claritysoftware.exam.slammr.rest.user.factory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.web.jackson.deserializer;
+package uk.co.claritysoftware.exam.slammr.web.jackson.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import org.junit.Test;

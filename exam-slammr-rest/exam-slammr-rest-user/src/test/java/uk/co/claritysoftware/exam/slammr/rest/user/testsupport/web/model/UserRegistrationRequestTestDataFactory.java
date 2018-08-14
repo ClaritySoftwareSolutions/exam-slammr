@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.testsupport.rest.model;
+package uk.co.claritysoftware.exam.slammr.rest.user.testsupport.web.model;
 
 import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserRegistrationRequest;
 

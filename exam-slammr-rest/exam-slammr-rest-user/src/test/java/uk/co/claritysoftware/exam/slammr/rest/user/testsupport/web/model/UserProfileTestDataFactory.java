@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.rest.user.testsupport.rest.model;
+package uk.co.claritysoftware.exam.slammr.rest.user.testsupport.web.model;
 
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
 

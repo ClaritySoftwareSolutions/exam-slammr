@@ -7,7 +7,7 @@ import uk.co.claritysoftware.exam.slammr.rest.user.web.model.UserProfile;
 import uk.co.claritysoftware.exam.slammr.rest.user.service.dynamodb.UserProfileItem;
 
 /**
- * Test data factory for {@link UserProfile} instances
+ * Test data factory for {@link UserProfileItem} instances
  */
 public class UserProfileItemTestDataFactory {
 
