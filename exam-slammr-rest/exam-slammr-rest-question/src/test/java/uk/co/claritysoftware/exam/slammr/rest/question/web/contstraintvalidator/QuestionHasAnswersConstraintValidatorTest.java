@@ -7,6 +7,8 @@ import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateR
 import javax.validation.ConstraintValidatorContext;
 
 import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +25,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldValidateGivenValidQuestionAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(2))
                 .build();
 
@@ -38,7 +40,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenNoCorrectAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(emptySet())
                 .build();
 
@@ -53,7 +55,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenMoreCorrectAnswersThanAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(1, 2, 3, 4, 5))
                 .build();
 
@@ -68,7 +70,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenCorrectAnswersHigherThanTotalAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(1, 5))
                 .build();
 
@@ -83,7 +85,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenCorrectAnswersLowerThan1() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(0, 2))
                 .build();
 
@@ -113,7 +115,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenNullCorrectAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(newHashSet("red", "green", "blue"))
+                .answers(asList("red", "green", "blue"))
                 .correctAnswers(null)
                 .build();
 
@@ -128,7 +130,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     public void shouldNotValidateGivenNoAnswers() {
         // Given
         Question question = QuestionCreateRequest.builder()
-                .answers(emptySet())
+                .answers(emptyList())
                 .correctAnswers(newHashSet(0, 2))
                 .build();
 

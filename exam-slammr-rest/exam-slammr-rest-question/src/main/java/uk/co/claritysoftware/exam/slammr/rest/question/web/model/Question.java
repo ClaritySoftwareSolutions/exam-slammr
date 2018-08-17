@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.web.model;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,9 +14,9 @@ public interface Question {
     String getQuestionText();
 
     /**
-     * @return the set of answers
+     * @return the list of answers
      */
-    Set<String> getAnswers();
+    List<String> getAnswers();
 
     /**
      * @return the set of correct answers

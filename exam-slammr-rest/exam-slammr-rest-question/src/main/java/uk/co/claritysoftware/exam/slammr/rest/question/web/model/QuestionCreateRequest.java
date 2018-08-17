@@ -7,6 +7,7 @@ import uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator.
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,9 +21,15 @@ public final class QuestionCreateRequest implements Question {
     @NotBlank
     private final String questionText;
 
+    /**
+     * A simple list of answers
+     */
     @Size(min = 1)
-    private final Set<String> answers;
+    private final List<String> answers;
 
+    /**
+     * A set indicating which of the {@link QuestionCreateRequest#answers} are the correct answer(s) by their (1 based) index
+     */
     @Size(min = 1)
     private final Set<Integer> correctAnswers;
 

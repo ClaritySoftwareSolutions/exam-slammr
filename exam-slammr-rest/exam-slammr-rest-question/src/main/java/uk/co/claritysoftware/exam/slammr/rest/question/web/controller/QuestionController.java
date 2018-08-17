@@ -37,6 +37,8 @@ public class QuestionController {
     @PostMapping
     @ResponseStatus(CREATED)
     public void createNewQuestion(@Valid @RequestBody QuestionCreateRequest questionCreateRequest, Principal userPrincipal) {
-
+        String identityId = userPrincipal.getName();
+        log.debug("Create new Question with QuestionCreateRequest {}", questionCreateRequest);
+        questionDelegate.createQuestion(questionCreateRequest, identityId);
     }
 }

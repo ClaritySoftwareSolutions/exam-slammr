@@ -35,10 +35,11 @@ public class UserDelegate {
     }
 
     /**
-     * Return the {@link UserProfileItem} identified by the specified id, wrapped in an {@link Optional}
+     * Return the {@link UserProfile} identified by the specified id
      *
      * @param identityId the identity id of the user whose profile should be returned
-     * @return the an Optional containing the UserProfileItem, or empty if not found
+     * @return the UserProfile
+     * @throws UserProfileNotFoundException if the user profile could not be found
      */
     public UserProfile getUserProfile(String identityId) {
         log.debug("Get UserProfile with webFederatedUserId HashKey {}", identityId);
@@ -47,10 +48,11 @@ public class UserDelegate {
     }
 
     /**
-     * Creates a new UserProfileItem record
+     * Creates a new User Profile
      *
      * @param userRegistrationRequest the user registration request from the client containing the initial User Profile field values
      * @param identityId              the identity id of the user creating the new profile
+     * @throws UserProfileAlreadyRegisteredException if a new user profile is not created by the service
      */
     public void registerUserProfile(UserRegistrationRequest userRegistrationRequest, String identityId) {
         log.debug("Register UserProfile with request {}, webFederatedUserId HashKey {}", userRegistrationRequest, identityId);

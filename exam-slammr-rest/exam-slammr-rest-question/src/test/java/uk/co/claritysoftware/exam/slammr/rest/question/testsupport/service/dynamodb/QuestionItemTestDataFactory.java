@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
+import static java.util.Arrays.asList;
 
 /**
  * Test data factory for {@link QuestionItem} instances
@@ -23,7 +24,7 @@ public class QuestionItemTestDataFactory {
                 .questionText("How many sides does a square have?")
                 .tags(newHashSet("maths", "geometry"))
                 .certifications(newHashSet("Basic Maths"))
-                .answers(newHashSet(AnswerDocument.builder()
+                .answers(asList(AnswerDocument.builder()
                                 .text("Three")
                                 .correct(false)
                                 .build(),
@@ -48,7 +49,7 @@ public class QuestionItemTestDataFactory {
                 .questionText("How many sides does a triangle have?")
                 .tags(newHashSet("maths", "geometry"))
                 .certifications(newHashSet("Basic Maths"))
-                .answers(newHashSet(AnswerDocument.builder()
+                .answers(asList(AnswerDocument.builder()
                                 .text("Three")
                                 .correct(true)
                                 .build(),

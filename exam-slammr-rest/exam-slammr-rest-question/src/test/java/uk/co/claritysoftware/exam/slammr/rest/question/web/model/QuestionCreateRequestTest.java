@@ -11,6 +11,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +33,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("What colour is the sky?")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
                 .tags(newHashSet("nature", "general knowledge"))
                 .certifications(newHashSet("Basic Science"))
@@ -56,7 +57,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("What colour is the sky?")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
                 .tags(newHashSet("nature", "general knowledge"))
                 .certifications(newHashSet("Basic Science"))
@@ -75,7 +76,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("   ")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
                 .tags(newHashSet("nature", "general knowledge"))
                 .certifications(newHashSet("Basic Science"))
@@ -115,7 +116,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("What colour is the sky?")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(null)
                 .tags(newHashSet("nature", "general knowledge"))
                 .certifications(newHashSet("Basic Science"))
@@ -134,7 +135,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("What colour is the sky?")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(2))
                 .tags(emptySet())
                 .certifications(newHashSet("Basic Science"))
@@ -155,7 +156,7 @@ public class QuestionCreateRequestTest {
         // Given
         QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
                 .questionText("What colour is the sky?")
-                .answers(newHashSet("red", "blue", "green"))
+                .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(2))
                 .tags(newHashSet("nature", "general knowledge"))
                 .certifications(emptySet())
