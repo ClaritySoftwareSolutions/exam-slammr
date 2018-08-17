@@ -36,7 +36,7 @@ public class UserProfileService {
         log.debug("Get UserProfile with webFederatedUserId HashKey {}", identityId);
         UserProfileItem userProfile = getUserProfileFromDynamoDb(identityId);
         if (userProfile == null) {
-            log.info("UserProfileItem with webFederatedUserId HashKey {} not found", identityId);
+            log.warn("UserProfileItem with webFederatedUserId HashKey {} not found", identityId);
         }
         return Optional.ofNullable(userProfile);
     }

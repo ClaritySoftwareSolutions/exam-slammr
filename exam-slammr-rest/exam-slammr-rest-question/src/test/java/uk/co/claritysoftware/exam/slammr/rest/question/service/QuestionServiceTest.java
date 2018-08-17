@@ -2,7 +2,6 @@ package uk.co.claritysoftware.exam.slammr.rest.question.service;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +22,6 @@ import static uk.co.claritysoftware.exam.slammr.rest.question.testsupport.servic
 /**
  * Unit test class for {@link QuestionService}
  */
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionServiceTest {
 
@@ -42,11 +40,11 @@ public class QuestionServiceTest {
                 .willReturn(expectedQuestionItem);
 
         // When
-        Optional<QuestionItem> userProfile = service.getQuestion(id);
+        Optional<QuestionItem> questionItem = service.getQuestion(id);
 
         // Then
         then(dynamoDBMapper).should().load(QuestionItem.class, id);
-        assertThat(userProfile)
+        assertThat(questionItem)
                 .as("Optional QuestionItem should be present")
                 .isPresent()
                 .get()
@@ -62,11 +60,11 @@ public class QuestionServiceTest {
                 .willReturn(null);
 
         // When
-        Optional<QuestionItem> userProfile = service.getQuestion(id);
+        Optional<QuestionItem> questionItem = service.getQuestion(id);
 
         // Then
         then(dynamoDBMapper).should().load(QuestionItem.class, id);
-        assertThat(userProfile)
+        assertThat(questionItem)
                 .as("Optional QuestionItem should not be present")
                 .isNotPresent();
     }

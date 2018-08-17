@@ -48,4 +48,13 @@ public final class QuestionItem {
 
     @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
     private ZonedDateTime createdDateTime;
+
+    private String updatedBy;
+
+    @DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
+    private ZonedDateTime updatedDateTime;
+
+    private QuestionStatus status;
+
+    private int votes;
 }

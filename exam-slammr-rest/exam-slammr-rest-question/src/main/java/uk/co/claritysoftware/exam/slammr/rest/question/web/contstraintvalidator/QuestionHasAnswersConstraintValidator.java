@@ -1,15 +1,15 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator;
 
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.Question;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * Validates that a Question instance has more answer choices than correct answers, and that all of the correct
+ * Validates that a {@link EditableQuestion} has more answer choices than correct answers, and that all of the correct
  * answers are for valid questions.
  */
-public class QuestionHasAnswersConstraintValidator implements ConstraintValidator<QuestionHasAnswers, Question>
+public class QuestionHasAnswersConstraintValidator implements ConstraintValidator<QuestionHasAnswers, EditableQuestion>
 
 {
     @Override
@@ -18,17 +18,17 @@ public class QuestionHasAnswersConstraintValidator implements ConstraintValidato
     }
 
     @Override
-    public boolean isValid(Question question, ConstraintValidatorContext constraintValidatorContext) {
-        if (question.getAnswers() == null || question.getCorrectAnswers() == null) {
+    public boolean isValid(EditableQuestion editableQuestion, ConstraintValidatorContext constraintValidatorContext) {
+        if (editableQuestion.getAnswers() == null || editableQuestion.getCorrectAnswers() == null) {
             return false;
         }
 
-        int numberOfAnswerChoices = question.getAnswers().size();
-        int numberOfCorrectAnswers = question.getCorrectAnswers().size();
-        int lowestCorrectAnswerNumber = question.getCorrectAnswers().stream()
+        int numberOfAnswerChoices = editableQuestion.getAnswers().size();
+        int numberOfCorrectAnswers = editableQuestion.getCorrectAnswers().size();
+        int lowestCorrectAnswerNumber = editableQuestion.getCorrectAnswers().stream()
                 .mapToInt(Integer::intValue)
                 .min().orElse(0);
-        int highestCorrectAnswerNumber = question.getCorrectAnswers().stream()
+        int highestCorrectAnswerNumber = editableQuestion.getCorrectAnswers().stream()
                 .mapToInt(Integer::intValue)
                 .max().orElse(0);
 

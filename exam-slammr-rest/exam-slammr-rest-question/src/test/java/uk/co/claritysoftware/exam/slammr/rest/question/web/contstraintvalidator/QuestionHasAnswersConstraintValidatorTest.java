@@ -1,8 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator;
 
 import org.junit.Test;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.Question;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 
 import javax.validation.ConstraintValidatorContext;
 
@@ -24,7 +23,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldValidateGivenValidQuestionAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(2))
                 .build();
@@ -39,7 +38,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenNoCorrectAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(emptySet())
                 .build();
@@ -54,7 +53,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenMoreCorrectAnswersThanAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(1, 2, 3, 4, 5))
                 .build();
@@ -69,7 +68,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenCorrectAnswersHigherThanTotalAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(1, 5))
                 .build();
@@ -84,7 +83,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenCorrectAnswersLowerThan1() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(newHashSet(0, 2))
                 .build();
@@ -99,7 +98,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenNullAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(null)
                 .correctAnswers(newHashSet(0, 2))
                 .build();
@@ -114,7 +113,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenNullCorrectAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(asList("red", "green", "blue"))
                 .correctAnswers(null)
                 .build();
@@ -129,7 +128,7 @@ public class QuestionHasAnswersConstraintValidatorTest {
     @Test
     public void shouldNotValidateGivenNoAnswers() {
         // Given
-        Question question = QuestionCreateRequest.builder()
+        EditableQuestion question = EditableQuestion.builder()
                 .answers(emptyList())
                 .correctAnswers(newHashSet(0, 2))
                 .build();

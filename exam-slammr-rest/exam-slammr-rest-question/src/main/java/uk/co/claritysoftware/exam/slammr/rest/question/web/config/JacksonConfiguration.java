@@ -6,9 +6,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import uk.co.claritysoftware.exam.slammr.rest.question.web.jackson.mixin.FurtherReadingMixin;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.jackson.mixin.QuestionCreateRequestMixin;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.jackson.mixin.EditableQuestionMixin;
 import uk.co.claritysoftware.exam.slammr.rest.question.web.model.FurtherReading;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 import uk.co.claritysoftware.exam.slammr.web.jackson.deserializer.ZonedDateTimeDeserializer;
 
 import java.time.ZonedDateTime;
@@ -26,7 +26,7 @@ public class JacksonConfiguration {
         return new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .configure(WRITE_DATES_AS_TIMESTAMPS, false)
-                .addMixIn(QuestionCreateRequest.class, QuestionCreateRequestMixin.class)
+                .addMixIn(EditableQuestion.class, EditableQuestionMixin.class)
                 .addMixIn(FurtherReading.class, FurtherReadingMixin.class)
                 .registerModules(new SimpleModule()
                         .addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer()));

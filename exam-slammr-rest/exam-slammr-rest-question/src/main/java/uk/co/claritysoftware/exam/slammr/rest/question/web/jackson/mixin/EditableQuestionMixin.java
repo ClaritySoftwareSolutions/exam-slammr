@@ -3,18 +3,18 @@ package uk.co.claritysoftware.exam.slammr.rest.question.web.jackson.mixin;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.co.claritysoftware.exam.slammr.rest.question.web.model.FurtherReading;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 
 import java.util.List;
 import java.util.Set;
 
 /**
- * Jackson mixin to tell Jackson how to deserialize into a {@link QuestionCreateRequest}
+ * Jackson mixin to tell Jackson how to deserialize into a {@link EditableQuestion}
  */
-public abstract class QuestionCreateRequestMixin {
+public abstract class EditableQuestionMixin {
 
     @JsonCreator
-    public QuestionCreateRequestMixin(
+    public EditableQuestionMixin(
             @JsonProperty("questionText") String questionText,
             @JsonProperty("answers") List<String> answers,
             @JsonProperty("correctAnswers") Set<Integer> correctAnswers,

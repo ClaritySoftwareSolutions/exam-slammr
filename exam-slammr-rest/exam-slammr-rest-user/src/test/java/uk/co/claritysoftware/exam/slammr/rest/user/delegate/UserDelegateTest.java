@@ -91,7 +91,7 @@ public class UserDelegateTest {
         UserRegistrationRequest userRegistrationRequest = smithersUserRegistrationRequest().build();
 
         UserProfileItem expectedNewUserProfileItem = smithersUserProfileItem().build();
-        given(userProfileItemFactory.valueOf(any(), any()))
+        given(userProfileItemFactory.valueOf(any(UserRegistrationRequest.class), any(String.class)))
                 .willReturn(expectedNewUserProfileItem);
 
         given(userProfileService.registerUserProfile(any(UserProfileItem.class)))
@@ -112,7 +112,7 @@ public class UserDelegateTest {
         UserRegistrationRequest userRegistrationRequest = smithersUserRegistrationRequest().build();
 
         UserProfileItem expectedNewUserProfileItem = smithersUserProfileItem().build();
-        given(userProfileItemFactory.valueOf(any(), any()))
+        given(userProfileItemFactory.valueOf(any(UserRegistrationRequest.class), any(String.class)))
                 .willReturn(expectedNewUserProfileItem);
 
         given(userProfileService.registerUserProfile(any(UserProfileItem.class)))

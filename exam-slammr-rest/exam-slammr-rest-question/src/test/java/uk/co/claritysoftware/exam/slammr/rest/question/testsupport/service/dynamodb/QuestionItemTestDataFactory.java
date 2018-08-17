@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
 import static java.util.Arrays.asList;
+import static uk.co.claritysoftware.exam.slammr.rest.question.service.dynamodb.QuestionStatus.APPROVED;
 
 /**
  * Test data factory for {@link QuestionItem} instances
@@ -37,7 +38,11 @@ public class QuestionItemTestDataFactory {
                         .referenceLocation("http://basic.maths")
                         .build()))
                 .createdBy("webFederatedUserId of author")
-                .createdDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME));
+                .createdDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME))
+                .updatedBy("webFederatedUserId of editor")
+                .updatedDateTime(ZonedDateTime.parse("2018-05-20T18:02:12.042Z", ISO_ZONED_DATE_TIME))
+                .status(APPROVED)
+                .votes(10);
     }
 
     /**
@@ -62,7 +67,11 @@ public class QuestionItemTestDataFactory {
                         .referenceLocation("http://basic.maths")
                         .build()))
                 .createdBy("webFederatedUserId of author")
-                .createdDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME));
+                .createdDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME))
+                .updatedBy("webFederatedUserId of editor")
+                .updatedDateTime(ZonedDateTime.parse("2018-05-20T18:02:12.042Z", ISO_ZONED_DATE_TIME))
+                .status(APPROVED)
+                .votes(10);
     }
 
 }

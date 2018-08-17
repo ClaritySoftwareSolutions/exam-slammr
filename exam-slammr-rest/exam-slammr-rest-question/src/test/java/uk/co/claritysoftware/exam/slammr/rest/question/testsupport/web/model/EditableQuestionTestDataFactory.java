@@ -1,21 +1,21 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.testsupport.web.model;
 
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 import uk.co.claritysoftware.exam.slammr.rest.question.web.model.FurtherReading;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 
 /**
- * Test data factory for {@link QuestionCreateRequest} instances
+ * Test data factory for {@link EditableQuestion} instances
  */
-public class QuestionCreateRequestTestDataFactory {
+public class EditableQuestionTestDataFactory {
 
     /**
-     * @return a Question Create Request Builder containing a valid question, ready to have it's build method called
+     * @return an Editable Builder containing a valid question, ready to have it's build method called
      */
-    public static QuestionCreateRequest.QuestionCreateRequestBuilder aSimpleQuestionCreateRequestAboutSquares() {
-        return QuestionCreateRequest.builder()
+    public static EditableQuestion.EditableQuestionBuilder aSimpleQuestionCreateRequestAboutSquares() {
+        return EditableQuestion.builder()
                 .questionText("How many sides does a square have?")
                 .tags(newHashSet("maths", "geometry"))
                 .certifications(newHashSet("Basic Maths"))
@@ -28,10 +28,10 @@ public class QuestionCreateRequestTestDataFactory {
     }
 
     /**
-     * @return a Question Create Request Builder containing a valid question, ready to have it's build method called
+     * @return an Editable Question Builder containing a valid question, ready to have it's build method called
      */
-    public static QuestionCreateRequest.QuestionCreateRequestBuilder aSimpleQuestionCreateRequestAboutTriangles() {
-        return QuestionCreateRequest.builder()
+    public static EditableQuestion.EditableQuestionBuilder aSimpleQuestionCreateRequestAboutTriangles() {
+        return EditableQuestion.builder()
                 .questionText("How many sides does a triangle have?")
                 .tags(newHashSet("maths", "geometry"))
                 .certifications(newHashSet("Basic Maths"))

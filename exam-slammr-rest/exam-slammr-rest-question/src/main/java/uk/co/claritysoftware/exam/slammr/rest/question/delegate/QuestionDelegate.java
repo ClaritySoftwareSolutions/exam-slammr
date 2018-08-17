@@ -7,7 +7,7 @@ import uk.co.claritysoftware.exam.slammr.rest.question.exception.QuestionCreateE
 import uk.co.claritysoftware.exam.slammr.rest.question.factory.QuestionItemFactory;
 import uk.co.claritysoftware.exam.slammr.rest.question.service.QuestionService;
 import uk.co.claritysoftware.exam.slammr.rest.question.service.dynamodb.QuestionItem;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.model.QuestionCreateRequest;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
 
 /**
  * Delegate class for Question concerns
@@ -29,15 +29,15 @@ public class QuestionDelegate {
     /**
      * Saves a new Question and returns it's id
      *
-     * @param questionCreateRequest the new question request from the client to save
-     * @param identityId            the identity id of the user creating the new question
+     * @param editableQuestion the new question request from the client to save
+     * @param identityId       the identity id of the user creating the new question
      * @return the id of the new question
      */
-    public String createQuestion(QuestionCreateRequest questionCreateRequest, String identityId) {
-        log.debug("Create Question with request {}", questionCreateRequest);
+    public String createQuestion(EditableQuestion editableQuestion, String identityId) {
+        log.debug("Create Question with request {}", editableQuestion);
 
-        QuestionItem newQuestionItem = questionItemFactory.valueOf(questionCreateRequest, identityId);
-        return questionService.createQuestion(newQuestionItem)
-                .orElseThrow(() -> new QuestionCreateException(questionCreateRequest));
+        QuestionItem unsavedQuestionItem = questionItemFactory.unsavedQuestionItem(editableQuestion, identityId);
+        return questionService.createQuestion(unsavedQuestionItem)
+                .orElseThrow(() -> new QuestionCreateException(editableQuestion));
     }
 }

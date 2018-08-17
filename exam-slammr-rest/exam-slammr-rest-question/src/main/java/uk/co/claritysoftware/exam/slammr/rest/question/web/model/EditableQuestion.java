@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Encapsulates the data for a new Question creation request
+ * Encapsulates the data to create or update a Question
  */
 @Value
 @Builder
 @QuestionHasAnswers
-public final class QuestionCreateRequest implements Question {
+public final class EditableQuestion {
 
     @NotBlank
     private final String questionText;
@@ -28,7 +28,7 @@ public final class QuestionCreateRequest implements Question {
     private final List<String> answers;
 
     /**
-     * A set indicating which of the {@link QuestionCreateRequest#answers} are the correct answer(s) by their (1 based) index
+     * A set indicating which of the {@link EditableQuestion#answers} are the correct answer(s) by their (1 based) index
      */
     @Size(min = 1)
     private final Set<Integer> correctAnswers;

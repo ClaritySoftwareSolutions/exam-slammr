@@ -33,7 +33,7 @@ public class QuestionService {
         log.debug("Get Question with id HashKey {}", id);
         QuestionItem questionItem = getQuestionFromDynamoDb(id);
         if (questionItem == null) {
-            log.info("QuestionItem with id HashKey {} not found", id);
+            log.warn("QuestionItem with id HashKey {} not found", id);
         }
         return Optional.ofNullable(questionItem);
     }

@@ -16,9 +16,9 @@ import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Unit test class for {@link QuestionCreateRequest}
+ * Unit test class for {@link EditableQuestion}
  */
-public class QuestionCreateRequestTest {
+public class EditableQuestionTest {
 
     private static Validator validator;
 
@@ -31,7 +31,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldValidateGivenValidFields() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
@@ -46,7 +46,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).isEmpty();
@@ -55,7 +55,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldValidateGivenNullFurtherReadings() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
@@ -65,7 +65,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).isEmpty();
@@ -74,7 +74,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldNotValidateGivenQuestionTextFieldInError() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("   ")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(1))
@@ -84,7 +84,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).hasSize(1);
@@ -95,7 +95,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldNotValidateGivenAnswersFieldInError() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(null)
                 .correctAnswers(newHashSet(1))
@@ -105,7 +105,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).hasSize(1);
@@ -114,7 +114,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldNotValidateGivenCorrectAnswersFieldInError() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(null)
@@ -124,7 +124,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).hasSize(1);
@@ -133,7 +133,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldNotValidateGivenTagsFieldInError() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(2))
@@ -143,7 +143,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).hasSize(1);
@@ -154,7 +154,7 @@ public class QuestionCreateRequestTest {
     @Test
     public void shouldNotValidateGivenCertificationsFieldInError() {
         // Given
-        QuestionCreateRequest questionCreateRequest = QuestionCreateRequest.builder()
+        EditableQuestion editableQuestion = EditableQuestion.builder()
                 .questionText("What colour is the sky?")
                 .answers(asList("red", "blue", "green"))
                 .correctAnswers(newHashSet(2))
@@ -164,7 +164,7 @@ public class QuestionCreateRequestTest {
                 .build();
 
         // When
-        Set<ConstraintViolation<QuestionCreateRequest>> violations = validator.validate(questionCreateRequest);
+        Set<ConstraintViolation<EditableQuestion>> violations = validator.validate(editableQuestion);
 
         // Then
         assertThat(violations).hasSize(1);
@@ -174,7 +174,7 @@ public class QuestionCreateRequestTest {
 
     @Test
     public void shouldHonourEqualsHashcodeContract() {
-        EqualsVerifier.forClass(QuestionCreateRequest.class)
+        EqualsVerifier.forClass(EditableQuestion.class)
                 .verify();
     }
 

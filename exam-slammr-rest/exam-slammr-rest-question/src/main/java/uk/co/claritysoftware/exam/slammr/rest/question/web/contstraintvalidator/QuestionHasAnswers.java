@@ -1,5 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator;
 
+import uk.co.claritysoftware.exam.slammr.rest.question.web.model.EditableQuestion;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -11,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * {@link Constraint} annotation that uses {@link QuestionHasAnswersConstraintValidator} as it's implementation to validate
- * a Question instance has more answer choices than correct answers, and that all of the correct answers are for valid questions.
+ * a {@link EditableQuestion} has more answer choices than correct answers, and that all of the correct answers are for valid questions.
  */
 @Target({TYPE})
 @Retention(RUNTIME)
