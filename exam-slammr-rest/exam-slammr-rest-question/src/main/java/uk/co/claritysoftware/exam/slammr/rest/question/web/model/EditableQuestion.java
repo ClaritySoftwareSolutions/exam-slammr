@@ -1,14 +1,14 @@
 package uk.co.claritysoftware.exam.slammr.rest.question.web.model;
 
-import lombok.Builder;
-import lombok.Value;
-import uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator.QuestionHasAnswers;
-
+import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
-import java.util.Set;
+import uk.co.claritysoftware.exam.slammr.rest.question.web.contstraintvalidator.QuestionHasAnswers;
+
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * Encapsulates the data to create or update a Question
@@ -19,19 +19,19 @@ import java.util.Set;
 public final class EditableQuestion {
 
     @NotBlank
-    private final String questionText;
+    private String questionText;
 
     /**
      * A simple list of answers
      */
     @Size(min = 1)
-    private final List<String> answers;
+    private List<String> answers;
 
     /**
      * A set indicating which of the {@link EditableQuestion#answers} are the correct answer(s) by their (1 based) index
      */
     @Size(min = 1)
-    private final Set<Integer> correctAnswers;
+    private Set<Integer> correctAnswers;
 
     @Size(min = 1)
     private Set<String> tags;
