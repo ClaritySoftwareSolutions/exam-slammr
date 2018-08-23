@@ -16,6 +16,7 @@
         <module>exam-slammr-rest</module>
 		<module>exam-slammr-cloud-config-server</module>
 		<module>exam-slammr-web-testsupport</module>
+		<module>exam-slammr-webapp</module>
 	</modules>
 
 	<properties>
@@ -25,8 +26,17 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 
+<!--
 		<spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+-->
+		<spring-boot.version>1.5.15.RELEASE</spring-boot.version>
+<!--
 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+-->
+		<spring-cloud.version>Edgware.SR4</spring-cloud.version>
+
+		<hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
 
 		<equalsverifier.version>2.3.1</equalsverifier.version>
 		<lombok.version>1.16.20</lombok.version>
@@ -81,6 +91,23 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.7.12</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator-annotation-processor</artifactId>
+				<version>${hibernate-validator.version}</version>
 			</dependency>
 
 			<dependency>

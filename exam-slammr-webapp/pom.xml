@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>exam-slammr</artifactId>
+		<groupId>uk.co.claritysoftware</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>exam-slammr-webapp</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>Exam Slammr Webapp</name>
+	<description>Spring Boot Exam Slammr Web Client Application</description>
+
+	<properties>
+<!--
+		<spring-social-core.version>1.1.6.RELEASE</spring-social-core.version>
+		<spring-social-facebook.version>2.0.3.RELEASE</spring-social-facebook.version>
+-->
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>uk.co.claritysoftware</groupId>
+			<artifactId>exam-slammr-rest-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+<!--
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>${spring-social-core.version}</version>
+		</dependency>
+
+-->
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+<!--
+			<version>${spring-social-facebook.version}</version>
+-->
+		</dependency>
+
+		<dependency>
+			<groupId>uk.co.claritysoftware</groupId>
+			<artifactId>exam-slammr-web-testsupport</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
