@@ -1,0 +1,136 @@
+body {
+    font-family: Lato, "Helvetica Neue", Sans-serif;
+    padding-top: 50px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:active, a:visited {
+    text-decoration: none;
+}
+
+#top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: aliceblue;
+    border-top: 2px solid orange;
+    border-bottom: 1px solid silver;
+    height: 50px;
+}
+#top-bar .container, .hero .container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    overflow: auto;
+}
+
+#top-bar a:hover, #top-bar a:hover {
+    text-decoration: none;
+}
+
+#top-bar h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    width: 180px;
+}
+#top-bar form {
+    position: relative;
+}
+#top-bar form input {
+    border: 1px solid lightblue;
+    border-radius: 3px;
+    padding: 3px 35px 3px 15px;
+    background-color: white;
+    z-index: 110;
+    position: relative;
+    width: 300px;
+}
+#top-bar form input:focus {
+    z-index: 90;
+}
+#top-bar form button {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    color: white;
+    background-color: dodgerblue;
+    line-height: 1.75;
+    width: 30px;
+    z-index: 100;
+    border: 0;
+}
+#top-bar form button:hover {
+    cursor: pointer;
+}
+
+#top-bar ol {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+#top-bar ol li {
+    line-height: 3;
+}
+#top-bar ol .ctas a {
+    padding: 5px 10px;
+    border-radius: 2px;
+    margin-left: 10px;
+}
+#top-bar ol .ctas .primary:hover {
+    background-color: rgba(0,119,204,0.1);
+}
+#top-bar ol .ctas .secondary {
+    color: white;
+    background-color: #0095ff;
+    border: 1px solid #07c;
+    box-shadow: inset 0 1px 0 #66bfff;
+}
+#top-bar ol .ctas .secondary:hover {
+    background-color: #07c;
+    border-color: #005999;
+}
+
+
+.hero {
+    width: 100%;
+    font-size: 1.125rem;
+}
+.hero .container {
+    align-items: normal;
+}
+.hero.register {
+    background-color: #005999;
+    color: white;
+}
+.hero.register article {
+    flex: 50%;
+    padding: 30px;
+}
+.hero.register a {
+    font-weight: bold;
+}
+.hero.register a:hover {
+    text-decoration: underline;
+    color: inherit;
+}
+.hero.register .action p {
+    font-size: 0.875rem;
+}
+.hero.register .for-business {
+    background-color: mediumblue;
+}
+.hero.register .for-business h4 {
+    font-size: inherit;
+    margin: 0;
+    line-height: 2rem;
+}
+.hero.register .for-business h4 a {
+    margin-left: 10px;
+}
