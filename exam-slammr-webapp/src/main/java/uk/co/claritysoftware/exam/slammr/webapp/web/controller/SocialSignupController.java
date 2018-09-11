@@ -28,7 +28,7 @@ import uk.co.claritysoftware.exam.slammr.webapp.web.model.SocialUserSignUp;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Controller to handle user sign-ups fusing their social identity
+ * Controller to handle user sign-ups using a user's social identity.
  */
 @Slf4j
 @Controller
@@ -45,6 +45,11 @@ public class SocialSignupController {
 		this.userProfileService = userProfileService;
 	}
 
+	/**
+	 * Endpoint called via a redirect from Spring Social's {@code /auth/<provider>} endpoints. The user has authenticated
+	 * with the social provider, and this is the callback endpoint to allow us to present a 'new user profile sign up form'
+	 * to create the new user profile.
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String getSignupForm(Principal principal, Model model, WebRequest webRequest) {
 
@@ -62,6 +67,11 @@ public class SocialSignupController {
 		}
 	}
 
+	/**
+	 * Endpoint to handle the processing of our user profile sign up form.
+	 * <p>
+	 * Creates a new user profile record, and sets the security context authentication such that the user is logged in.
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String handleSignup(@Valid SocialUserSignUp socialUserSignUp, WebRequest webRequest) {
 

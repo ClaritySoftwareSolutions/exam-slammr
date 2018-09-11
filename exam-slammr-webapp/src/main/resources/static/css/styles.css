@@ -158,45 +158,44 @@ a:active, a:visited {
 .hero .container {
     align-items: normal;
 }
-.hero.register {
+.register, .login {
     background-color: #005999;
     color: white;
 }
-.hero.register article {
-    flex: 50%;
+.register article, .login article {
     padding: 30px;
 }
-.hero.register a {
+.register a, .login a {
     font-weight: bold;
 }
-.hero.register a:hover {
+.register a:hover, .login a:hover {
     text-decoration: underline;
     color: inherit;
 }
-.hero.register .action ul {
+.register .action ul, .login .action ul {
     padding: 0;
     display: flex;
     margin: 30px 0;
 }
-.hero.register .action form {
+.register .action form, .login .action form {
     flex: 33%;
     margin: 10px;
 }
-.hero.register .action button {
+.register .action button, .login .action button {
     width: 100%;
 }
-.hero.register .action .subtext {
+.register .action .subtext, .login .action .subtext {
     font-size: 0.875rem;
 }
-.hero.register .for-business {
+.register .for-business {
     background-color: mediumblue;
 }
-.hero.register .for-business h4 {
+.register .for-business h4 {
     font-size: inherit;
     margin: 0;
     line-height: 2rem;
 }
-.hero.register .for-business h4 a {
+.register .for-business h4 a {
     margin-left: 10px;
 }
 
@@ -224,6 +223,9 @@ a:active, a:visited {
     transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
 }
 
+.home.register article {
+    flex: 50%;
+}
 .home.container {
     display: flex
 }
