@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: examSlammrWebapp
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+

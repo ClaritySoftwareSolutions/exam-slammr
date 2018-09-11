@@ -1,30 +1,114 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:social="http://spring.io/springsocial"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:social="http://spring.io/springsocial"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorator="layout">
 	<head>
-		<title>Spring Social Showcase</title>
-		<link rel="stylesheet" th:href="@{/page.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/form.css}" type="text/css" media="screen"></link>
-		<link rel="stylesheet" th:href="@{/messages/messages.css}" type="text/css" media="screen"></link>
+        <title>Exam Slammr</title>
+        <th:block th:remove="all">
+            <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
+            <link rel="stylesheet" href="../static/css/styles.css" type="text/css" media="screen" />
+        </th:block>
 	</head>
 	<body>
-		<div id="header">
-			<h1><a th:href="@{/}">Spring Social Showcase</a></h1>
+
+		<div layout:fragment="content">
+            <section class="hero register" sec:authorize="isAnonymous()">
+                <div class="container">
+                    <article class="explanation">
+                        <h2>Study, practice, learn and share</h2>
+                        <p>Demonstrate and share your knowledge with the community by creating questions.<br/>
+                            Earn kudos from your peers by creating great questions.</p>
+                        <p>Prepare for exams and certifications by choosing and attempting questions.</p>
+                    </article>
+                    <article class="action">
+                        <h2>Sign Up using your social identity</h2>
+                        <ul>
+                            <form th:action="@{/auth/linkedin}" method="POST">
+                                <input type="hidden" name="scope" value="r_basicprofile,r_emailaddress" />
+                                <button type="submit">
+                                    <i class="fab fa-linkedin"></i>
+                                    Linkedin
+                                </button>
+                            </form>
+                            <form th:action="@{/auth/facebook}" method="POST">
+                                <input type="hidden" name="scope" value="public_profile,email" />
+                                <button type="submit">
+                                    <i class="fab fa-facebook-f"></i>
+                                    Facebook
+                                </button>
+                            </form>
+                            <form th:action="@{/auth/twitter}" method="POST">
+                                <button type="submit">
+                                    <i class="fab fa-twitter"></i>
+                                    Twitter
+                                </button>
+                            </form>
+                        </ul>
+                        <p class="subtext">By Signing Up, you acknowledge that you have read our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie policy</a>,
+                            and that your continued use of the website is subject to these policies.</p>
+                    </article>
+                </div>
+                <div class="for-business">
+                    <div class="container">
+                        <h4>Exam Slammr For Business: curate your own collections of questions to use in technical interviews. <a href="#">Learn more</a></h4>
+                    </div>
+                </div>
+            </section>
+
+            <div class="home container">
+                <div class="left">
+                    <section class="sticky-left-nav">
+                        <p>blah</p>
+                        <p>blah</p>
+                        <p>blah</p>
+                        <p>blah</p>
+                        <p>blah</p>
+                    </section>
+                </div>
+                <section class="main-content">
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                    <p>blah</p>
+                </section>
+            </div>
 		</div>
-		
-		<div id="leftNav">
-			Left nav menu
-		</div>
-		
-		<div id="content" layout:fragment="content">
-			<p>Welcome, <span th:text="${'account.firstName'}">first-name</span>!</p>
-			
-			<form method="POST" th:action="@{/signout}">
-				<input type="hidden" name="_csrf" th:value="${'_csrf.token'}" />
-				<button>Sign Out</button>
-			</form>
-		</div>		
-	</body>
+
+        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" />
+    </body>
 </html>

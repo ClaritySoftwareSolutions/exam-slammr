@@ -1,5 +1,5 @@
 body {
-    font-family: Lato, "Helvetica Neue", Sans-serif;
+    font-family: Lato, "Helvetica Neue", sans-serif;
     padding-top: 50px;
 }
 
@@ -25,7 +25,9 @@ a:active, a:visited {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    /*
     overflow: auto;
+    */
 }
 
 #top-bar a:hover, #top-bar a:hover {
@@ -75,8 +77,12 @@ a:active, a:visited {
     justify-content: flex-end;
 }
 
-#top-bar ol li {
+#top-bar ol > li {
     line-height: 3;
+}
+#top-bar ol > li i {
+    cursor: pointer;
+    margin-left: 10px;
 }
 #top-bar ol .ctas a {
     padding: 5px 10px;
@@ -97,6 +103,53 @@ a:active, a:visited {
     border-color: #005999;
 }
 
+#top-bar ol .user-profile-actions > i {
+    position: relative;
+}
+
+#top-bar ol .user-profile-actions:hover ul {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s, visibility 0s;
+}
+
+#top-bar ol .user-profile-actions ul {
+    margin-top: 1.2rem;
+    position: absolute;
+    font-family: Lato, "Helvetica Neue", sans-serif;
+    list-style-type: none;
+    right: 0;
+    top: 00px;
+    background: white;
+    padding: 0 15px;
+    border: 1px solid darkgray;
+    width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0s;
+    transition-delay: 1s;
+}
+#top-bar ol .user-profile-actions li {
+    line-height: 3;
+}
+#top-bar ol .user-profile-actions li:not(:first-of-type) {
+    border-top: 1px dashed lightblue;
+}
+#top-bar ol .user-profile-actions form {
+    display: inline;
+}
+#top-bar ol .user-profile-actions button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    position: inherit;
+    color: inherit;
+    width: auto;
+    line-height: inherit;
+    top: 0;
+    right: 0;
+}
 
 .hero {
     width: 100%;
@@ -120,7 +173,19 @@ a:active, a:visited {
     text-decoration: underline;
     color: inherit;
 }
-.hero.register .action p {
+.hero.register .action ul {
+    padding: 0;
+    display: flex;
+    margin: 30px 0;
+}
+.hero.register .action form {
+    flex: 33%;
+    margin: 10px;
+}
+.hero.register .action button {
+    width: 100%;
+}
+.hero.register .action .subtext {
     font-size: 0.875rem;
 }
 .hero.register .for-business {
@@ -133,4 +198,42 @@ a:active, a:visited {
 }
 .hero.register .for-business h4 a {
     margin-left: 10px;
+}
+
+#signup form {
+    margin: 30px 0;
+}
+#signup label, #signup input {
+    display: block;
+}
+#signup input {
+    margin-bottom: 15px;
+}
+#signup .helpText {
+    opacity: 0;
+    visibility: hidden;
+    margin-bottom: 0px;
+    font-size: 0;
+    display: block;
+}
+#signup input:focus + .helpText {
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
+}
+
+.home.container {
+    display: flex
+}
+.home .left {
+    width: 150px;
+}
+.home .sticky-left-nav {
+    position: sticky;
+    top: 50px;
+}
+.home .main-content {
+    width: calc(100% - 150px);
 }

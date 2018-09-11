@@ -17,8 +17,20 @@
 	<description>Spring Boot microservice for User concerns</description>
 
 	<properties>
-		<aws-dynamodb.version>1.11.289</aws-dynamodb.version>
+		<aws-java-sdk.version>1.11.401</aws-java-sdk.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-bom</artifactId>
+				<version>${aws-java-sdk.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -30,7 +42,6 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-dynamodb</artifactId>
-			<version>${aws-dynamodb.version}</version>
 		</dependency>
 
 		<dependency>
