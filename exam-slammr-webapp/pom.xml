@@ -20,6 +20,7 @@
 		<h2.version>1.4.197</h2.version>
 		<aws-java-sdk.version>1.11.401</aws-java-sdk.version>
 		<spring-data-dynamodb.version>4.5.7</spring-data-dynamodb.version>
+		<jsoup.version>1.11.3</jsoup.version>
 	</properties>
 
 	<dependencyManagement>
@@ -173,6 +174,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -194,6 +200,13 @@
 			<artifactId>equalsverifier</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
