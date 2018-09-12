@@ -1,5 +1,8 @@
 package uk.co.claritysoftware.exam.slammr.webapp.security.springsocial;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.dao.DuplicateKeyException;
@@ -96,13 +99,12 @@ public class DynamoDBConnectionRepository implements ConnectionRepository {
 					.accessToken(encrypt(data.getAccessToken()))
 					.secret(encrypt(data.getSecret()))
 					.refreshToken(encrypt(data.getRefreshToken()))
-					.expireTime(data.getExpireTime())
+					.expireTime(toZonedDateTime(data.getExpireTime()))
 					.build();
 			userConnectionRepository.save(userConnectionItem);
 		} catch (DuplicateKeyException e) {
 			throw new DuplicateConnectionException(connection.getKey());
 		}
-
 	}
 
 	@Override
@@ -116,7 +118,7 @@ public class DynamoDBConnectionRepository implements ConnectionRepository {
 				.accessToken(encrypt(data.getAccessToken()))
 				.secret(encrypt(data.getSecret()))
 				.refreshToken(encrypt(data.getRefreshToken()))
-				.expireTime(data.getExpireTime())
+				.expireTime(toZonedDateTime(data.getExpireTime()))
 				.build();
 		userConnectionRepository.save(updatedUserConnectionItem);
 	}
@@ -139,15 +141,25 @@ public class DynamoDBConnectionRepository implements ConnectionRepository {
 		return encryptedText != null ? textEncryptor.decrypt(encryptedText) : encryptedText;
 	}
 
-	private Long expireTime(long expireTime) {
-		return expireTime == 0 ? null : expireTime;
+	private ZonedDateTime toZonedDateTime(Long millisSinceEpoch) {
+		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(millisSinceEpoch), ZoneOffset.UTC);
+	}
+
+	private Long toMillis(ZonedDateTime expireTime) {
+		return expireTime == null ? null : expireTime.toInstant().toEpochMilli();
 	}
 
 	private Connection<?> createConnection(UserConnectionItem userConnectionItem) {
 		ConnectionData connectionData = new ConnectionData(
-				userConnectionItem.getProviderId(), userConnectionItem.getProviderUserId(), userConnectionItem.getDisplayName(),
-				userConnectionItem.getProfileUrl(), userConnectionItem.getImageUrl(), decrypt(userConnectionItem.getAccessToken()),
-				decrypt(userConnectionItem.getSecret()), decrypt(userConnectionItem.getRefreshToken()), expireTime(userConnectionItem.getExpireTime()));
+				userConnectionItem.getProviderId(),
+				userConnectionItem.getProviderUserId(),
+				userConnectionItem.getDisplayName(),
+				userConnectionItem.getProfileUrl(),
+				userConnectionItem.getImageUrl(),
+				decrypt(userConnectionItem.getAccessToken()),
+				decrypt(userConnectionItem.getSecret()),
+				decrypt(userConnectionItem.getRefreshToken()),
+				toMillis(userConnectionItem.getExpireTime()));
 		ConnectionFactory<?> connectionFactory = connectionFactoryLocator.getConnectionFactory(connectionData.getProviderId());
 		return connectionFactory.createConnection(connectionData);
 	}

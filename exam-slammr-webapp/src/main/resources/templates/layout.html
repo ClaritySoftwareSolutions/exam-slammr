@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	  xmlns:social="http://spring.io/springsocial"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-	<head>
-		<title>Exam Slammr</title>
-        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
-		<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" type="text/css" media="screen" />
-	</head>
-	<body>
-		<header id="top-bar">
-			<div class="container">
-				<h1><a href="#" th:href="@{/}">Exam Slammr</a></h1>
-				<form id="search" autocomplete="off" role="search">
-					<input name="q" placeholder="Search ..." type="text" />
-					<button type="submit" aria-label="Search ...">
-						<span class="fa fa-search" aria-hidden="true"></span>
-					</button>
-				</form>
-				<ol>
-					<li class="ctas" sec:authorize="isAnonymous()">
-						<a href="#" th:href="@{/login}" class="primary">Login</a>
-						<a href="#" th:href="@{/register}" class="secondary">Register</a>
-					</li>
-                    <li class="user-profile-actions" sec:authorize="isAuthenticated()">
-                        <i class="far fa-user">
-                            <ul>
-                                <li>
-                                    <i class="far fa-edit"></i>
-                                    <a href="#" th:href="@{/user-profile}">Profile</a>
-                                </li>
-                                <li>
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <form method="POST" th:action="@{/logout}">
-                                        <button type="submit">Logout</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </i>
-                    </li>
-				</ol>
-			</div>
-		</header>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Exam Slammr</title>
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" type="text/css" media="screen"/>
+</head>
+<body>
 
-        <div layout:fragment="content" th:remove="tag">
-            Content goes here
-        </div>
+<header id="top-bar">
+    <div class="container">
+        <h1><a href="#" th:href="@{/}">Exam Slammr</a></h1>
+        <form id="search" autocomplete="off" role="search">
+            <input name="q" placeholder="Search ..." type="text"/>
+            <button type="submit" aria-label="Search ...">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+        <ol>
+            <li class="ctas" sec:authorize="isAnonymous()">
+                <a href="#" th:href="@{/login}" class="primary">Login</a>
+                <a href="#" th:href="@{/register}" class="secondary">Register</a>
+            </li>
+            <li class="user-profile-actions" sec:authorize="isAuthenticated()">
+                <i class="far fa-user">
+                    <ul>
+                        <li>
+                            <i class="far fa-edit"></i>
+                            <a href="#" th:href="@{/user-profile}">Profile</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <form method="POST" th:action="@{/logout}">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </i>
+            </li>
+        </ol>
+    </div>
+</header>
 
-        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" />
-	</body>
+<section id="main-content">
+    <div layout:fragment="content" th:remove="tag">
+        Content goes here
+    </div>
+</section>
+
+<footer id="footer">
+</footer>
+
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"/>
+</body>
 </html>

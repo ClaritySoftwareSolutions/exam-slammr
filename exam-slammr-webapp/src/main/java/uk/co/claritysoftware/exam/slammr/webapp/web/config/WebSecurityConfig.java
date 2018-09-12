@@ -18,11 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		http
 				.authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/signup").anonymous()
-				.antMatchers("/login").anonymous()
-				.antMatchers("/register").anonymous()
-				.antMatchers("/auth/*").anonymous()
+				.antMatchers("/**").permitAll()
 				.antMatchers("/user-profile").authenticated()
 			.and()
 				.logout()

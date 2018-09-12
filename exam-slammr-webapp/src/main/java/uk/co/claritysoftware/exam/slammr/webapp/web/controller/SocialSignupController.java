@@ -17,8 +17,9 @@ import org.springframework.social.security.SocialAuthenticationToken;
 import org.springframework.social.security.SocialUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactory;
 import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService;
@@ -50,9 +51,8 @@ public class SocialSignupController {
 	 * with the social provider, and this is the callback endpoint to allow us to present a 'new user profile sign up form'
 	 * to create the new user profile.
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String getSignupForm(Principal principal, Model model, WebRequest webRequest) {
-
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(webRequest);
 
 		if (principal == null && connection != null) {
@@ -60,7 +60,7 @@ public class SocialSignupController {
 			SocialUserSignUp socialUserSignUp = SocialUserSignUpFactory.valueOf(userProfile);
 			model.addAttribute("form", socialUserSignUp);
 			model.addAttribute("socialProvider", connection.getKey().getProviderId());
-			return "signup";
+			return "auth/signup";
 
 		} else {
 			return "redirect:/";
@@ -72,7 +72,7 @@ public class SocialSignupController {
 	 * <p>
 	 * Creates a new user profile record, and sets the security context authentication such that the user is logged in.
 	 */
-	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping
 	public String handleSignup(@Valid SocialUserSignUp socialUserSignUp, WebRequest webRequest) {
 
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(webRequest);

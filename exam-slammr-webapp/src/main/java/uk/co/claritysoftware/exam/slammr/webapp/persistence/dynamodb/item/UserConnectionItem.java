@@ -1,8 +1,12 @@
 package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item;
 
+import java.time.ZonedDateTime;
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.convertor.ZonedDateTimeConverter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,7 +54,8 @@ public final class UserConnectionItem {
 
 	private String refreshToken;
 
-	private Long expireTime;
+	@DynamoDBTypeConverted(converter = ZonedDateTimeConverter.class)
+	private ZonedDateTime expireTime;
 
 	public UserConnectionItem.UserConnectionItemBuilder copy() {
 		return UserConnectionItem.builder()
