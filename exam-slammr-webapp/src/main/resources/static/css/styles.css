@@ -252,6 +252,18 @@ button:hover {
     font-size: 1rem;
     transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
 }
+.standard-form :not(.error) p {
+    display: none
+}
+.standard-form .error input, .standard-form .error textarea {
+    display: inline-block;
+}
+.standard-form .error p {
+    display: inline-block;
+    color: firebrick;
+    vertical-align: top;
+}
+
 .standard-form .appendable-list-field ul {
     list-style: none;
     padding: 0;
