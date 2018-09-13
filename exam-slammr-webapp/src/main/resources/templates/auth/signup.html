@@ -23,26 +23,26 @@
         <p>Just confirm the details we've read from your <span th:remove="tag" th:text="${socialProvider}">social-provider</span> account and you are all set.</p>
         <form th:action="@{/signup}" th:object="${form}" method="post">
             <div>
-                <label for="firstname">First name <span>*</span></label>
-                <input id="firstname" required="true" th:field="*{firstName}"/>
+                <label for="firstname">First name<span>*</span></label>
+                <input type="text" id="firstname" required="true" th:field="*{firstName}"/>
                 <span class="helpText">We need your first and last names just so we know how to address you when emailing you. This is a required field and should be
                         no longer than 30 characters.</span>
             </div>
             <div>
-                <label for="lastName">Last name <span>*</span></label>
-                <input id="lastName" required="true" th:field="*{lastName}"/>
+                <label for="lastName">Last name<span>*</span></label>
+                <input type="text" id="lastName" required="true" th:field="*{lastName}"/>
                 <span class="helpText">We need your first and last names just so we know how to address you when emailing you. This is a required field and should be
                         no longer than 30 characters.</span>
             </div>
             <div>
-                <label for="nickname">Nickname <span>*</span></label>
-                <input id="nickname" required="true" th:field="*{nickName}"/>
+                <label for="nickname">Nickname<span>*</span></label>
+                <input type="text" id="nickname" required="true" th:field="*{nickName}"/>
                 <span class="helpText">We like our users to given themselves a nickname. We use this when displaying the author`s of questions or comments, and means
                             we don`t need to tell everyone your real name. This is a required field and should be no longer than 30 characters.</span>
             </div>
             <div>
-                <label for="email">Email Address <span>*</span></label>
-                <input id="email" required="true" th:field="*{email}"/>
+                <label for="email">Email Address<span>*</span></label>
+                <input type="email" id="email" required="true" th:field="*{email}"/>
                 <span class="helpText">We need your email address so that we can send you emails to do with Exam Slammr questions and comments. That`s all we use it for,
                             and that`s a promise!. This is a required field and should be no longer than 64 characters.</span>
             </div>

@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/**").permitAll()
 				.antMatchers("/user-profile").authenticated()
+				.antMatchers("/question").authenticated()
 			.and()
 				.logout()
 					.logoutSuccessUrl("/")

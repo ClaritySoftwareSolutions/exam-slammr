@@ -1,6 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -15,18 +16,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SocialUserSignUp {
+public final class SocialUserSignUp {
 
 	@NotBlank
+	@Max(30)
 	private String firstName;
 
 	@NotBlank
+	@Max(30)
 	private String lastName;
 
 	@NotBlank
+	@Max(30)
 	private String nickName;
 
 	@NotBlank
 	@Email
+	@Max(64)
 	private String email;
 }
