@@ -33,8 +33,8 @@
 
             <div class="appendable-list-field">
                 <label for="tag0">Tags</label>
-                <ul th:each="tag, stat : ${form.tags}">
-                    <li>
+                <ul>
+                    <li th:each="tag, stat : ${form.tags}">
                         <input type="text" id="tag0" th:id="${'tag' + stat.index}" th:field="*{tags[__${stat.index}__]}"/>
                     </li>
                     <li th:remove="all">
@@ -46,8 +46,8 @@
 
             <div class="appendable-list-field">
                 <label for="certification0">Certifications</label>
-                <ul th:each="certification, stat : ${form.certifications}">
-                    <li>
+                <ul>
+                    <li th:each="certification, stat : ${form.certifications}">
                         <input type="text" id="certification0" th:id="${'certification' + stat.index}" th:field="*{certifications[__${stat.index}__]}"/>
                     </li>
                     <li th:remove="all">
@@ -63,8 +63,8 @@
                     <label for="furtherReading0description">Description</label>
                     <label for="furtherReading0referenceLocation">Location</label>
                 </div>
-                <ul th:each="furtherReading, stat : ${form.furtherReadings}">
-                    <li>
+                <ul>
+                    <li th:each="furtherReading, stat : ${form.furtherReadings}">
                         <input type="text" id="furtherReading0description" th:id="${'furtherReading' + stat.index + 'description'}" th:field="*{furtherReadings[__${stat.index}__].description}"/>
                         <input type="text" id="furtherReading0referenceLocation" th:id="${'furtherReading' + stat.index + 'referenceLocation'}" th:field="*{furtherReadings[__${stat.index}__].referenceLocation}"/>
                     </li>
