@@ -22,4 +22,10 @@ public final class FurtherReading {
 
     private String referenceLocation;
 
+    /**
+     * @return a new FurtherReading instance with empty fields
+     */
+    public static FurtherReading generateEmptyFurtherReading() {
+        return FurtherReading.builder().build();
+    }
 }

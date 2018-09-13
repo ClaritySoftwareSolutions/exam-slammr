@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model.question;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +22,10 @@ public class CreateQuestionTest {
 				.action(null)
 				.summary(null)
 				.question(null)
+				.answerOptions(asList(
+						AnswerOption.builder().build(),
+						AnswerOption.builder().build()
+				))
 				.tags(singletonList(""))
 				.certifications(singletonList(""))
 				.furtherReadings(singletonList(FurtherReading.builder().build()))

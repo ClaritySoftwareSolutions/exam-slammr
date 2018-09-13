@@ -1,6 +1,8 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.AnswerOption.generateEmptyAnswerOption;
 import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion.generateEmptyCreateQuestion;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading.generateEmptyFurtherReading;
 
 import java.security.Principal;
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.AnswerOption;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading;
 
@@ -45,7 +48,11 @@ public class QuestionController {
 				return "question/create";
 
 			case addFurtherReading:
-				createQuestion.getFurtherReadings().add(FurtherReading.builder().build());
+				createQuestion.getFurtherReadings().add(generateEmptyFurtherReading());
+				return "question/create";
+
+			case addAnswer:
+				createQuestion.getAnswerOptions().add(generateEmptyAnswerOption());
 				return "question/create";
 
 			default:
