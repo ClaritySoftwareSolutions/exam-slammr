@@ -19,7 +19,7 @@
 <div layout:fragment="content">
     <div id="create-question" class="container">
         <h2>Create a question</h2>
-        <form th:action="@{/question}" th:object="${form}" method="post">
+        <form class="standard-form" th:action="@{/question}" th:object="${form}" method="post">
 
             <div>
                 <label for="summary">Summary<span>*</span></label>
@@ -31,22 +31,22 @@
                 <textarea id="questionText" th:field="*{question}"></textarea>
             </div>
 
-            <div>
+            <div class="appendable-list-field">
                 <label for="tag0">Tags</label>
                 <th:block th:each="tag, stat : ${form.tags}">
                     <input type="text" id="tag0" th:id="${'tag' + stat.index}" th:field="*{tags[__${stat.index}__]}"/>
                     <input type="text" id="tag1" th:remove="tag"/>
                 </th:block>
-                <button type="submit" name="action" value="addTag">+</button>
+                <button type="submit" name="action" value="addTag"><i class="far fa-plus-square"></i></button>
             </div>
 
-            <div>
+            <div class="appendable-list-field">
                 <label for="certification0">Certifications</label>
                 <th:block th:each="certification, stat : ${form.certifications}">
                     <input type="text" id="certification0" th:id="${'certification' + stat.index}" th:field="*{certifications[__${stat.index}__]}"/>
                     <input type="text" id="certification1" th:remove="tag"/>
                 </th:block>
-                <button type="submit" name="action" value="addCertification">+</button>
+                <button type="submit" name="action" value="addCertification"><i class="far fa-plus-square"></i></button>
             </div>
 
             <button type="submit" value="save" name="action">Save</button>

@@ -205,30 +205,6 @@ button:hover {
     margin-left: 10px;
 }
 
-#signup form {
-    margin: 30px 0;
-}
-#signup label, #signup input {
-    display: block;
-}
-#signup input {
-    margin-bottom: 15px;
-}
-#signup .helpText {
-    opacity: 0;
-    visibility: hidden;
-    margin-bottom: 0px;
-    font-size: 0;
-    display: block;
-}
-#signup input:focus + .helpText {
-    opacity: 1;
-    visibility: visible;
-    margin-bottom: 15px;
-    font-size: 1rem;
-    transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
-}
-
 .home.register article {
     flex: 50%;
 }
@@ -253,4 +229,41 @@ button:hover {
     flex-shrink: 0;
     min-height: 100px;
     background-color: #242729;
+}
+
+.standard-form {
+    margin: 30px 0;
+}
+.standard-form label, .standard-form input {
+    display: block;
+}
+.standard-form input, .standard-form textarea {
+    margin-bottom: 15px;
+    width: 300px;
+}
+.standard-form .helpText {
+    opacity: 0;
+    visibility: hidden;
+    margin-bottom: 0px;
+    font-size: 0;
+    display: block;
+}
+.standard-form input:focus + .helpText {
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
+}
+.standard-form .appendable-list-field input:last-of-type {
+    display: inline-block;
+}
+.standard-form .appendable-list-field button {
+    margin-left: 20px;
+    display: inline-block;
+    background: none;
+    padding: 0;
+    border: none;
+    font-size: 1.25rem;
+    vertical-align: top;
 }

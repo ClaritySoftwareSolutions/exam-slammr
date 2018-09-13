@@ -21,7 +21,7 @@
         <h2>Sign Up using your social identity</h2>
         <p>We only need a few details to sign you up with an Exam Slammr account and create your user profile.</p>
         <p>Just confirm the details we've read from your <span th:remove="tag" th:text="${socialProvider}">social-provider</span> account and you are all set.</p>
-        <form th:action="@{/signup}" th:object="${form}" method="post">
+        <form class="standard-form" th:action="@{/signup}" th:object="${form}" method="post">
             <div>
                 <label for="firstname">First name<span>*</span></label>
                 <input type="text" id="firstname" required="true" th:field="*{firstName}"/>
