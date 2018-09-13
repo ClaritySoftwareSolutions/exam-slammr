@@ -24,10 +24,10 @@ public final class CreateQuestion {
 	@NotNull
 	private Action action;
 
-	@NotEmpty
+	@NotEmpty(message = "{CreateQuestion.summary.NotEmpty.message}")
 	private String summary;
 
-	@NotEmpty
+	@NotEmpty(message = "{CreateQuestion.question.NotEmpty.message}")
 	private String question;
 
 	private List<String> tags;
