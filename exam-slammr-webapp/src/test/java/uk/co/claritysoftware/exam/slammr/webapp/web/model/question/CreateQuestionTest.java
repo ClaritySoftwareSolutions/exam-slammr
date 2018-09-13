@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.web.model;
+package uk.co.claritysoftware.exam.slammr.webapp.web.model.question;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 
 /**
  * Unit test class for {@link CreateQuestion}
@@ -22,6 +23,7 @@ public class CreateQuestionTest {
 				.question(null)
 				.tags(singletonList(""))
 				.certifications(singletonList(""))
+				.furtherReadings(singletonList(FurtherReading.builder().build()))
 				.build();
 
 		// When

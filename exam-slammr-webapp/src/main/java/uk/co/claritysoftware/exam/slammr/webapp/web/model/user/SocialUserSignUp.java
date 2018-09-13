@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.web.model;
+package uk.co.claritysoftware.exam.slammr.webapp.web.model.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;

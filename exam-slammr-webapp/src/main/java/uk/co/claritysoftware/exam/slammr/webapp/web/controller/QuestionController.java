@@ -1,6 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
-import static uk.co.claritysoftware.exam.slammr.webapp.web.model.CreateQuestion.generateEmptyCreateQuestion;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion.generateEmptyCreateQuestion;
 
 import java.security.Principal;
 import javax.validation.Valid;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uk.co.claritysoftware.exam.slammr.webapp.web.model.CreateQuestion;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading;
 
 /**
  * Controller to handle question page requests
@@ -22,8 +23,7 @@ import uk.co.claritysoftware.exam.slammr.webapp.web.model.CreateQuestion;
 public class QuestionController {
 
 	@GetMapping("/new")
-	public String getQuestionPage(Principal principal, Model model
-	) {
+	public String getQuestionPage(Principal principal, Model model) {
 		if (principal == null) {
 			return "redirect:/login";
 		}
@@ -38,12 +38,14 @@ public class QuestionController {
 		switch(createQuestion.getAction()) {
 			case addCertification:
 				createQuestion.getCertifications().add("");
-				//model.addAttribute("form", createQuestion);
 				return "question/create";
 
 			case addTag:
 				createQuestion.getTags().add("");
-				//model.addAttribute("form", createQuestion);
+				return "question/create";
+
+			case addFurtherReading:
+				createQuestion.getFurtherReadings().add(FurtherReading.builder().build());
 				return "question/create";
 
 			default:

@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.web.model;
+package uk.co.claritysoftware.exam.slammr.webapp.web.model.question;
 
 import static java.util.Collections.singletonList;
 
@@ -34,6 +34,8 @@ public final class CreateQuestion {
 
 	private List<String> certifications;
 
+	private List<FurtherReading> furtherReadings;
+
 	/**
 	 * @return a new CreateQuestion instance with empty fields
 	 */
@@ -41,10 +43,11 @@ public final class CreateQuestion {
 		return CreateQuestion.builder()
 				.tags(singletonList(""))
 				.certifications(singletonList(""))
+                .furtherReadings(singletonList(FurtherReading.builder().build()))
 				.build();
 	}
 
 	public enum Action {
-		save, addTag, addCertification
+		save, addTag, addCertification, addFurtherReading
 	}
 }

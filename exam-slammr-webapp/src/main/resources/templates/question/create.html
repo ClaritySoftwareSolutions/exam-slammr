@@ -33,20 +33,47 @@
 
             <div class="appendable-list-field">
                 <label for="tag0">Tags</label>
-                <th:block th:each="tag, stat : ${form.tags}">
-                    <input type="text" id="tag0" th:id="${'tag' + stat.index}" th:field="*{tags[__${stat.index}__]}"/>
-                    <input type="text" id="tag1" th:remove="tag"/>
-                </th:block>
+                <ul th:each="tag, stat : ${form.tags}">
+                    <li>
+                        <input type="text" id="tag0" th:id="${'tag' + stat.index}" th:field="*{tags[__${stat.index}__]}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="tag1"/>
+                    </li>
+                </ul>
                 <button type="submit" name="action" value="addTag"><i class="far fa-plus-square"></i></button>
             </div>
 
             <div class="appendable-list-field">
                 <label for="certification0">Certifications</label>
-                <th:block th:each="certification, stat : ${form.certifications}">
-                    <input type="text" id="certification0" th:id="${'certification' + stat.index}" th:field="*{certifications[__${stat.index}__]}"/>
-                    <input type="text" id="certification1" th:remove="tag"/>
-                </th:block>
+                <ul th:each="certification, stat : ${form.certifications}">
+                    <li>
+                        <input type="text" id="certification0" th:id="${'certification' + stat.index}" th:field="*{certifications[__${stat.index}__]}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="certification1"/>
+                    </li>
+                </ul>
                 <button type="submit" name="action" value="addCertification"><i class="far fa-plus-square"></i></button>
+            </div>
+
+            <div class="appendable-list-field references">
+                <label for="furtherReading0description">References</label>
+                <div>
+                    <label for="furtherReading0description">Description</label>
+                    <label for="furtherReading0referenceLocation">Location</label>
+                </div>
+                <ul th:each="furtherReading, stat : ${form.furtherReadings}">
+                    <li>
+                        <input type="text" id="furtherReading0description" th:id="${'furtherReading' + stat.index + 'description'}" th:field="*{furtherReadings[__${stat.index}__].description}"/>
+                        <input type="text" id="furtherReading0referenceLocation" th:id="${'furtherReading' + stat.index + 'referenceLocation'}" th:field="*{furtherReadings[__${stat.index}__].referenceLocation}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="furtherReading1description"/>
+                        <input type="text" id="furtherReading1referenceLocation"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addFurtherReading"><i class="far fa-plus-square"></i></button>
             </div>
 
             <button type="submit" value="save" name="action">Save</button>

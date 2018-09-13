@@ -1,9 +1,10 @@
-package uk.co.claritysoftware.exam.slammr.webapp.web.model;
+package uk.co.claritysoftware.exam.slammr.webapp.web.model.user;
 
 import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp;
 
 /**
  * Unit test class for {@link SocialUserSignUp}

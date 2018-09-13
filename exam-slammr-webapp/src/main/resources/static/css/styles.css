@@ -34,9 +34,6 @@ button:hover {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    /*
-    overflow: auto;
-    */
 }
 
 #top-bar a:hover, #top-bar a:hover {
@@ -255,8 +252,13 @@ button:hover {
     font-size: 1rem;
     transition: opacity 0.25s, margin-bottom 0.25s, font-size 0.25s, visibility 0s;
 }
-.standard-form .appendable-list-field input:last-of-type {
+.standard-form .appendable-list-field ul {
+    list-style: none;
+    padding: 0;
     display: inline-block;
+}
+.standard-form .appendable-list-field li {
+    width: 300px;
 }
 .standard-form .appendable-list-field button {
     margin-left: 20px;
@@ -265,5 +267,29 @@ button:hover {
     padding: 0;
     border: none;
     font-size: 1.25rem;
-    vertical-align: top;
+    vertical-align: baseline;
+    position: relative;
+    top: 2px;
+}
+
+.standard-form .appendable-list-field.references div {
+    width: 90%;
+    display: flex;
+}
+.standard-form .appendable-list-field.references label {
+    flex: 1;
+}
+.standard-form .appendable-list-field.references ul {
+    width: 90%;
+}
+.standard-form .appendable-list-field.references li {
+    display: flex;
+    width: 100%;
+}
+.standard-form .appendable-list-field.references input {
+    flex: 1;
+    margin-right: 30px;
+}
+.standard-form .appendable-list-field.references button {
+    margin-left: 0;
 }

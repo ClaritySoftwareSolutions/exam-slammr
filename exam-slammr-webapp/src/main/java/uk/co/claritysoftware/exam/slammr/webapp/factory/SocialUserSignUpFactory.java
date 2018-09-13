@@ -1,7 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.factory;
 
 import org.springframework.social.connect.UserProfile;
-import uk.co.claritysoftware.exam.slammr.webapp.web.model.SocialUserSignUp;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp;
 
 /**
  * Factory class to create {@link SocialUserSignUp} instances
