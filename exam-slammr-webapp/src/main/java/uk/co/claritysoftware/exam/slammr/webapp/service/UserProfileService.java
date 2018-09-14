@@ -3,7 +3,7 @@ package uk.co.claritysoftware.exam.slammr.webapp.service;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.Optional;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserProfileItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserProfileItemRepository;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.ExamSlammrUserProfile;
 

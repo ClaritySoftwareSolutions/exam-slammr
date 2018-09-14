@@ -2,7 +2,7 @@ package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository
 
 import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserProfileItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 
 /**
  * Spring Data Spring Social repository for {@link UserProfileItem}

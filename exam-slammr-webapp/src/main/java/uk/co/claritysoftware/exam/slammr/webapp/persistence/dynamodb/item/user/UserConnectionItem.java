@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item;
+package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user;
 
 import java.time.ZonedDateTime;
 import com.amazonaws.annotation.Immutable;

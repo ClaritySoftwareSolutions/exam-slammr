@@ -9,7 +9,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserConnectionItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserConnectionItem;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserConnectionItemRepository;
 
 /**

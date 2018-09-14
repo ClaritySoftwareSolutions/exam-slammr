@@ -1,8 +1,6 @@
-package uk.co.claritysoftware.exam.slammr.webapp.service.dynamodb.item;
+package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user;
 
 import org.junit.Test;
-
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserProfileItem;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 

@@ -15,7 +15,7 @@ import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.DuplicateConnectionException;
 import org.springframework.util.MultiValueMap;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserConnectionItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserConnectionItem;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserConnectionItemRepository;
 
 /**

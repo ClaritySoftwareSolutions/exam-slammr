@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.UserProfileItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserProfileItemRepository;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.ExamSlammrUserProfile;
 
