@@ -33,6 +33,25 @@
                 <p th:errors="*{question}">Question text field cannot be blank</p>
             </div>
 
+            <div class="appendable-list-field answers">
+                <label for="answerOptions0answer">Answers</label>
+                <div>
+                    <label for="answerOptions0answer">Answer</label>
+                    <label for="answerOptions0correct">Correct</label>
+                </div>
+                <ul>
+                    <li th:each="answerOption, stat : ${form.answerOptions}">
+                        <textarea id="answerOptions0answer" th:id="${'answerOptions' + stat.index + 'answer'}" th:field="*{answerOptions[__${stat.index}__].answer}"></textarea>
+                        <input type="checkbox" id="answerOptions0correct" th:id="${'answerOptions' + stat.index + 'correct'}" th:field="*{answerOptions[__${stat.index}__].correct}"/>
+                    </li>
+                    <li th:remove="all">
+                        <textarea type="text" id="answerOptions1answer"></textarea>
+                        <input type="checkbox" id="answerOptions1correct"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addAnswer"><i class="far fa-plus-square"></i></button>
+            </div>
+
             <div class="appendable-list-field">
                 <label for="tag0">Tags</label>
                 <ul>

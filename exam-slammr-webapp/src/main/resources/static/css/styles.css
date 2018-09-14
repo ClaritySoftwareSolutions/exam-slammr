@@ -29,6 +29,7 @@ button:hover {
     border-top: 2px solid orange;
     border-bottom: 1px solid silver;
     height: 50px;
+    z-index: 9999;
 }
 #top-bar .container, .hero .container {
     display: flex;
@@ -238,6 +239,9 @@ button:hover {
     margin-bottom: 15px;
     width: 300px;
 }
+.standard-form textarea {
+    height: 100px;
+}
 .standard-form .helpText {
     opacity: 0;
     visibility: hidden;
@@ -284,24 +288,40 @@ button:hover {
     top: 2px;
 }
 
-.standard-form .appendable-list-field.references div {
+.standard-form .appendable-list-field.references div, .standard-form .appendable-list-field.answers div {
     width: 90%;
     display: flex;
 }
-.standard-form .appendable-list-field.references label {
+.standard-form .appendable-list-field.references label, .standard-form .appendable-list-field.answers label {
     flex: 1;
 }
-.standard-form .appendable-list-field.references ul {
+.standard-form .appendable-list-field.references ul, .standard-form .appendable-list-field.answers ul {
     width: 90%;
 }
-.standard-form .appendable-list-field.references li {
+.standard-form .appendable-list-field.references li, .standard-form .appendable-list-field.answers li {
     display: flex;
     width: 100%;
 }
-.standard-form .appendable-list-field.references input {
+.standard-form .appendable-list-field.references input, .standard-form .appendable-list-field.answers textarea,  .standard-form .appendable-list-field.answers input[type='checkbox'] {
     flex: 1;
     margin-right: 30px;
+    z-index: 10;
 }
-.standard-form .appendable-list-field.references button {
+.standard-form .appendable-list-field.references button, .standard-form .appendable-list-field.answers button {
     margin-left: 0;
+}
+.standard-form .appendable-list-field.answers input[type='checkbox'] {
+    position: relative;
+    font-size: 2rem;
+    left: -50px;
+    z-index: 0;
+}
+.standard-form .appendable-list-field.answers input[type='checkbox']:before {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    content: "\f0c8";
+    left: 50px;
+}
+.standard-form .appendable-list-field.answers input[type='checkbox']:checked:before {
+    content: "\f14a";
 }
