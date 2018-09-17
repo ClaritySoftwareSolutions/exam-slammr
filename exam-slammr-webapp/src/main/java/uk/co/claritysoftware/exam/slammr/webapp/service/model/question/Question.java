@@ -16,6 +16,8 @@ public class Question {
 
 	private String id;
 
+	private String summary;
+
 	private String questionText;
 
 	private List<AnswerOption> answers;
@@ -34,7 +36,7 @@ public class Question {
 
 	private ZonedDateTime updatedDateTime;
 
-	private String status;
+	private QuestionStatus status;
 
 	private int votes;
 

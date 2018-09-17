@@ -21,16 +21,16 @@
         <h2>Create a question</h2>
         <form class="standard-form" th:action="@{/question}" th:object="${form}" method="post">
 
-            <div th:class="${#fields.hasErrors('summary') ? 'error' : ''}">
+            <div th:class="${true == showBindErrors && #fields.hasErrors('summary') ? 'error' : ''}">
                 <label for="summary">Summary<span>*</span></label>
                 <input type="text" id="summary" th:field="*{summary}"/>
-                <p th:errors="*{summary}">Summary field cannot be blank</p>
+                <p th:if="${true == showBindErrors && #fields.hasErrors('summary')}" th:errors="*{summary}">Summary field cannot be blank</p>
             </div>
 
-            <div class="error" th:class="${#fields.hasErrors('question') ? 'error' : ''}">
+            <div class="error" th:class="${true == showBindErrors && #fields.hasErrors('question') ? 'error' : ''}">
                 <label for="questionText">Question<span>*</span></label>
                 <textarea id="questionText" th:field="*{question}"></textarea>
-                <p th:errors="*{question}">Question text field cannot be blank</p>
+                <p th:if="${true == showBindErrors && #fields.hasErrors('question')}" th:errors="*{question}">Question text field cannot be blank</p>
             </div>
 
             <div class="appendable-list-field answers">

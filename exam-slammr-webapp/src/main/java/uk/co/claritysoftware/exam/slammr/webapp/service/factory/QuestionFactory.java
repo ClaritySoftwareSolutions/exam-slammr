@@ -4,10 +4,10 @@ package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.AnswerDocument;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.FurtherReadingDocument;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionStatus;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOption;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus;
 
 import java.util.stream.Collectors;
 
@@ -25,6 +25,7 @@ public class QuestionFactory {
     public static Question valueOf(QuestionItem questionItem) {
         return questionItem != null ? Question.builder()
                 .id(questionItem.getId())
+                .summary(questionItem.getSummary())
                 .questionText(questionItem.getQuestionText())
                 .answers(questionItem.getAnswers().stream()
                         .map(answerDocument -> AnswerOption.builder()
@@ -40,7 +41,7 @@ public class QuestionFactory {
                                 .referenceLocation(furtherReadingDocument.getReferenceLocation())
                                 .build())
                         .collect(Collectors.toSet()))
-                .status(questionItem.getStatus().name())
+                .status(QuestionStatus.valueOf(questionItem.getStatus()))
                 .votes(questionItem.getVotes())
                 .createdBy(questionItem.getCreatedBy())
                 .createdDateTime(questionItem.getCreatedDateTime())
@@ -58,6 +59,7 @@ public class QuestionFactory {
     public static QuestionItem valueOf(Question question) {
         return question != null ? QuestionItem.builder()
                 .id(question.getId())
+                .summary(question.getSummary())
                 .questionText(question.getQuestionText())
                 .answers(question.getAnswers().stream()
                         .map(answerOption -> AnswerDocument.builder()
@@ -73,7 +75,7 @@ public class QuestionFactory {
                                 .referenceLocation(furtherReading.getReferenceLocation())
                                 .build())
                         .collect(Collectors.toSet()))
-                .status(QuestionStatus.valueOf(question.getStatus()))
+                .status(question.getStatus().name())
                 .votes(question.getVotes())
                 .createdBy(question.getCreatedBy())
                 .createdDateTime(question.getCreatedDateTime())
