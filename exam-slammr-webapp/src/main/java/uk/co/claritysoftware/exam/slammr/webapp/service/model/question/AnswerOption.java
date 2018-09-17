@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.service.model;
+package uk.co.claritysoftware.exam.slammr.webapp.service.model.question;
 
 import lombok.Builder;
 import lombok.Value;

@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.webapp.service.model;
+package uk.co.claritysoftware.exam.slammr.webapp.service.model.user;
 
 import java.time.ZonedDateTime;
 import java.util.Set;

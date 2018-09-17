@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactory;
 import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.ExamSlammrUserProfile;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp;
 
 import lombok.extern.slf4j.Slf4j;
