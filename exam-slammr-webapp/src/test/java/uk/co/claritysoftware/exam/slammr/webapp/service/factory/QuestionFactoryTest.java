@@ -1,12 +1,12 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 
-import org.junit.Test;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.question.QuestionItemTestDataFactory.aSimpleQuestionItemAboutTriangles;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
+
+import org.junit.Test;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 
 /**
  * Unit test class for {@link QuestionFactory}
@@ -44,10 +44,14 @@ public class QuestionFactoryTest {
     public void shouldDeriveQuestionItemValueOfGivenQuestion() {
         // Given
         Question question = aSimpleQuestionAboutTriangles().build();
-        QuestionItem expectedQuestionItem = aSimpleQuestionItemAboutTriangles().build();
+		String slug = "triangle-sides-question";
+        QuestionItem expectedQuestionItem = aSimpleQuestionItemAboutTriangles()
+				.id(question.getId())
+				.slug(slug)
+				.build();
 
         // When
-        QuestionItem questionItem = QuestionFactory.valueOf(question);
+        QuestionItem questionItem = QuestionFactory.valueOf(question, slug);
 
         // Then
         assertThat(questionItem)
@@ -58,9 +62,10 @@ public class QuestionFactoryTest {
     public void shouldNotDeriveQuestionItemValueOfGivenNullQuestion() {
         // Given
         Question question = null;
+        String slug = "some-question";
 
         // When
-        QuestionItem questionItem = QuestionFactory.valueOf(question);
+        QuestionItem questionItem = QuestionFactory.valueOf(question, slug);
 
         // Then
         assertThat(questionItem)

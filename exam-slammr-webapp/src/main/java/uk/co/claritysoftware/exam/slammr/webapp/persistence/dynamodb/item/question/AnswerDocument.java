@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question;
 
+import java.io.Serializable;
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @DynamoDBDocument
 @Immutable
-public final class AnswerDocument {
+public final class AnswerDocument implements Serializable {
 
     private String text;
 

@@ -1,13 +1,14 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service;
 
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbQuestionItemRepository;
-
-import lombok.extern.slf4j.Slf4j;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
-
 import static com.google.common.base.Preconditions.checkArgument;
 import static uk.co.claritysoftware.exam.slammr.webapp.service.factory.QuestionFactory.valueOf;
+
+import com.github.slugify.Slugify;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbQuestionItemRepository;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service for Question related operations
@@ -32,10 +33,17 @@ public class QuestionService {
 		checkArgument(question != null, "Cannot save a null Question");
 		checkArgument(question.getId() == null, "Cannot use this method to save an existing Question");
 
-		QuestionItem newQuestionItem = valueOf(question);
+		String slug = generateSlug(question.getSummary());
+		QuestionItem newQuestionItem = valueOf(question, slug);
 		Question savedQuestion = valueOf(questionItemRepository.save(newQuestionItem));
 		log.debug("Saved new Question {}", savedQuestion);
 		return savedQuestion;
+	}
+
+	private String generateSlug(String questionSummary) {
+		Slugify slugify = new Slugify();
+		String slug = slugify.slugify(questionSummary);
+		return slug;
 	}
 
 }

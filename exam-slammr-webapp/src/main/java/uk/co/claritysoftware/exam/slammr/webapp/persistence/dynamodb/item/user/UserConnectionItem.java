@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
@@ -27,7 +28,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @DynamoDBTable(tableName = "exam-slammr-user-connections")
 @Immutable
-public final class UserConnectionItem {
+public final class UserConnectionItem implements Serializable {
 
 	@NonNull
 	@DynamoDBHashKey

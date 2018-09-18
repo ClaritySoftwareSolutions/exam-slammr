@@ -1,15 +1,14 @@
 package uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.question;
 
 
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.AnswerDocument;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.FurtherReadingDocument;
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
-
-import java.time.ZonedDateTime;
-
 import static com.google.common.collect.Sets.newHashSet;
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
 import static java.util.Arrays.asList;
+
+import java.time.ZonedDateTime;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.AnswerDocument;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.FurtherReadingDocument;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
 
 /**
  * Test data factory for {@link QuestionItem} instances
@@ -21,7 +20,8 @@ public class QuestionItemTestDataFactory {
      */
     public static QuestionItem.QuestionItemBuilder aSimpleQuestionItemAboutSquares() {
         return QuestionItem.builder()
-                .id("1234")
+				.id("1234")
+				.slug("square-sides-question")
                 .summary("Square sides question")
                 .questionText("How many sides does a square have?")
                 .tags(newHashSet("maths", "geometry"))
@@ -51,7 +51,8 @@ public class QuestionItemTestDataFactory {
      */
     public static QuestionItem.QuestionItemBuilder aSimpleQuestionItemAboutTriangles() {
         return QuestionItem.builder()
-                .id("5678")
+				.id("5678")
+				.slug("triangle-sides-question")
                 .summary("Triangle sides question")
                 .questionText("How many sides does a triangle have?")
                 .tags(newHashSet("maths", "geometry"))

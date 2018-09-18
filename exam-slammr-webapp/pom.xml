@@ -109,6 +109,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.github.slugify</groupId>
+			<artifactId>slugify</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.derjust</groupId>
 			<artifactId>spring-data-dynamodb</artifactId>
 			<version>${spring-data-dynamodb.version}</version>

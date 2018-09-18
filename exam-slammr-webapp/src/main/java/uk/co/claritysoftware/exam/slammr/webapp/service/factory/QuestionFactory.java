@@ -1,6 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 
 
+import java.util.stream.Collectors;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.AnswerDocument;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.FurtherReadingDocument;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;
@@ -8,8 +9,6 @@ import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOpt
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus;
-
-import java.util.stream.Collectors;
 
 /**
  * Factory class to create instances to and from {@link Question} instances
@@ -54,11 +53,13 @@ public class QuestionFactory {
      * Creates a new {@link QuestionItem} from the specified {@link Question}
      *
      * @param question the Question to create the QuestionItem from
+     * @param slug the slug for this QuestionItem
      * @return a populated QuestionItem instance
      */
-    public static QuestionItem valueOf(Question question) {
+    public static QuestionItem valueOf(Question question, String slug) {
         return question != null ? QuestionItem.builder()
-                .id(question.getId())
+				.id(question.getId())
+				.slug(slug)
                 .summary(question.getSummary())
                 .questionText(question.getQuestionText())
                 .answers(question.getAnswers().stream()
