@@ -9,10 +9,8 @@ import java.security.Principal;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,34 +36,33 @@ public class QuestionController {
     }
 
     @GetMapping("/new")
-    public ModelAndView getQuestionPage(Model model) {
-        model.addAttribute("form", generateEmptyCreateQuestion());
-        return createQuestionViewHidingBindErrors();
+    public ModelAndView getQuestionPage() {
+        return createQuestionViewHidingBindErrors(generateEmptyCreateQuestion());
     }
 
     @PostMapping
-    public ModelAndView createNewQuestion(@Valid @ModelAttribute("form") CreateQuestion createQuestion, BindingResult bindingResult, Model model, Principal principal) {
+    public ModelAndView createNewQuestion(@Valid CreateQuestion createQuestion, BindingResult bindingResult, Principal principal) {
 
         switch (createQuestion.getAction()) {
             case addCertification:
                 createQuestion.getCertifications().add("");
-                return createQuestionViewHidingBindErrors();
+                return createQuestionViewHidingBindErrors(createQuestion);
 
             case addTag:
                 createQuestion.getTags().add("");
-                return createQuestionViewHidingBindErrors();
+                return createQuestionViewHidingBindErrors(createQuestion);
 
             case addFurtherReading:
                 createQuestion.getFurtherReadings().add(generateEmptyFurtherReading());
-                return createQuestionViewHidingBindErrors();
+                return createQuestionViewHidingBindErrors(createQuestion);
 
             case addAnswer:
                 createQuestion.getAnswerOptions().add(generateEmptyAnswerOption());
-                return createQuestionViewHidingBindErrors();
+                return createQuestionViewHidingBindErrors(createQuestion);
 
             default:
                 if (bindingResult.hasErrors()) {
-                    return createQuestionViewShowingBindErrors();
+                    return createQuestionViewShowingBindErrors(createQuestion);
                 }
 
                 Question newQuestion = valueOf(createQuestion, principal.getName());
@@ -75,15 +72,17 @@ public class QuestionController {
         }
     }
 
-    private ModelAndView createQuestionViewShowingBindErrors() {
+    private ModelAndView createQuestionViewShowingBindErrors(CreateQuestion form) {
         ModelAndView modelAndView = new ModelAndView("question/create");
         modelAndView.addObject("showBindErrors", true);
+		modelAndView.addObject("form", form);
         return modelAndView;
     }
 
-    private ModelAndView createQuestionViewHidingBindErrors() {
+    private ModelAndView createQuestionViewHidingBindErrors(CreateQuestion form) {
         ModelAndView modelAndView = new ModelAndView("question/create");
         modelAndView.addObject("showBindErrors", false);
+        modelAndView.addObject("form", form);
         return modelAndView;
     }
 }

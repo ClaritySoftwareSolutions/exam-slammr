@@ -1,5 +1,17 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
+import static io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils.postForm;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.aSimpleCreateQuestionAboutTriangles;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +27,6 @@ import uk.co.claritysoftware.exam.slammr.webapp.service.QuestionService;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
-
-import static io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils.postForm;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.aSimpleCreateQuestionAboutTriangles;
 
 /**
  * MockMvc test class for {@link QuestionController}
@@ -139,6 +139,31 @@ public class QuestionControllerMockMvcTest {
         assertThat(response.getHeader("Location"))
                 .as("Location header is root")
                 .isEqualTo("/");
+    }
+
+    @Test
+    public void shouldNotCreateNewQuestionGivenSaveActionAndBindingErrors() throws Exception {
+        // Given
+        String userName = "aUser";
+
+        CreateQuestion createQuestion = aSimpleCreateQuestionAboutTriangles()
+				.summary(null)
+				.action(CreateQuestion.Action.save)
+				.build();
+
+        RequestBuilder request = postForm("/question", createQuestion)
+                .with(user(userName))
+                .with(csrf());
+
+        // When
+        MockHttpServletResponse response = mvc.perform(request)
+                .andReturn().getResponse();
+
+        // Then
+        then(questionService).shouldHaveZeroInteractions();
+        assertThat(response.getStatus())
+                .as("HTTP Status code is 200")
+                .isEqualTo(200);
     }
 
 }
