@@ -16,6 +16,8 @@ public class Question {
 
 	private String id;
 
+	private String slug;
+
 	private String summary;
 
 	private String questionText;

@@ -46,6 +46,7 @@ public class QuestionServiceTest {
 
 		Question savedQuestion = aSimpleQuestionAboutSquares()
 				.id(id)
+				.slug("square-sides-question")
 				.build();
 
 		QuestionItem savedQuestionItem = aSimpleQuestionItemAboutSquares()

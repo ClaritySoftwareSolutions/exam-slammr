@@ -1,6 +1,12 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.factory.CreateQuestionFactory.valueOf;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.AnswerOption.generateEmptyAnswerOption;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion.generateEmptyCreateQuestion;
+import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading.generateEmptyFurtherReading;
+
+import java.security.Principal;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +20,7 @@ import uk.co.claritysoftware.exam.slammr.webapp.service.QuestionService;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 
-import javax.validation.Valid;
-import java.security.Principal;
-
-import static uk.co.claritysoftware.exam.slammr.webapp.web.factory.CreateQuestionFactory.valueOf;
-import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.AnswerOption.generateEmptyAnswerOption;
-import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion.generateEmptyCreateQuestion;
-import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading.generateEmptyFurtherReading;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller to handle question page requests
@@ -38,11 +38,7 @@ public class QuestionController {
     }
 
     @GetMapping("/new")
-    public ModelAndView getQuestionPage(Principal principal, Model model) {
-        if (principal == null) {
-            return new ModelAndView("redirect:/login");
-        }
-
+    public ModelAndView getQuestionPage(Model model) {
         model.addAttribute("form", generateEmptyCreateQuestion());
         return createQuestionViewHidingBindErrors();
     }
@@ -75,7 +71,7 @@ public class QuestionController {
                 Question newQuestion = valueOf(createQuestion, principal.getName());
                 Question savedQuestion = questionService.saveNewQuestion(newQuestion);
 
-                return new ModelAndView("/");
+                return new ModelAndView("redirect:/");
         }
     }
 

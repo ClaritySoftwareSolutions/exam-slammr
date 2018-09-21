@@ -1,5 +1,9 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
@@ -13,10 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 /**
  * MockMvc test class for {@link HomePageController}
  */
@@ -24,14 +24,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource({"classpath:test-context.properties"})
-public class HomePageControllerTest {
+public class HomePageControllerMockMvcTest {
 
     @Autowired
     private MockMvc mvc;
 
-
     @Test
-    public void getHomepageGivenUnauthenticatedUser() throws Exception {
+    public void shouldGetHomepageGivenUnauthenticatedUser() throws Exception {
         // Given
         RequestBuilder request = get("/");
 
@@ -61,7 +60,7 @@ public class HomePageControllerTest {
     }
 
     @Test
-    public void getHomepageGivenAuthenticatedUser() throws Exception {
+    public void shouldGetHomepageGivenAuthenticatedUser() throws Exception {
         // Given
         RequestBuilder request = get("/")
                 .with(user("some-user"));

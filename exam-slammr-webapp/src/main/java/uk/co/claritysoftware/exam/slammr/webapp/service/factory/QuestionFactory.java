@@ -24,6 +24,7 @@ public class QuestionFactory {
     public static Question valueOf(QuestionItem questionItem) {
         return questionItem != null ? Question.builder()
                 .id(questionItem.getId())
+				.slug(questionItem.getSlug())
                 .summary(questionItem.getSummary())
                 .questionText(questionItem.getQuestionText())
                 .answers(questionItem.getAnswers().stream()

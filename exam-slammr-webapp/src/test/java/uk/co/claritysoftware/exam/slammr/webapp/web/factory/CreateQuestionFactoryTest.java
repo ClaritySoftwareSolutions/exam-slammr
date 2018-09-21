@@ -1,16 +1,15 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.factory;
 
-import org.junit.Test;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
-import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
-
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.SUBMITTED_FOR_APPROVAL;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.aSimpleCreateQuestionAboutTriangles;
+
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import org.junit.Test;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 
 /**
  * Unit test class for {@link CreateQuestionFactory}
@@ -24,6 +23,7 @@ public class CreateQuestionFactoryTest {
         String authorId = "1234";
         Question expectedQuestion = aSimpleQuestionAboutTriangles()
                 .id(null)
+				.slug(null)
                 .createdBy(authorId)
                 .updatedBy(null)
                 .updatedDateTime(null)

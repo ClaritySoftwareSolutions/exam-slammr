@@ -1,16 +1,15 @@
 package uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question;
 
 
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOption;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
-
-import java.time.ZonedDateTime;
-
 import static com.google.common.collect.Sets.newHashSet;
 import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
 import static java.util.Arrays.asList;
 import static uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.APPROVED;
+
+import java.time.ZonedDateTime;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOption;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 
 /**
  * Test data factory for {@link Question} instances
@@ -53,6 +52,7 @@ public class QuestionTestDataFactory {
     public static Question.QuestionBuilder aSimpleQuestionAboutTriangles() {
         return Question.builder()
                 .id("5678")
+                .slug("triangle-sides-question")
                 .summary("Triangle sides question")
                 .questionText("How many sides does a triangle have?")
                 .tags(newHashSet("maths", "geometry"))

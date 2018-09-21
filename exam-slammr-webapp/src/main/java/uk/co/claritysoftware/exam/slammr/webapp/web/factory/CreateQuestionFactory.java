@@ -1,16 +1,15 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.factory;
 
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOption;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
-import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
-import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
+import static com.google.common.collect.Sets.newHashSet;
+import static uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.SUBMITTED_FOR_APPROVAL;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
-
-import static com.google.common.collect.Sets.newHashSet;
-import static uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.SUBMITTED_FOR_APPROVAL;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.AnswerOption;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.FurtherReading;
+import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
+import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 
 /**
  * Factory class to create instances to and from {@link CreateQuestion} instances
@@ -22,6 +21,7 @@ public class CreateQuestionFactory {
         return createQuestion != null ?
                 Question.builder()
                         .id(null)
+						.slug(null)
                         .summary(createQuestion.getSummary())
                         .questionText(createQuestion.getQuestion())
                         .answers(createQuestion.getAnswerOptions().stream()
