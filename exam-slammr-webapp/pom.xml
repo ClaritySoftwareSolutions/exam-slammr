@@ -21,6 +21,7 @@
 		<aws-java-sdk.version>1.11.401</aws-java-sdk.version>
 		<spring-data-dynamodb.version>4.5.7</spring-data-dynamodb.version>
 		<jsoup.version>1.11.3</jsoup.version>
+		<florianlopes-spring-mvc-test-utils.version>2.0.0</florianlopes-spring-mvc-test-utils.version>
 	</properties>
 
 	<dependencyManagement>
@@ -212,7 +213,12 @@
 			<version>${jsoup.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>io.florianlopes</groupId>
+			<artifactId>spring-mvc-test-utils</artifactId>
+			<version>${florianlopes-spring-mvc-test-utils.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
