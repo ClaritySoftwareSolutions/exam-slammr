@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.then;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.question.QuestionItemTestDataFactory.aSimpleQuestionItemAboutSquares;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutSquares;
 
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -99,5 +100,69 @@ public class QuestionServiceTest {
 		assertThat(throwable)
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("Cannot use this method to save an existing Question");
+	}
+
+	@Test
+	public void shouldGetQuestionById() {
+		// Given
+		String id = "1234";
+
+		QuestionItem questionItem = aSimpleQuestionItemAboutSquares()
+				.id(id)
+				.slug("square-sides-question")
+				.build();
+
+		Question expectedQuestion = aSimpleQuestionAboutSquares()
+				.id(id)
+				.slug("square-sides-question")
+				.build();
+
+		given(questionItemRepository.findOne(any()))
+				.willReturn(questionItem);
+
+		// When
+		Optional<Question> question = questionService.getQuestionById(id);
+
+		// Then
+		then(questionItemRepository).should().findOne(id);
+		assertThat(question)
+				.as("Optional contains a value")
+				.isPresent()
+				.get()
+				.as("Question is returned")
+				.isEqualTo(expectedQuestion);
+	}
+
+	@Test
+	public void shouldNotGetQuestionByIdGivenNonExistentId() {
+		// Given
+		String id = "9999";
+
+		given(questionItemRepository.findOne(any()))
+				.willReturn(null);
+
+		// When
+		Optional<Question> question = questionService.getQuestionById(id);
+
+		// Then
+		then(questionItemRepository).should().findOne(id);
+		assertThat(question)
+				.as("Optional is empty")
+				.isNotPresent();
+	}
+
+	@Test
+	public void shouldFailToGetQuestionByIdGivenNullId() {
+		// Given
+		String id = null;
+
+		// When
+		Throwable throwable = catchThrowable(() -> questionService.getQuestionById(id));
+
+		// Then
+		then(questionItemRepository).shouldHaveZeroInteractions();
+		assertThat(throwable)
+				.isInstanceOf(IllegalArgumentException.class)
+				.hasMessage("Cannot retrieve a Question with null id");
 	}
 }

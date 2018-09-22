@@ -3,6 +3,8 @@ package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -15,6 +17,7 @@ import static uk.co.claritysoftware.exam.slammr.webapp.web.model.question.Furthe
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import uk.co.claritysoftware.exam.slammr.webapp.service.QuestionService;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.Question;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus;
+import uk.co.claritysoftware.exam.slammr.webapp.web.exception.QuestionNotFoundException;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.AnswerOption;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.FurtherReading;
@@ -254,6 +258,16 @@ public class QuestionControllerTest {
 				.votes(0)
 				.build();
 
+		Question savedQuestion = aSimpleQuestionAboutTriangles()
+				.createdBy(username)
+				.updatedBy(null)
+				.updatedDateTime(null)
+				.status(QuestionStatus.SUBMITTED_FOR_APPROVAL)
+				.votes(0)
+				.build();
+		given(questionService.saveNewQuestion(any()))
+				.willReturn(savedQuestion);
+
 		Model expectedModel = new ExtendedModelMap();
 
 		// When
@@ -268,9 +282,55 @@ public class QuestionControllerTest {
 				.as("Expected ModelAndView is returned")
 				.extracting("viewName", "model")
 				.isEqualTo(asList(
-						"redirect:/",
+						"redirect:/question/5678/triangle-sides-question",
 						expectedModel
 				));
+	}
+
+	@Test
+	public void shouldGetExistingQuestion() {
+		// Given
+		String questionId = "5678";
+		String slug = "triangle-sides-question";
+
+		Question question = aSimpleQuestionAboutTriangles().build();
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.of(question));
+
+		Model expectedModel = new ExtendedModelMap();
+		expectedModel.addAttribute("question", question);
+
+		// When
+		ModelAndView modelAndView = questionController.getExistingQuestionPage(questionId, slug);
+
+		// Then
+		then(questionService).should().getQuestionById(questionId);
+		assertThat(modelAndView)
+				.as("Expected ModelAndView is returned")
+				.extracting("viewName", "model")
+				.isEqualTo(asList(
+						"question/view",
+						expectedModel
+				));
+	}
+
+	@Test
+	public void shouldNotGetExistingQuestionGivenNonExistentQuestionId() {
+		// Given
+		String questionId = "1234";
+		String slug = "triangle-sides-question";
+
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.empty());
+
+		// When
+		Throwable throwable = catchThrowable(() -> questionController.getExistingQuestionPage(questionId, slug));
+
+		// Then
+		then(questionService).should().getQuestionById(questionId);
+		assertThat(throwable)
+				.isInstanceOf(QuestionNotFoundException.class)
+				.hasMessage("Question with id 1234 not found");
 	}
 
 	private CreateQuestion.CreateQuestionBuilder createQuestion() {

@@ -1,6 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,7 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests()
 				.antMatchers("/user-profile").authenticated()
-				.antMatchers("/question/**").authenticated()
+				.antMatchers(HttpMethod.GET, "/question/new").authenticated()
+				.antMatchers(HttpMethod.POST, "/question").authenticated()
 				.antMatchers("/**").permitAll()
 			.and()
 				.logout()

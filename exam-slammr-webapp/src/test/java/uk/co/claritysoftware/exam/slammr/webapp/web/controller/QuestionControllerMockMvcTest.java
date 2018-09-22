@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
 import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.aSimpleCreateQuestionAboutTriangles;
 
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,8 +138,8 @@ public class QuestionControllerMockMvcTest {
                 .as("HTTP Status code is 302")
                 .isEqualTo(302);
         assertThat(response.getHeader("Location"))
-                .as("Location header is root")
-                .isEqualTo("/");
+                .as("Location header is for the newly saved question")
+                .isEqualTo("/question/5678/triangle-sides-question");
     }
 
     @Test
@@ -166,4 +167,99 @@ public class QuestionControllerMockMvcTest {
                 .isEqualTo(200);
     }
 
+    @Test
+	public void shouldGetExistingQuestionPage() throws Exception {
+    	// Given
+		String id = "5678";
+		String slug = "triangle-sides-question";
+		RequestBuilder request = get("/question/" + id + "/" + slug);
+
+		Question question = aSimpleQuestionAboutTriangles().build();
+
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.of(question));
+
+		// When
+		MockHttpServletResponse response = mvc.perform(request)
+				.andReturn().getResponse();
+
+		// Then
+		then(questionService).should().getQuestionById(id);
+		assertThat(response.getStatus())
+				.as("HTTP Status code is 200")
+				.isEqualTo(200);
+	}
+
+    @Test
+	public void shouldFailToGetExistingQuestionPageGivenNonExistentQuestionId() throws Exception {
+    	// Given
+		String id = "1234";
+		String slug = "triangle-sides-question";
+		RequestBuilder request = get("/question/" + id + "/" + slug);
+
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.empty());
+
+		// When
+		MockHttpServletResponse response = mvc.perform(request)
+				.andReturn().getResponse();
+
+		// Then
+		then(questionService).should().getQuestionById(id);
+		assertThat(response.getStatus())
+				.as("HTTP Status code is 404")
+				.isEqualTo(404);
+	}
+
+	@Test
+	public void shouldNotGetExistingQuestionPageGivenIdWithWrongSlug() throws Exception {
+		// Given
+		String id = "5678";
+		String slug = "the-wrong-slug";
+		RequestBuilder request = get("/question/" + id + "/" + slug);
+
+		Question question = aSimpleQuestionAboutTriangles().build();
+
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.of(question));
+
+		// When
+		MockHttpServletResponse response = mvc.perform(request)
+				.andReturn().getResponse();
+
+		// Then
+		then(questionService).should().getQuestionById(id);
+		assertThat(response.getStatus())
+				.as("HTTP Status code is 302")
+				.isEqualTo(302);
+		assertThat(response.getHeader("Location"))
+				.as("Location header is for the newly saved question")
+				.isEqualTo("/question/5678/triangle-sides-question");
+	}
+
+	@Test
+	public void shouldNotGetExistingQuestionPageGivenIdWithNoSlug() throws Exception {
+		// Given
+		String id = "5678";
+		String slug = "";
+		RequestBuilder request = get("/question/" + id + "/" + slug);
+
+		Question question = aSimpleQuestionAboutTriangles().build();
+
+		given(questionService.getQuestionById(any()))
+				.willReturn(Optional.of(question));
+
+		// When
+		MockHttpServletResponse response = mvc.perform(request)
+				.andReturn().getResponse();
+
+		// Then
+		then(questionService).should().getQuestionById(id);
+		assertThat(response.getStatus())
+				.as("HTTP Status code is 302")
+				.isEqualTo(302);
+		assertThat(response.getHeader("Location"))
+				.as("Location header is for the newly saved question")
+				.isEqualTo("/question/5678/triangle-sides-question");
+	}
 }
