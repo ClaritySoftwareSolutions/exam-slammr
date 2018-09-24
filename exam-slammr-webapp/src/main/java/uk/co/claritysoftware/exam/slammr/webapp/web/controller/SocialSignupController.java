@@ -16,11 +16,13 @@ import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SocialAuthenticationToken;
 import org.springframework.social.security.SocialUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactory;
 import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
@@ -52,18 +54,16 @@ public class SocialSignupController {
 	 * to create the new user profile.
 	 */
 	@GetMapping
-	public String getSignupForm(Principal principal, Model model, WebRequest webRequest) {
+	public ModelAndView getSignupForm(Principal principal, WebRequest webRequest) {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(webRequest);
 
 		if (principal == null && connection != null) {
 			UserProfile userProfile = connection.fetchUserProfile();
 			SocialUserSignUp socialUserSignUp = SocialUserSignUpFactory.valueOf(userProfile);
-			model.addAttribute("form", socialUserSignUp);
-			model.addAttribute("socialProvider", connection.getKey().getProviderId());
-			return "auth/signup";
+			return createSignupViewHidingBindErrors(socialUserSignUp, connection.getKey().getProviderId());
 
 		} else {
-			return "redirect:/";
+			return new ModelAndView("redirect:/");
 		}
 	}
 
@@ -73,12 +73,17 @@ public class SocialSignupController {
 	 * Creates a new user profile record, and sets the security context authentication such that the user is logged in.
 	 */
 	@PostMapping
-	public String handleSignup(@Valid SocialUserSignUp socialUserSignUp, WebRequest webRequest) {
+	public ModelAndView handleSignup(@Valid @ModelAttribute("form") SocialUserSignUp form, BindingResult bindingResult, WebRequest webRequest) {
 
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(webRequest);
+
+		if (bindingResult.hasErrors()) {
+			return createSignupViewShowingBindErrors(form, connection.getKey().getProviderId());
+		}
+
 		String compositeUserId = connection.getKey().toString();
 
-		ExamSlammrUserProfile newUserProfile = valueOf(socialUserSignUp, connection);
+		ExamSlammrUserProfile newUserProfile = valueOf(form, connection);
 		userProfileService.saveNewUserProfile(newUserProfile);
 
 		SocialUser socialUser = new SocialUser(compositeUserId, "", emptyList());
@@ -88,7 +93,23 @@ public class SocialSignupController {
 
 		providerSignInUtils.doPostSignUp(compositeUserId, webRequest);
 
-		return "redirect:/";
+		return new ModelAndView("redirect:/");
+	}
+
+	private ModelAndView createSignupViewShowingBindErrors(SocialUserSignUp form, String socialProvider) {
+		ModelAndView modelAndView = new ModelAndView("auth/signup");
+		modelAndView.addObject("socialProvider", socialProvider);
+		modelAndView.addObject("showBindErrors", true);
+		modelAndView.addObject("form", form);
+		return modelAndView;
+	}
+
+	private ModelAndView createSignupViewHidingBindErrors(SocialUserSignUp form, String socialProvider) {
+		ModelAndView modelAndView = new ModelAndView("auth/signup");
+		modelAndView.addObject("socialProvider", socialProvider);
+		modelAndView.addObject("showBindErrors", false);
+		modelAndView.addObject("form", form);
+		return modelAndView;
 	}
 
 	private ExamSlammrUserProfile valueOf(SocialUserSignUp socialUserSignUp, Connection<?> connection) {

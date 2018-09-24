@@ -29,7 +29,7 @@ public class CreateQuestionFactory {
                                         .text(answerOption.getAnswer())
                                         .correct(answerOption.isCorrect())
                                         .build())
-                                .collect(Collectors.toList()))
+                                .collect(Collectors.toSet()))
                         .tags(newHashSet(createQuestion.getTags()))
                         .certifications(newHashSet(createQuestion.getCertifications()))
                         .furtherReadings(createQuestion.getFurtherReadings().stream()

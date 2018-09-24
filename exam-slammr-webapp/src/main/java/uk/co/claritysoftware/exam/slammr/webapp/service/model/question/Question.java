@@ -1,7 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.model.question;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 
 import lombok.Builder;
@@ -22,7 +21,7 @@ public class Question {
 
 	private String questionText;
 
-	private List<AnswerOption> answers;
+	private Set<AnswerOption> answers;
 
 	private Set<String> tags;
 

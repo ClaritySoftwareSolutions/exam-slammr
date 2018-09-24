@@ -1,11 +1,10 @@
 package uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.user;
 
-import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
+import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
+import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 
 import java.time.ZonedDateTime;
-
-import static com.google.common.collect.Sets.newHashSet;
-import static java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME;
+import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 
 /**
  * Test data factory for {@link UserProfileItem} instances
@@ -24,7 +23,7 @@ public class UserProfileItemTestDataFactory {
                 .nickname("Mr Burns")
                 .email("monty.burns@springfield.com")
                 .profilePictureUrl("http://profile.pics/monty.burns")
-                .roles(newHashSet("USER"))
+                .roles(asList("USER"))
                 .registrationDateTime(ZonedDateTime.parse("2018-01-20T12:20:30.123Z", ISO_ZONED_DATE_TIME))
                 .lastLogonDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME));
     }
@@ -41,7 +40,7 @@ public class UserProfileItemTestDataFactory {
                 .nickname("Smithers")
                 .email("waylon.smithers@springfield.com")
                 .profilePictureUrl("http://profile.pics/waylon.smithers")
-                .roles(newHashSet("USER"))
+                .roles(asList("USER"))
                 .registrationDateTime(ZonedDateTime.parse("2018-01-20T12:20:30.123Z", ISO_ZONED_DATE_TIME))
                 .lastLogonDateTime(ZonedDateTime.parse("2018-05-09T08:12:43.456Z", ISO_ZONED_DATE_TIME));
     }

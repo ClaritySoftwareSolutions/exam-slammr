@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,31 +45,31 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ModelAndView createNewQuestion(@Valid CreateQuestion createQuestion, BindingResult bindingResult, Principal principal) {
+    public ModelAndView createNewQuestion(@Valid @ModelAttribute("form") CreateQuestion form, BindingResult bindingResult, Principal principal) {
 
-        switch (createQuestion.getAction()) {
+        switch (form.getAction()) {
             case addCertification:
-                createQuestion.getCertifications().add("");
-                return createQuestionViewHidingBindErrors(createQuestion);
+                form.getCertifications().add("");
+                return createQuestionViewHidingBindErrors(form);
 
             case addTag:
-                createQuestion.getTags().add("");
-                return createQuestionViewHidingBindErrors(createQuestion);
+                form.getTags().add("");
+                return createQuestionViewHidingBindErrors(form);
 
             case addFurtherReading:
-                createQuestion.getFurtherReadings().add(generateEmptyFurtherReading());
-                return createQuestionViewHidingBindErrors(createQuestion);
+                form.getFurtherReadings().add(generateEmptyFurtherReading());
+                return createQuestionViewHidingBindErrors(form);
 
             case addAnswer:
-                createQuestion.getAnswerOptions().add(generateEmptyAnswerOption());
-                return createQuestionViewHidingBindErrors(createQuestion);
+                form.getAnswerOptions().add(generateEmptyAnswerOption());
+                return createQuestionViewHidingBindErrors(form);
 
             default:
                 if (bindingResult.hasErrors()) {
-                    return createQuestionViewShowingBindErrors(createQuestion);
+                    return createQuestionViewShowingBindErrors(form);
                 }
 
-                Question newQuestion = valueOf(createQuestion, principal.getName());
+                Question newQuestion = valueOf(form, principal.getName());
                 Question savedQuestion = questionService.saveNewQuestion(newQuestion);
 
                 return new ModelAndView("redirect:/question/" + savedQuestion.getId() + "/" + savedQuestion.getSlug());

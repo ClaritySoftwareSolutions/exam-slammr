@@ -1,5 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
 
@@ -23,7 +25,7 @@ public class ExamSlammrUserProfileFactory {
                 .nickname(userProfileItem.getNickname())
                 .email(userProfileItem.getEmail())
                 .profilePictureUrl(userProfileItem.getProfilePictureUrl())
-                .roles(userProfileItem.getRoles())
+                .roles(new HashSet<>(userProfileItem.getRoles()))
                 .lastLogonDateTime(userProfileItem.getLastLogonDateTime())
                 .registrationDateTime(userProfileItem.getRegistrationDateTime())
                 .build() : null;
@@ -44,7 +46,7 @@ public class ExamSlammrUserProfileFactory {
                 .nickname(userProfile.getNickname())
                 .email(userProfile.getEmail())
                 .profilePictureUrl(userProfile.getProfilePictureUrl())
-                .roles(userProfile.getRoles())
+                .roles(new ArrayList<>(userProfile.getRoles()))
                 .lastLogonDateTime(userProfile.getLastLogonDateTime())
                 .registrationDateTime(userProfile.getRegistrationDateTime())
                 .build() : null;
