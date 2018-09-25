@@ -13,7 +13,7 @@
 
 <header id="top-bar">
     <div class="container">
-        <h1><a href="#" th:href="@{/}">Exam Slammr</a></h1>
+        <h1><a href="./home.html" th:href="@{/}">Exam Slammr</a></h1>
         <form id="search" autocomplete="off" role="search">
             <input name="q" placeholder="Search ..." type="text"/>
             <button type="submit" aria-label="Search ...">
@@ -22,8 +22,8 @@
         </form>
         <ol>
             <li class="ctas" sec:authorize="isAnonymous()">
-                <a href="#" th:href="@{/login}" class="primary">Login</a>
-                <a href="#" th:href="@{/register}" class="secondary">Register</a>
+                <a href="./auth/login.html" th:href="@{/login}" class="primary">Login</a>
+                <a href="./auth/registration.html" th:href="@{/register}" class="secondary">Register</a>
             </li>
             <li class="user-profile-actions" sec:authorize="isAuthenticated()">
                 <i class="far fa-user">

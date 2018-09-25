@@ -14,6 +14,40 @@
 </head>
 <body>
 
+<header id="top-bar">
+    <div class="container">
+        <h1><a href="./home.html">Exam Slammr</a></h1>
+        <form id="search" autocomplete="off" role="search">
+            <input name="q" placeholder="Search ..." type="text"/>
+            <button type="submit" aria-label="Search ...">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+        <ol>
+            <li class="ctas">
+                <a href="../auth/login.html" class="primary">Login</a>
+                <a href="../auth/registration.html" class="secondary">Register</a>
+            </li>
+            <li class="user-profile-actions">
+                <i class="far fa-user">
+                    <ul>
+                        <li>
+                            <i class="far fa-edit"></i>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <form method="POST">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </i>
+            </li>
+        </ol>
+    </div>
+</header>
+
 <div layout:fragment="content">
     <section class="home hero register" sec:authorize="isAnonymous()">
         <div class="container">
@@ -69,7 +103,7 @@
             </section>
         </div>
         <section class="main-content">
-            <a href="#" th:href="@{/question/new}">Create Question</a>
+            <a href="./question/create.html" th:href="@{/question/new}">Create Question</a>
             <p>blah</p>
             <p>blah</p>
             <p>blah</p>
