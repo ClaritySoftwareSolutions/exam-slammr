@@ -1,0 +1,8 @@
+dist: trusty
+
+language: java
+
+install: true
+
+script: mvn clean verify
+
