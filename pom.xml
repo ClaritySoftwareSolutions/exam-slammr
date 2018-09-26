@@ -6,41 +6,78 @@
 
 	<groupId>uk.co.claritysoftware</groupId>
 	<artifactId>exam-slammr</artifactId>
-	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Exam Slammr</name>
+	<description>Main top level pom containing all Exam Slammr modules</description>
+
 	<modules>
-		<module>exam-slammr-lambda</module>
-		<module>exam-slammr-client</module>
+		<module>exam-slammr-cloud-config-server</module>
+		<module>exam-slammr-webapp</module>
 	</modules>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+
+<!--
+		<spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+-->
+		<spring-boot.version>1.5.15.RELEASE</spring-boot.version>
+<!--
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+-->
+		<spring-cloud.version>Edgware.SR4</spring-cloud.version>
+
+		<hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+
+		<equalsverifier.version>2.3.1</equalsverifier.version>
+		<lombok.version>1.16.20</lombok.version>
+		<guava.version>25.0-jre</guava.version>
+		<apache-commons-lang3.version>3.7</apache-commons-lang3.version>
+		<junit.version>4.12</junit.version>
+		<assertj.version>3.9.1</assertj.version>
+		<mockito.version>2.18.3</mockito.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.google.dagger</groupId>
-				<artifactId>dagger</artifactId>
-				<version>2.16</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>com.google.dagger</groupId>
-				<artifactId>dagger-compiler</artifactId>
-				<version>2.16</version>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.16.20</version>
+				<version>${lombok.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>25.0-jre</version>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${apache-commons-lang3.version}</version>
 			</dependency>
 
 			<dependency>
@@ -55,22 +92,51 @@
 			</dependency>
 
 			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator-annotation-processor</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.12</version>
+				<version>${junit.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.9.1</version>
+				<version>${assertj.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>2.18.3</version>
+				<version>${mockito.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>nl.jqno.equalsverifier</groupId>
+				<artifactId>equalsverifier</artifactId>
+				<version>${equalsverifier.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>repository.spring.milestone</id>
+			<name>Spring Milestone Repository</name>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
 
 </project>

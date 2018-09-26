@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Exam Slammr</title>
+    <head>
+        <title>Exam Slammr</title>
+        <th:block th:remove="all">
+            <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
+            <link rel="stylesheet" href="../../static/css/styles.css" type="text/css" media="screen"/>
+        </th:block>
+    </head>
+</head>
+<body>
+
+<header id="top-bar">
+    <div class="container">
+        <h1><a href="../home.html">Exam Slammr</a></h1>
+        <form id="search" autocomplete="off" role="search">
+            <input name="q" placeholder="Search ..." type="text"/>
+            <button type="submit" aria-label="Search ...">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+        <ol>
+            <li class="ctas">
+                <a href="./login.html" class="primary">Login</a>
+                <a href="./registration.html" class="secondary">Register</a>
+            </li>
+            <li class="user-profile-actions">
+                <i class="far fa-user">
+                    <ul>
+                        <li>
+                            <i class="far fa-edit"></i>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <form method="POST">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </i>
+            </li>
+        </ol>
+    </div>
+</header>
+
+<div layout:fragment="content">
+    <section class="hero login">
+        <div class="container">
+            <article class="action">
+                <h2>Login using your social identity</h2>
+                <p>Login using the social provider that you originally registered your Exam Slammr account using. If you`ve not already registered,
+                    once you log in with the social identity, you'll be prompted to complete your registration and create a user profile.</p>
+
+                <ul>
+                    <form th:action="@{/auth/linkedin}" method="POST">
+                        <input type="hidden" name="scope" value="r_basicprofile,r_emailaddress"/>
+                        <button type="submit">
+                            <i class="fab fa-linkedin"></i>
+                            Linkedin
+                        </button>
+                    </form>
+                    <form th:action="@{/auth/facebook}" method="POST">
+                        <input type="hidden" name="scope" value="public_profile,email"/>
+                        <button type="submit">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </form>
+                    <form th:action="@{/auth/twitter}" method="POST">
+                        <button type="submit">
+                            <i class="fab fa-twitter"></i>
+                            Twitter
+                        </button>
+                    </form>
+                </ul>
+                <p class="subtext">By logging in and using this site you acknowledge that you have read our <a href="#">terms of service</a>, <a href="#">privacy policy</a> and <a href="#">cookie
+                    policy</a>,
+                    and that your continued use of the website is subject to these policies.</p>
+            </article>
+        </div>
+    </section>
+</div>
+
+<script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

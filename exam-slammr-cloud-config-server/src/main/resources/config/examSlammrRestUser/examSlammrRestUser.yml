@@ -1,0 +1,3 @@
+# Default config for Exam Slammr User REST API
+aws:
+  region: EU_WEST_2

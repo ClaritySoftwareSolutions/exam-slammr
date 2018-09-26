@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Exam Slammr</title>
+    <th:block th:remove="all">
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
+        <link rel="stylesheet" href="../static/css/styles.css" type="text/css" media="screen"/>
+    </th:block>
+</head>
+<body>
+
+<header id="top-bar">
+    <div class="container">
+        <h1><a href="./home.html">Exam Slammr</a></h1>
+        <form id="search" autocomplete="off" role="search">
+            <input name="q" placeholder="Search ..." type="text"/>
+            <button type="submit" aria-label="Search ...">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+        <ol>
+            <li class="ctas">
+                <a href="./auth/login.html" class="primary">Login</a>
+                <a href="./auth/registration.html" class="secondary">Register</a>
+            </li>
+            <li class="user-profile-actions">
+                <i class="far fa-user">
+                    <ul>
+                        <li>
+                            <i class="far fa-edit"></i>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <form method="POST">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </i>
+            </li>
+        </ol>
+    </div>
+</header>
+
+<div layout:fragment="content">
+    <div class="404 container">
+        Whoops! That page cannot be found!
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

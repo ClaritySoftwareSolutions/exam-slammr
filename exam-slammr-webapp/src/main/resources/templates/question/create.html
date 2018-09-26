@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Exam Slammr</title>
+    <head>
+        <title>Exam Slammr</title>
+        <th:block th:remove="all">
+            <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css"/>
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,300,600&amp;subset=latin,latin-ext" type="text/css" media="all"/>
+            <link rel="stylesheet" href="../../static/css/styles.css" type="text/css" media="screen"/>
+        </th:block>
+    </head>
+</head>
+<body>
+
+<header id="top-bar">
+    <div class="container">
+        <h1><a href="../home.html">Exam Slammr</a></h1>
+        <form id="search" autocomplete="off" role="search">
+            <input name="q" placeholder="Search ..." type="text"/>
+            <button type="submit" aria-label="Search ...">
+                <span class="fa fa-search" aria-hidden="true"></span>
+            </button>
+        </form>
+        <ol>
+            <li class="ctas">
+                <a href="../auth/login.html" class="primary">Login</a>
+                <a href="../auth/registration.html" class="secondary">Register</a>
+            </li>
+            <li class="user-profile-actions">
+                <i class="far fa-user">
+                    <ul>
+                        <li>
+                            <i class="far fa-edit"></i>
+                            <a href="#">Profile</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <form method="POST">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </i>
+            </li>
+        </ol>
+    </div>
+</header>
+
+<div layout:fragment="content">
+    <div id="create-question" class="container">
+        <h2>Create a question</h2>
+        <form class="standard-form" th:action="@{/question}" th:object="${form}" method="post">
+
+            <div th:class="${true == showBindErrors &amp;&amp; #fields.hasErrors('summary') ? 'error' : ''}">
+                <label for="summary">Summary<span>*</span></label>
+                <input type="text" id="summary" th:field="*{summary}"/>
+                <p th:if="${true == showBindErrors &amp;&amp; #fields.hasErrors('summary')}" th:errors="*{summary}">Summary field cannot be blank</p>
+            </div>
+
+            <div class="error" th:class="${true == showBindErrors &amp;&amp; #fields.hasErrors('question') ? 'error' : ''}">
+                <label for="questionText">Question<span>*</span></label>
+                <textarea id="questionText" th:field="*{question}"></textarea>
+                <p th:if="${true == showBindErrors &amp;&amp; #fields.hasErrors('question')}" th:errors="*{question}">Question text field cannot be blank</p>
+            </div>
+
+            <div class="appendable-list-field answers">
+                <label for="answerOptions0answer">Answers</label>
+                <div>
+                    <label for="answerOptions0answer">Answer</label>
+                    <label for="answerOptions0correct">Correct</label>
+                </div>
+                <ul>
+                    <li th:each="answerOption, stat : ${form.answerOptions}">
+                        <textarea id="answerOptions0answer" th:id="${'answerOptions' + stat.index + 'answer'}" th:field="*{answerOptions[__${stat.index}__].answer}"></textarea>
+                        <input type="checkbox" id="answerOptions0correct" th:id="${'answerOptions' + stat.index + 'correct'}" th:field="*{answerOptions[__${stat.index}__].correct}"/>
+                    </li>
+                    <li th:remove="all">
+                        <textarea type="text" id="answerOptions1answer"></textarea>
+                        <input type="checkbox" id="answerOptions1correct"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addAnswer"><i class="far fa-plus-square"></i></button>
+            </div>
+
+            <div class="appendable-list-field">
+                <label for="tag0">Tags</label>
+                <ul>
+                    <li th:each="tag, stat : ${form.tags}">
+                        <input type="text" id="tag0" th:id="${'tag' + stat.index}" th:field="*{tags[__${stat.index}__]}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="tag1"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addTag"><i class="far fa-plus-square"></i></button>
+            </div>
+
+            <div class="appendable-list-field">
+                <label for="certification0">Certifications</label>
+                <ul>
+                    <li th:each="certification, stat : ${form.certifications}">
+                        <input type="text" id="certification0" th:id="${'certification' + stat.index}" th:field="*{certifications[__${stat.index}__]}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="certification1"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addCertification"><i class="far fa-plus-square"></i></button>
+            </div>
+
+            <div class="appendable-list-field references">
+                <label for="furtherReading0description">References</label>
+                <div>
+                    <label for="furtherReading0description">Description</label>
+                    <label for="furtherReading0referenceLocation">Location</label>
+                </div>
+                <ul>
+                    <li th:each="furtherReading, stat : ${form.furtherReadings}">
+                        <input type="text" id="furtherReading0description" th:id="${'furtherReading' + stat.index + 'description'}" th:field="*{furtherReadings[__${stat.index}__].description}"/>
+                        <input type="text" id="furtherReading0referenceLocation" th:id="${'furtherReading' + stat.index + 'referenceLocation'}" th:field="*{furtherReadings[__${stat.index}__].referenceLocation}"/>
+                    </li>
+                    <li th:remove="all">
+                        <input type="text" id="furtherReading1description"/>
+                        <input type="text" id="furtherReading1referenceLocation"/>
+                    </li>
+                </ul>
+                <button type="submit" name="action" value="addFurtherReading"><i class="far fa-plus-square"></i></button>
+            </div>
+
+            <button type="submit" value="save" name="action">Save</button>
+        </form>
+    </div>
+</div>
+
+<script src="//code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
