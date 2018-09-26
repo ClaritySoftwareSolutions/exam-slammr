@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ClaritySoftwareSolutions/exam-slammr)](https://travis-ci.org/ClaritySoftwareSolutions/exam-slammr)
+[![Build Status](https://travis-ci.org/ClaritySoftwareSolutions/exam-slammr.svg)](https://travis-ci.org/ClaritySoftwareSolutions/exam-slammr)
 
 ----
 # Exam Slammr
