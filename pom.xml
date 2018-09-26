@@ -13,9 +13,7 @@
 	<description>Main top level pom containing all Exam Slammr modules</description>
 
 	<modules>
-        <module>exam-slammr-rest</module>
 		<module>exam-slammr-cloud-config-server</module>
-		<module>exam-slammr-web-testsupport</module>
 		<module>exam-slammr-webapp</module>
 	</modules>
 

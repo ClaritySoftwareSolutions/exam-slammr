@@ -1,4 +1,4 @@
-package uk.co.claritysoftware.exam.slammr.web.testsupport.assertj;
+package uk.co.claritysoftware.exam.slammr.webapp.testsupport.assertj;
 
 import java.io.IOException;
 import org.assertj.core.api.AbstractAssert;

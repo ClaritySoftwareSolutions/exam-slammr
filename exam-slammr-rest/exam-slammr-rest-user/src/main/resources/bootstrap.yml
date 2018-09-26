@@ -1,6 +1,0 @@
-server:
-  port: 9082
-
-spring:
-  application:
-    name: examSlammrRestUser
