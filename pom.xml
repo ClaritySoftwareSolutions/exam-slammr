@@ -37,7 +37,7 @@
 		<validation-api.version>2.0.1.Final</validation-api.version>
 
 		<equalsverifier.version>2.3.1</equalsverifier.version>
-		<lombok.version>1.16.20</lombok.version>
+		<lombok.version>1.18.2</lombok.version>
 		<guava.version>25.0-jre</guava.version>
 		<apache-commons-lang3.version>3.7</apache-commons-lang3.version>
 		<junit.version>4.12</junit.version>
