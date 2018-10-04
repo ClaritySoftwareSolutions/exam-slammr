@@ -9,4 +9,4 @@ spring:
     config:
       server:
         native:
-          searchLocations: classpath:/config/examSlammrRestUser, classpath:/config/examSlammrRestQuestion, classpath:/config/examSlammrWebapp
+          searchLocations: classpath:/config/examSlammrWebapp
