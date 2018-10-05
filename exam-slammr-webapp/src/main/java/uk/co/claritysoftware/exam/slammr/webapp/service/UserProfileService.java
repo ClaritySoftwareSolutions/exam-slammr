@@ -1,14 +1,14 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service;
 
-import lombok.extern.slf4j.Slf4j;
+import static com.google.common.base.Preconditions.checkArgument;
+import static uk.co.claritysoftware.exam.slammr.webapp.service.factory.ExamSlammrUserProfileFactory.valueOf;
+
+import java.util.Optional;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserProfileItemRepository;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
 
-import java.util.Optional;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static uk.co.claritysoftware.exam.slammr.webapp.service.factory.ExamSlammrUserProfileFactory.valueOf;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service for User Profile related operations
@@ -36,19 +36,18 @@ public class UserProfileService {
     }
 
     /**
-     * Saves a new User Profile, returning the newly saved User Profile as the persistence implementation will have updated
-     * some of it's fields such as {@code id}
+     * Saves a User Profile, returning the newly saved User Profile as the persistence implementation may have updated
+     * some of it's fields such as {@code id} in the case of a new item
      *
-     * @param userProfile the new ExamSlammrUserProfile to be saved
-     * @return the saved ExamSlammrUserProfile
+     * @param userProfile the {@link ExamSlammrUserProfile} to be saved
+     * @return the saved {@link ExamSlammrUserProfile}
      */
-    public ExamSlammrUserProfile saveNewUserProfile(ExamSlammrUserProfile userProfile) {
+    public ExamSlammrUserProfile saveUserProfile(ExamSlammrUserProfile userProfile) {
         checkArgument(userProfile != null, "Cannot save a null UserProfile");
-        checkArgument(userProfile.getId() == null, "Cannot use this method to save an existing UserProfile");
 
-        UserProfileItem newUserProfileItem = valueOf(userProfile);
-        ExamSlammrUserProfile savedUserProfile = valueOf(userProfileItemRepository.save(newUserProfileItem));
-        log.debug("Saved new ExamSlammrUserProfile {}", savedUserProfile);
+        UserProfileItem userProfileItem = valueOf(userProfile);
+        ExamSlammrUserProfile savedUserProfile = valueOf(userProfileItemRepository.save(userProfileItem));
+        log.debug("Saved ExamSlammrUserProfile {}", savedUserProfile);
         return savedUserProfile;
     }
 
