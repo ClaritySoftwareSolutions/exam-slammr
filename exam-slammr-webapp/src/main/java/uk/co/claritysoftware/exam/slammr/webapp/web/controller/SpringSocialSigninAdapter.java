@@ -1,7 +1,5 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
-import static java.util.Collections.emptyList;
-
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
