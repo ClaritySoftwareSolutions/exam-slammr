@@ -10,7 +10,9 @@ import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.connect.web.SignInAdapter;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserConnectionItemRepository;
 import uk.co.claritysoftware.exam.slammr.webapp.security.springsocial.DynamoDbUsersConnectionRepository;
 
@@ -27,9 +29,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
 	}
 
 	@Bean
+	public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository usersConnectionRepository, SignInAdapter signInAdapter) {
+		return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
+	}
+
+	@Bean
 	public UsersConnectionRepository usersConnectionRepository(DynamoDbUserConnectionItemRepository userConnectionRepository, ConnectionFactoryLocator connectionFactoryLocator) {
 		return new DynamoDbUsersConnectionRepository(userConnectionRepository, connectionFactoryLocator, noOpTextEncrypter());
-		// return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, noOpTextEncrypter());
 	}
 
 	@Bean

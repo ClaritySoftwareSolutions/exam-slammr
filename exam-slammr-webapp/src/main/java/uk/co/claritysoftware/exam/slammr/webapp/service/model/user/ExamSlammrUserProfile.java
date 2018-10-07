@@ -10,7 +10,7 @@ import lombok.Value;
  * Pojo defining an Exam Slammr User Profile
  */
 @Value
-@Builder
+@Builder(toBuilder = true)
 public class ExamSlammrUserProfile {
 
 	private String id;

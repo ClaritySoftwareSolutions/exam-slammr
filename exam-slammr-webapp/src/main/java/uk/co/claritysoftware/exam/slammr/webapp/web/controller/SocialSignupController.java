@@ -1,14 +1,15 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller;
 
 import static com.google.common.collect.Sets.newHashSet;
-import static java.util.Collections.emptyList;
 
 import java.security.Principal;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
@@ -84,9 +85,12 @@ public class SocialSignupController {
 		String compositeUserId = connection.getKey().toString();
 
 		ExamSlammrUserProfile newUserProfile = valueOf(form, connection);
-		userProfileService.saveNewUserProfile(newUserProfile);
+		userProfileService.saveUserProfile(newUserProfile);
 
-		SocialUser socialUser = new SocialUser(compositeUserId, "", emptyList());
+		SocialUser socialUser = new SocialUser(compositeUserId, "",
+				newUserProfile.getRoles().stream()
+						.map(SimpleGrantedAuthority::new)
+						.collect(Collectors.toList()));
 		SocialAuthenticationToken authenticationToken = new SocialAuthenticationToken(connection, socialUser, null, socialUser.getAuthorities());
 
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
