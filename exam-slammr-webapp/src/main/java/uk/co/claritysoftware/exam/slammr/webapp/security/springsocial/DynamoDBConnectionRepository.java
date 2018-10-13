@@ -142,6 +142,9 @@ public class DynamoDBConnectionRepository implements ConnectionRepository {
 	}
 
 	private ZonedDateTime toZonedDateTime(Long millisSinceEpoch) {
+		if (millisSinceEpoch == null) {
+			millisSinceEpoch = 0L;
+		}
 		return ZonedDateTime.ofInstant(Instant.ofEpochMilli(millisSinceEpoch), ZoneOffset.UTC);
 	}
 

@@ -59,21 +59,21 @@
                     once you log in with the social identity, you'll be prompted to complete your registration and create a user profile.</p>
 
                 <ul>
-                    <form th:action="@{/signin/linkedin}" method="POST">
+                    <form th:if="${linkedInConfigured}" th:action="@{/signin/linkedin}" method="POST">
                         <input type="hidden" name="scope" value="r_basicprofile,r_emailaddress"/>
                         <button type="submit">
                             <i class="fab fa-linkedin"></i>
                             Linkedin
                         </button>
                     </form>
-                    <form th:action="@{/signin/facebook}" method="POST">
+                    <form th:if="${facebookConfigured}" th:action="@{/signin/facebook}" method="POST">
                         <input type="hidden" name="scope" value="public_profile,email"/>
                         <button type="submit">
                             <i class="fab fa-facebook-f"></i>
                             Facebook
                         </button>
                     </form>
-                    <form th:action="@{/signin/twitter}" method="POST">
+                    <form th:if="${twitterConfigured}" th:action="@{/signin/twitter}" method="POST">
                         <button type="submit">
                             <i class="fab fa-twitter"></i>
                             Twitter
