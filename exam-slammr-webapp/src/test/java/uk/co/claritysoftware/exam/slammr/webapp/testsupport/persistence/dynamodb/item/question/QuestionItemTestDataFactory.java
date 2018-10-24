@@ -26,12 +26,12 @@ public class QuestionItemTestDataFactory {
 				.tags(asList("maths", "geometry"))
 				.certifications(singletonList("Basic Maths"))
 				.answers(asList(AnswerDocument.builder()
-								.text("Three")
-								.correct(false)
-								.build(),
-						AnswerDocument.builder()
 								.text("Four")
 								.correct(true)
+								.build(),
+						AnswerDocument.builder()
+								.text("Three")
+								.correct(false)
 								.build()))
 				.furtherReadings(singletonList(FurtherReadingDocument.builder()
 						.description("Basic Maths 101")
@@ -58,12 +58,12 @@ public class QuestionItemTestDataFactory {
 				.certifications(singletonList("Basic Maths"))
 				.answers(asList(
 						AnswerDocument.builder()
-								.text("Seven")
-								.correct(false)
-								.build(),
-						AnswerDocument.builder()
 								.text("Three")
 								.correct(true)
+								.build(),
+						AnswerDocument.builder()
+								.text("Seven")
+								.correct(false)
 								.build()))
 				.furtherReadings(singletonList(FurtherReadingDocument.builder()
 						.description("Basic Maths 101")
