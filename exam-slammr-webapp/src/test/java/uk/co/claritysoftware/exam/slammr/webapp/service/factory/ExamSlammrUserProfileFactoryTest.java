@@ -1,12 +1,12 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.user.UserProfileItemTestDataFactoryKt.mrBurnsUserProfileItem;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.user.ExamSlammrUserProfileTestDataFactoryKt.mrBurnsExamSlammrUserProfile;
+
 import org.junit.Test;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.user.UserProfileItemTestDataFactory.mrBurnsUserProfileItem;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.user.ExamSlammrUserProfileTestDataFactory.mrBurnsExamSlammrUserProfile;
 
 /**
  * Unit test class for {@link ExamSlammrUserProfileFactory}

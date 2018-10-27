@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.user.SocialUserSignUpTestDataFactory.bartSimposonsUserSignup;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.user.SocialUserSignUpTestDataFactoryKt.bartSimposonsUserSignup;
 
 import java.security.Principal;
 import java.util.Map;
