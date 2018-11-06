@@ -2,8 +2,8 @@ package uk.co.claritysoftware.exam.slammr.webapp.web.factory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.SUBMITTED_FOR_APPROVAL;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactoryKt.aSimpleQuestionAboutTriangles;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactoryKt.aSimpleCreateQuestionAboutTriangles;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.aSimpleCreateQuestionAboutTriangles;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

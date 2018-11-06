@@ -9,8 +9,14 @@ import org.springframework.cloud.context.config.annotation.RefreshScope
  */
 @SpringBootApplication
 @RefreshScope
-open class ExamSlammrWebApp
+open class ExamSlammrWebApp {
 
-fun main(args: Array<String>) {
-    SpringApplication.run(ExamSlammrWebApp::class.java, *args)
+	companion object {
+
+		@JvmStatic
+		fun main(args: Array<String>) {
+			SpringApplication.run(ExamSlammrWebApp::class.java, *args)
+		}
+
+	}
 }

@@ -1,8 +1,8 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service.factory;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.question.QuestionItemTestDataFactoryKt.aSimpleQuestionItemAboutTriangles;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactoryKt.aSimpleQuestionAboutTriangles;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.persistence.dynamodb.item.question.QuestionItemTestDataFactory.aSimpleQuestionItemAboutTriangles;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.aSimpleQuestionAboutTriangles;
 
 import org.junit.Test;
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.question.QuestionItem;

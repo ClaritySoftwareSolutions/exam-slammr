@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.user.ExamSlammrUserProfileTestDataFactoryKt.mrBurnsExamSlammrUserProfile;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.user.ExamSlammrUserProfileTestDataFactory.mrBurnsExamSlammrUserProfile;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

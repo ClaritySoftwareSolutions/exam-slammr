@@ -10,8 +10,14 @@ import org.springframework.cloud.config.server.EnableConfigServer
  */
 @SpringBootApplication
 @EnableConfigServer
-open class ExamSlammrCloudConfigServer
+open class ExamSlammrCloudConfigServer {
 
-fun main(args: Array<String>) {
-    SpringApplication.run(ExamSlammrCloudConfigServer::class.java, *args)
+	companion object {
+
+		@JvmStatic
+		fun main(args: Array<String>) {
+			SpringApplication.run(ExamSlammrCloudConfigServer::class.java, *args)
+		}
+
+	}
 }
