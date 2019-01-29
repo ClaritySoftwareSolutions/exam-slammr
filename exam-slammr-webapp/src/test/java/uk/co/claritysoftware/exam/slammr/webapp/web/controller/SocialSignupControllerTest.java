@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.user.SocialUserSignUpTestDataFactory.bartSimposonsUserSignup;
+import static uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.user.SocialUserSignUpTestDataFactoryKt.bartSimposonsUserSignup;
 
 import java.security.Principal;
 import java.util.Map;
@@ -22,7 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.common.collect.ImmutableMap;
-import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactory;
+import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactoryKt;
 import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp;
 
@@ -90,7 +90,7 @@ public class SocialSignupControllerTest {
 				.willReturn(connectionKey);
 
 		Map expectedModel = ImmutableMap.builder()
-				.put("form", SocialUserSignUpFactory.valueOf(userProfile))
+				.put("form", SocialUserSignUpFactoryKt.valueOf(userProfile))
 				.put("socialProvider", "facebook")
 				.put("showBindErrors", false)
 				.build();
@@ -121,7 +121,7 @@ public class SocialSignupControllerTest {
 
 		given(bindingResult.hasErrors()).willReturn(true);
 
-		SocialUserSignUp socialUserSignUp = bartSimposonsUserSignup().build();
+		SocialUserSignUp socialUserSignUp = bartSimposonsUserSignup();
 
 		Map expectedModel = ImmutableMap.builder()
 				.put("form", socialUserSignUp)

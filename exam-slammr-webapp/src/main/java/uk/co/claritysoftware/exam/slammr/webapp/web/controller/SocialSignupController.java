@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
-import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactory;
+import uk.co.claritysoftware.exam.slammr.webapp.factory.SocialUserSignUpFactoryKt;
 import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService;
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile;
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp;
@@ -60,7 +60,7 @@ public class SocialSignupController {
 
 		if (principal == null && connection != null) {
 			UserProfile userProfile = connection.fetchUserProfile();
-			SocialUserSignUp socialUserSignUp = SocialUserSignUpFactory.valueOf(userProfile);
+			SocialUserSignUp socialUserSignUp = SocialUserSignUpFactoryKt.valueOf(userProfile);
 			return createSignupViewHidingBindErrors(socialUserSignUp, connection.getKey().getProviderId());
 
 		} else {
