@@ -14,12 +14,9 @@ import uk.co.claritysoftware.exam.slammr.webapp.service.UserProfileService
 open class ServiceConfig {
 
   @Bean
-  open fun userProfileServic(userProfileItemRepository: DynamoDbUserProfileItemRepository): UserProfileService {
-    return UserProfileService(userProfileItemRepository)
-  }
+  open fun userProfileServic(userProfileItemRepository: DynamoDbUserProfileItemRepository) = UserProfileService(userProfileItemRepository)
 
   @Bean
-  open fun questionService(questionItemRepository: DynamoDbQuestionItemRepository): QuestionService {
-    return QuestionService(questionItemRepository)
-  }
+  open fun questionService(questionItemRepository: DynamoDbQuestionItemRepository) = QuestionService(questionItemRepository)
+
 }
