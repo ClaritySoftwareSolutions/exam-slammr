@@ -4,7 +4,7 @@ import org.springframework.social.connect.UserProfile
 import uk.co.claritysoftware.exam.slammr.webapp.web.model.user.SocialUserSignUp
 
 /**
- * Factory class to create {@link SocialUserSignUp} instances
+ * Factory class to create [SocialUserSignUp]instances
  */
 
 /**

@@ -27,7 +27,7 @@ public class ExamSlammrUserProfile {
 
 	private String profilePictureUrl;
 
-	private Set<String> roles;
+	public Set<String> roles;
 
 	private ZonedDateTime registrationDateTime;
 
