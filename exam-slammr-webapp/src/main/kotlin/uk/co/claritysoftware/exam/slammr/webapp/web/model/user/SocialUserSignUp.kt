@@ -8,20 +8,20 @@ import javax.validation.constraints.NotBlank
  * Class encapsulating fields to support a user sign up from a social provider
  */
 data class SocialUserSignUp(
-		@NotBlank
-		@Length(max = 30)
-		val firstName: String,
+		@field:NotBlank
+		@field:Length(max = 30)
+		var firstName: String,
 
-		@NotBlank
-		@Length(max = 30)
-		val lastName: String,
+		@field:NotBlank
+		@field:Length(max = 30)
+		var lastName: String,
 
-		@NotBlank
-		@Length(max = 30)
-		val nickName: String,
+		@field:NotBlank
+		@field:Length(max = 30)
+		var nickName: String,
 
-		@NotBlank
-		@Email
-		@Length(max = 64)
-		val email: String
+		@field:NotBlank
+		@field:Email
+		@field:Length(max = 64)
+		var email: String
 )
