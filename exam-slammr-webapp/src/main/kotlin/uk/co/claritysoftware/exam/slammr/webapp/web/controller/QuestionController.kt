@@ -34,6 +34,10 @@ class QuestionController(@Autowired val questionService: QuestionService) {
 	@PostMapping
 	fun createNewQuestion(@Valid @ModelAttribute("form") form: CreateQuestion, bindingResult: BindingResult, principal: Principal): ModelAndView {
 
+		if (bindingResult.hasErrors()) {
+			return createQuestionViewShowingBindErrors(form)
+		}
+
 		when (form.action) {
 			CreateQuestion.Action.addCertification -> {
 				form.certifications.add("")
@@ -56,9 +60,6 @@ class QuestionController(@Autowired val questionService: QuestionService) {
 			}
 
 			else -> {
-				if (bindingResult.hasErrors()) {
-					return createQuestionViewShowingBindErrors(form)
-				}
 
 				val newQuestion = valueOf(form, principal.name)
 				val (id, slug) = questionService.saveNewQuestion(newQuestion)

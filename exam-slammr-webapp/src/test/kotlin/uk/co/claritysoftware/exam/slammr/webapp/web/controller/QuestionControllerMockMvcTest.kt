@@ -1,11 +1,11 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.argThat
 import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils.postForm
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.argThat
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.then
 import org.springframework.beans.factory.annotation.Autowired
@@ -119,8 +119,8 @@ class QuestionControllerMockMvcTest {
 				.andReturn().response
 
 		// Then
-		then(questionService).should().saveNewQuestion(argThat { q ->
-			assertThat(q).isEqualToIgnoringGivenFields(newQuestion, "createdDateTime")
+		then(questionService).should().saveNewQuestion(argThat {
+			assertThat(this).isEqualToIgnoringGivenFields(newQuestion, "createdDateTime")
 			true
 		})
 		assertThat(response.status)

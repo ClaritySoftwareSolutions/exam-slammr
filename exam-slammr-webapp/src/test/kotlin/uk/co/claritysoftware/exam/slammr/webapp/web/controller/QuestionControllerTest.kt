@@ -1,11 +1,12 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.controller
 
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.argThat
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.argThat
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.then
 import org.mockito.InjectMocks
@@ -231,8 +232,8 @@ class QuestionControllerTest {
 		val modelAndView = questionController!!.createNewQuestion(createQuestionForm, bindingResult, principal)
 
 		// Then
-		then(questionService).should().saveNewQuestion(argThat { q ->
-			assertThat(q).isEqualToIgnoringGivenFields(newQuestion, "createdDateTime")
+		then(questionService).should().saveNewQuestion(argThat {
+			assertThat(this).isEqualToIgnoringGivenFields(newQuestion, "createdDateTime")
 			true
 		})
 		assertThat(modelAndView)
@@ -251,7 +252,7 @@ class QuestionControllerTest {
 		val slug = "triangle-sides-question"
 
 		val question = aSimpleQuestionAboutTriangles()
-		given(questionService!!.getQuestionById(any()))
+		given(questionService!!.getQuestionById(anyString()))
 				.willReturn(Optional.of(question))
 
 		val expectedModel = ExtendedModelMap()
@@ -277,7 +278,7 @@ class QuestionControllerTest {
 		val questionId = "1234"
 		val slug = "triangle-sides-question"
 
-		given(questionService!!.getQuestionById(any()))
+		given(questionService!!.getQuestionById(anyString()))
 				.willReturn(Optional.empty())
 
 		// When
@@ -289,5 +290,4 @@ class QuestionControllerTest {
 				.isInstanceOf(QuestionNotFoundException::class.java)
 				.hasMessage("Question with id 1234 not found")
 	}
-
 }

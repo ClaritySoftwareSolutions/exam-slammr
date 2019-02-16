@@ -1,10 +1,10 @@
 package uk.co.claritysoftware.exam.slammr.webapp.security
 
+import com.nhaarman.mockitokotlin2.any
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.catchThrowable
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
 import org.mockito.Mock

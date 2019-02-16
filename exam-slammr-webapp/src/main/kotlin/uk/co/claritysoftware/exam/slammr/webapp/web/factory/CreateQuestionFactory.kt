@@ -17,30 +17,27 @@ class CreateQuestionFactory {
 	companion object {
 
 		@JvmStatic
-		fun valueOf(createQuestion: CreateQuestion?, authorId: String): Question? {
+		fun valueOf(createQuestion: CreateQuestion, authorId: String): Question {
 			val now = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC)
-			return if (createQuestion != null)
-				Question(
-						id = null,
-						slug = null,
-						summary = createQuestion.summary,
-						questionText = createQuestion.question,
-						answers = createQuestion.answerOptions.stream()
-								.map { answerOption -> AnswerOption(text = answerOption.answer, isCorrect = answerOption.correct) }
-								.collect(Collectors.toSet()),
-						tags = createQuestion.tags.toSet(),
-						certifications = createQuestion.certifications.toSet(),
-						furtherReadings = createQuestion.furtherReadings.stream()
-								.map { furtherReading -> FurtherReading(furtherReading.description, furtherReading.referenceLocation) }
-								.collect(Collectors.toSet()),
-						status = SUBMITTED_FOR_APPROVAL,
-						votes = 0,
-						createdBy = authorId,
-						createdDateTime = now,
-						updatedBy = null,
-						updatedDateTime = null)
-			else
-				null
+			return Question(
+					id = null,
+					slug = null,
+					summary = createQuestion.summary,
+					questionText = createQuestion.question,
+					answers = createQuestion.answerOptions.stream()
+							.map { answerOption -> AnswerOption(text = answerOption.answer, isCorrect = answerOption.correct) }
+							.collect(Collectors.toSet()),
+					tags = createQuestion.tags.toSet(),
+					certifications = createQuestion.certifications.toSet(),
+					furtherReadings = createQuestion.furtherReadings.stream()
+							.map { furtherReading -> FurtherReading(furtherReading.description, furtherReading.referenceLocation) }
+							.collect(Collectors.toSet()),
+					status = SUBMITTED_FOR_APPROVAL,
+					votes = 0,
+					createdBy = authorId,
+					createdDateTime = now,
+					updatedBy = null,
+					updatedDateTime = null)
 		}
 
 	}

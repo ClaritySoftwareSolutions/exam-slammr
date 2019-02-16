@@ -5,7 +5,6 @@ import org.junit.Test
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.question.QuestionStatus.SUBMITTED_FOR_APPROVAL
 import uk.co.claritysoftware.exam.slammr.webapp.testsupport.service.model.question.QuestionTestDataFactory.Companion.aSimpleQuestionAboutTriangles
 import uk.co.claritysoftware.exam.slammr.webapp.testsupport.web.model.question.CreateQuestionTestDataFactory.Companion.aSimpleCreateQuestionAboutTriangles
-import uk.co.claritysoftware.exam.slammr.webapp.web.model.question.CreateQuestion
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
@@ -31,22 +30,9 @@ class CreateQuestionFactoryTest {
 		val latestCreatedDateTime = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC)
 		assertThat(question)
 				.isEqualToIgnoringGivenFields(expectedQuestion, "createdDateTime")
-		assertThat(question!!.createdDateTime)
+		assertThat(question.createdDateTime)
 				.isAfterOrEqualTo(earliestCreatedDateTime)
 				.isBeforeOrEqualTo(latestCreatedDateTime)
 	}
 
-	@Test
-	fun shouldNotDeriveQuestionValueOfGivenNullCreateQuestion() {
-		// Given
-		val createQuestion: CreateQuestion? = null
-		val authorId = "1234"
-
-		// When
-		val question = CreateQuestionFactory.valueOf(createQuestion, authorId)
-
-		// Then
-		assertThat(question)
-				.isNull()
-	}
 }
