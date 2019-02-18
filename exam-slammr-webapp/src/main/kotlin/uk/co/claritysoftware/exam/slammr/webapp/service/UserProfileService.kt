@@ -1,9 +1,9 @@
 package uk.co.claritysoftware.exam.slammr.webapp.service
 
 import org.slf4j.LoggerFactory
+import uk.co.claritysoftware.exam.slammr.webapp.factory.valueOf
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.item.user.UserProfileItem
 import uk.co.claritysoftware.exam.slammr.webapp.persistence.dynamodb.repository.DynamoDbUserProfileItemRepository
-import uk.co.claritysoftware.exam.slammr.webapp.service.factory.ExamSlammrUserProfileFactory
 import uk.co.claritysoftware.exam.slammr.webapp.service.model.user.ExamSlammrUserProfile
 import java.util.*
 
@@ -24,9 +24,14 @@ open class UserProfileService(val userProfileItemRepository: DynamoDbUserProfile
 	 * the specified id
 	 */
 	open fun getUserProfileByUserId(userId: String): Optional<ExamSlammrUserProfile> {
-		val retrievedUserProfile = ExamSlammrUserProfileFactory.valueOf(userProfileItemRepository.findByCompositeUserId(userId))
-		log.debug("Returning ExamSlammrUserProfile {}", retrievedUserProfile)
-		return Optional.ofNullable(retrievedUserProfile)
+
+		return userProfileItemRepository.findByCompositeUserId(userId)?.let {
+			val retrievedUserProfile = valueOf(it)
+			log.debug("Returning ExamSlammrUserProfile {}", retrievedUserProfile)
+			Optional.ofNullable(retrievedUserProfile)
+
+		}
+				?: Optional.empty()
 	}
 
 	/**
@@ -37,8 +42,8 @@ open class UserProfileService(val userProfileItemRepository: DynamoDbUserProfile
 	 * @return the saved [ExamSlammrUserProfile]
 	 */
 	open fun saveUserProfile(userProfile: ExamSlammrUserProfile): ExamSlammrUserProfile {
-		val userProfileItem = ExamSlammrUserProfileFactory.valueOf(userProfile)
-		val savedUserProfile = ExamSlammrUserProfileFactory.valueOf(userProfileItemRepository.save<UserProfileItem>(userProfileItem))
+		val userProfileItem = valueOf(userProfile)
+		val savedUserProfile = valueOf(userProfileItemRepository.save<UserProfileItem>(userProfileItem))
 		log.debug("Saved ExamSlammrUserProfile {}", savedUserProfile)
 		return savedUserProfile
 	}

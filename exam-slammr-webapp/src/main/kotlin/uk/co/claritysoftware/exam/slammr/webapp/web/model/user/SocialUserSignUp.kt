@@ -1,6 +1,7 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model.user
 
 import org.hibernate.validator.constraints.Length
+import java.io.Serializable
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
@@ -24,4 +25,4 @@ data class SocialUserSignUp(
 		@field:Email
 		@field:Length(max = 64)
 		var email: String
-)
+) : Serializable

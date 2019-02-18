@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model.question
 
+import java.io.Serializable
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
@@ -22,7 +23,8 @@ data class CreateQuestion(var action: Action? = null,
 						  var certifications: MutableList<String> = mutableListOf(""),
 
 						  var furtherReadings: MutableList<FurtherReading> = mutableListOf(FurtherReading())
-) {
+) : Serializable
+{
 
 	enum class Action {
 		save, addTag, addCertification, addFurtherReading, addAnswer

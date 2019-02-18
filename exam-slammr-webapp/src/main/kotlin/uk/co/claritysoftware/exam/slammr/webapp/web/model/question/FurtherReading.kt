@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model.question
 
+import java.io.Serializable
 import javax.validation.constraints.NotBlank
 
 /**
@@ -9,4 +10,4 @@ data class FurtherReading(@field:NotBlank
 						  var description: String = "",
 
 						  var referenceLocation: String = ""
-)
+) : Serializable

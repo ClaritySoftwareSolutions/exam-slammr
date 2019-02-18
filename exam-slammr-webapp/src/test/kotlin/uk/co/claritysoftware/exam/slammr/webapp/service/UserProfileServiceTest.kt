@@ -32,18 +32,16 @@ class UserProfileServiceTest {
 		// Given
 		val userId = "twitter:12345"
 		val id = UUID.randomUUID().toString()
-		val userProfileItem = smithersUserProfileItem()
-				.id(id)
-				.compositeUserId(userId)
-				.build()
+		val userProfileItem = smithersUserProfileItem().copy(
+				id = id,
+				compositeUserId = userId)
 
 		given(userProfileItemRepository.findByCompositeUserId(any()))
 				.willReturn(userProfileItem)
 
-		val expectedUserProfile = smithersExamSlammrUserProfile()
-				.id(id)
-				.compositeUserId(userId)
-				.build()
+		val expectedUserProfile = smithersExamSlammrUserProfile().copy(
+				id = id,
+				compositeUserId = userId)
 
 		// When
 		val userProfile = userProfileService.getUserProfileByUserId(userId)
@@ -62,7 +60,7 @@ class UserProfileServiceTest {
 		// Given
 		val userId = "twitter:67890"
 
-		given(userProfileItemRepository.findByCompositeUserId(any<String>()))
+		given(userProfileItemRepository.findByCompositeUserId(any()))
 				.willReturn(null)
 
 		// When
@@ -80,20 +78,16 @@ class UserProfileServiceTest {
 		val id = UUID.randomUUID().toString()
 
 		val newUserProfile = smithersExamSlammrUserProfile()
-				.id(null)
-				.build()
+				.copy(id = null)
 
 		val newUserProfileItem = smithersUserProfileItem()
-				.id(null)
-				.build()
+				.copy(id = null)
 
 		val savedUserProfile = smithersExamSlammrUserProfile()
-				.id(id)
-				.build()
+				.copy(id = id)
 
 		val savedUserProfileItem = smithersUserProfileItem()
-				.id(id)
-				.build()
+				.copy(id = id)
 
 		given(userProfileItemRepository.save(any<UserProfileItem>()))
 				.willReturn(savedUserProfileItem)

@@ -20,7 +20,7 @@ class ExamSlammrUserDetailsService(@Autowired val userProfileService: UserProfil
 	override fun loadUserByUserId(userId: String): SocialUserDetails {
 		return userProfileService.getUserProfileByUserId(userId)
 				.map { userProfileItem ->
-					SocialUser(userId, "", userProfileItem.roles.stream()
+					SocialUser(userId, "", userProfileItem.roles!!.stream()
 							.map { role -> SimpleGrantedAuthority(role) }
 							.collect(Collectors.toList()))
 				}

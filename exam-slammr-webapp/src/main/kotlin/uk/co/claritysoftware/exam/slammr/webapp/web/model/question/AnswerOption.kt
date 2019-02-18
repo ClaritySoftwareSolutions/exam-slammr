@@ -1,5 +1,6 @@
 package uk.co.claritysoftware.exam.slammr.webapp.web.model.question
 
+import java.io.Serializable
 import javax.validation.constraints.NotBlank
 
 /**
@@ -8,4 +9,5 @@ import javax.validation.constraints.NotBlank
 data class AnswerOption(@field:NotBlank
 						var answer: String = "",
 
-						var correct: Boolean = false)
+						var correct: Boolean = false
+) : Serializable
