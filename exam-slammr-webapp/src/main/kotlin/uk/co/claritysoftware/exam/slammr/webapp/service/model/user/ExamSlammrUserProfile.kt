@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
 data class ExamSlammrUserProfile(
 		val id: String? = null,
 
-		val compositeUserId: String,
+		val compositeUserId: String? = null,
 
 		val firstname: String? = null,
 

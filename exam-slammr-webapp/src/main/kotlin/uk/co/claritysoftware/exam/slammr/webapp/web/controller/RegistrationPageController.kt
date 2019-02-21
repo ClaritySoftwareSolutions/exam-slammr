@@ -22,9 +22,8 @@ class RegistrationPageController(private val socialProviders: SocialProviders) {
 	@GetMapping
 	fun getRegistrationPage(principal: Principal?): ModelAndView {
 
-		return principal?.let {
-			ModelAndView("redirect:/")
-		}
+		return principal
+				?.let { ModelAndView("redirect:/") }
 				?: ModelAndView("auth/registration")
 						.addObject("facebookConfigured", socialProviders.isFacebookConfigured)
 						.addObject("twitterConfigured", socialProviders.isTwitterConfigured)

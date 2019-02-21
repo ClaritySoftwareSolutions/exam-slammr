@@ -102,13 +102,9 @@ class DynamoDBConnectionRepository(val userId: String, val userConnectionReposit
 		throw UnsupportedOperationException()
 	}
 
-	private fun encrypt(text: String): String {
-		return textEncryptor.encrypt(text)
-	}
+	private fun encrypt(text: String?) = text?.let { textEncryptor.encrypt(it) }
 
-	private fun decrypt(encryptedText: String?): String? {
-		return if (encryptedText != null) textEncryptor.decrypt(encryptedText) else encryptedText
-	}
+	private fun decrypt(encryptedText: String?) = encryptedText?.let { textEncryptor.decrypt(it) }
 
 	private fun toZonedDateTime(millisSinceEpoch: Long?): ZonedDateTime {
 		var millisSinceEpoch = millisSinceEpoch

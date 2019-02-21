@@ -14,26 +14,39 @@ import java.time.ZonedDateTime
 @DynamoDBTable(tableName = "exam-slammr-user-connections")
 @Immutable
 data class UserConnectionItem(@field:DynamoDBHashKey
-							  var userId: String,
+							  var userId: String?,
 
-							  var providerId: String,
+							  var providerId: String?,
 
-							  var providerUserId: String? = null,
+							  var providerUserId: String?,
 
-							  var rank: Int,
+							  var rank: Int?,
 
-							  var displayName: String? = null,
+							  var displayName: String?,
 
-							  var profileUrl: String? = null,
+							  var profileUrl: String?,
 
-							  var imageUrl: String? = null,
+							  var imageUrl: String?,
 
-							  var accessToken: String,
+							  var accessToken: String?,
 
-							  var secret: String? = null,
+							  var secret: String?,
 
-							  var refreshToken: String? = null,
+							  var refreshToken: String?,
 
 							  @field:DynamoDBTypeConverted(converter = ZonedDateTimeConverter::class)
-							  var expireTime: ZonedDateTime? = null
-) : Serializable
+							  var expireTime: ZonedDateTime?
+) : Serializable {
+
+	constructor() : this(userId = null,
+			providerId = null,
+			providerUserId = null,
+			rank = null,
+			displayName = null,
+			profileUrl = null,
+			imageUrl = null,
+			accessToken = null,
+			secret = null,
+			refreshToken = null,
+			expireTime = null)
+}

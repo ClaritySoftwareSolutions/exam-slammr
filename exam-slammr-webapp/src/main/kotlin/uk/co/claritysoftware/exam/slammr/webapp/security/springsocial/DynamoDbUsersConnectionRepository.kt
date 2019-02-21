@@ -29,7 +29,7 @@ class DynamoDbUsersConnectionRepository(val userConnectionRepository: DynamoDbUs
 				   }
 		   */
 		return userConnectionItems.stream()
-				.map { userConnectionItem -> userConnectionItem.userId }
+				.map { userConnectionItem -> userConnectionItem.userId!! }
 				.collect(Collectors.toList())
 	}
 

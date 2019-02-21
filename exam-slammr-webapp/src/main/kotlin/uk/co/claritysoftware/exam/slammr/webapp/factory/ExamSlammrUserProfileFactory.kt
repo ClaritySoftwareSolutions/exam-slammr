@@ -22,7 +22,7 @@ fun valueOf(userProfileItem: UserProfileItem): ExamSlammrUserProfile {
 			nickname = userProfileItem.nickname,
 			email = userProfileItem.email,
 			profilePictureUrl = userProfileItem.profilePictureUrl,
-			roles = userProfileItem.roles.toSet(),
+			roles = userProfileItem.roles?.toSet(),
 			lastLogonDateTime = userProfileItem.lastLogonDateTime,
 			registrationDateTime = userProfileItem.registrationDateTime)
 }
